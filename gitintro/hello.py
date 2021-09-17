@@ -2,6 +2,6 @@
 
 print("Hello,World")
 
-
+print("Yer a wizard grader")
 print("hi")
 
