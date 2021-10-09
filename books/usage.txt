@@ -1,0 +1,34 @@
+Books Assignment Task #1 
+
+Partners - Nate and Shreya 
+
+Opening general syntax of running program :  ~/ % python3 books.py -(enter command here) filename
+
+SYNOPSIS :
+
+ "filename" [option]
+	Examples : python3 books.py filename -b
+
+DESCRIPTION:
+
+	The search command will look through the given file/dataset which contains information about some books, their
+	 publication year, the author, as well as birth and death years of the author. Running the program without an
+	  optional command will return a list of book titles sorted by publication year.
+
+
+	-b, --books [-p | -ti]  <search_string>  : using this optional command will return a list of books that contain
+	the search string in their title, by default it is sorted by publication year.
+		-p is used for when the books should be sorted by publication date 
+		-ti is used when the books should be sorted by alphabetical order of titles. 
+	
+	-a, --author <search_string> : using this optional command will return a list of authors and their corresponding
+	books. Authors will be printed alphabetically by surname.
+	
+	-y, --year <year_1> <year_2>: using this command will return a list of books starting from the year_1 to the year_2
+	(inclusive), books will be printed in order of publication.
+
+	-h, --help : using this command will open the usage statements and display this document.  
+ 
+*NOTE : Invalid command line syntax will result in the following statement :
+	
+ 	"Invalid Syntax.Run again and please use -h or -help to view usage statements and correct commands"

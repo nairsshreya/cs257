@@ -1,0 +1,93 @@
+'''
+    Authors : Nate and Shreya
+    For course CS 257 Books Project
+    October 1st, 2021
+'''
+import sys
+
+import booksdatasource
+
+class Books:
+    # python3 books.py --search/-s "filename" -[option]/--[option] OR python3 books.py -h/--help
+    prndbg = False
+
+    def cmd_interface(self):
+        if self.prndbg:
+            print(sys.argv)
+        if "--search" in sys.argv or "-s" in sys.argv:
+            if self.prndbg:
+                print("Past search check")
+            if "--help" in sys.argv or "-h" in sys.argv:
+                if self.prndbg:
+                    print("Past the help check")
+                log = open("usage.txt", "r").read()
+                print(log)
+                sys.exit()
+            else:
+                if self.prndbg:
+                    print("Past the help section, in else")
+                self.new_search = booksdatasource.BooksDataSource(sys.argv[2])
+                if self.prndbg:
+                    print("created a new books data source", self.new_search)
+                if len(sys.argv) == 3:
+                    if self.prndbg:
+                        print("arg lengths is 3 have to re-run")
+                    print("You require a search option, here are the usage statements, please run again")
+                    log = open("usage.txt", "r").read()
+                    print(log)
+                    sys.exit()
+                if sys.argv[3] == "-b" or sys.argv[3] == "--books":
+                    if self.prndbg:
+                        print("past book command check")
+                    if len(sys.argv) == 4:
+                        results = self.new_search.books(None, 'title')
+                    elif len(sys.argv) == 5:
+                        print("Wrong command line syntax, refer to usage statements by using -h or --help")
+                        sys.exit()
+                    elif len(sys.argv) == 6:
+                        if self.prndbg:
+                            print("here args are 6 so printing by title or year")
+                        if sys.argv[4].strip() == "-p":
+                            results = self.new_search.books(sys.argv[5], 'year')
+                        elif sys.argv[4].strip() == "-ti":
+                            # print(self.new_search.books(sys.argv[5], 'title'))
+                            results = self.new_search.books(sys.argv[5],'title')
+                    if self.prndbg:
+                        print("created list")
+                        print(results)
+                    new_book_program.print_books(results)
+                elif sys.argv[3] == "-a" or sys.argv[3] == "--author":
+                    if self.prndbg:
+                        print("in author search")
+                    if len(sys.argv) == 4:
+                        results = self.new_search.authors()
+                    elif len(sys.argv) == 5:
+                        results = self.new_search.authors(sys.argv[4])
+                    new_book_program.print_auth(results)
+                     #for author in results:
+                         #author_line = author.given_name
+        else:
+            print("Invalid Syntax. Run again and please use -h or -help to view usage statements and correct commands")
+
+    def print_auth(self, results):
+        for book in results:
+            if self.prndbg:
+                print("new book print ", book)
+            auth_line = ""
+            for auth in book.authors:
+                auth_line = auth_line + auth.given_name + " " + auth.surname + " " + auth.birth_year + "-" + \
+                            str(auth.death_year) + " "
+            print_line = book.title + ", " + book.publication_year + ", " + auth_line
+            print(print_line)
+
+    def print_books(self, results):
+        for auth in results:
+            author_line = auth_line = auth_line + auth.given_name + " " + auth.surname + " " + auth.birth_year + "-" + \
+                            str(auth.death_year) + " "
+
+# return results
+# instantiate, read cmd line, decide my functions, call print on them to display
+
+
+new_book_program = Books()
+new_book_program.cmd_interface()
