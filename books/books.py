@@ -94,15 +94,18 @@ class Books:
         '''
         Prints the book list
         '''
+        print("Results for your search :  \n")
+        sr_num = 1
         for book in results:
             if self.debug:
                 print("new book print ", book)
             auth_line = ""
             for auth in book.authors:
-                auth_line = auth_line + auth.given_name + " " + auth.surname + " " + auth.birth_year + "-" + \
+                auth_line =  auth_line + auth.given_name + " " + auth.surname + " " + auth.birth_year + "-" + \
                             str(auth.death_year) + " "
-            print_line = book.title + ", " + book.publication_year + ", " + auth_line
-            print(print_line)
+            print_line = str(sr_num) + ". " + book.title + ", " + book.publication_year + ", " + auth_line
+            print(print_line, "\n")
+            sr_num += 1
 
 
     def print_auth(self, results):
@@ -110,11 +113,14 @@ class Books:
         Prints the author list
         '''
         auth_line = ""
+        print("Results for your search : \n")
+        sr_num = 1
         for auth in results:
             auth_line = ""
-            auth_line = auth_line + auth.given_name + " " + auth.surname + " " + str(auth.birth_year) + "-" + \
+            auth_line = str(sr_num) + ". " + auth_line + auth.given_name + " " + auth.surname + " " + str(auth.birth_year) + "-" + \
                         str(auth.death_year) + " "
-            print(auth_line)
+            print(auth_line, "\n")
+            sr_num += 1
 
 
 '''
