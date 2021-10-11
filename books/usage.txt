@@ -1,6 +1,7 @@
 Books Assignment Task #1 
 
 Partners - Nate and Shreya 
+Revision by Shreya Nair 
 
 Opening general syntax of running program :  ~/ % python3 books.py -(enter command here) filename
 
