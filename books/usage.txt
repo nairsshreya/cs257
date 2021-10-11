@@ -7,8 +7,10 @@ Opening general syntax of running program :  ~/ % python3 books.py -(enter comma
 
 SYNOPSIS :
 
- "filename" [option]
-	Examples : python3 books.py filename -b
+	 "filename" [option]
+ 	python3 books.py filename -b
+	python3 books.py filename -a
+	python3 books.py filename -y
 
 DESCRIPTION:
 
