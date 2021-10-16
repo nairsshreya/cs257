@@ -2,10 +2,10 @@
     Authors : Nate and Shreya
     For course CS 257 Books Project
     October 1st, 2021
+    Revised by Shreya Nair
 '''
 import sys
 import booksdatasource
-
 
 class Books:
     '''
@@ -22,7 +22,7 @@ class Books:
         print(log)
         sys.exit()
 
-
+    # Dispatcher for book related searches
     def book_option(self, arguments):
         '''
             Returns a list of books that have been searched for based on the type of search,
@@ -51,6 +51,7 @@ class Books:
                 return results
         else:
             return []
+
 
 
     def author_option(self, arguments):
@@ -93,15 +94,18 @@ class Books:
         '''
         Prints the book list
         '''
+        print("Results for your search :  \n")
+        sr_num = 1
         for book in results:
             if self.debug:
                 print("new book print ", book)
             auth_line = ""
             for auth in book.authors:
-                auth_line = auth_line + auth.given_name + " " + auth.surname + " " + auth.birth_year + "-" + \
+                auth_line =  auth_line + auth.given_name + " " + auth.surname + " " + auth.birth_year + "-" + \
                             str(auth.death_year) + " "
-            print_line = book.title + ", " + book.publication_year + ", " + auth_line
-            print(print_line)
+            print_line = str(sr_num) + ". " + book.title + ", " + book.publication_year + ", " + auth_line
+            print(print_line, "\n")
+            sr_num += 1
 
 
     def print_auth(self, results):
@@ -109,11 +113,14 @@ class Books:
         Prints the author list
         '''
         auth_line = ""
+        print("Results for your search : \n")
+        sr_num = 1
         for auth in results:
             auth_line = ""
-            auth_line = auth_line + auth.given_name + " " + auth.surname + " " + str(auth.birth_year) + "-" + \
+            auth_line = str(sr_num) + ". " + auth_line + auth.given_name + " " + auth.surname + " " + str(auth.birth_year) + "-" + \
                         str(auth.death_year) + " "
-            print(auth_line)
+            print(auth_line, "\n")
+            sr_num += 1
 
 
 '''
@@ -121,30 +128,45 @@ class Books:
 '''
 
 new_book_program = Books()
+
+# Checks for request of usage statement
 if "--help" in sys.argv or "-h" in sys.argv:
     new_book_program.help_txt()
-else :
-        if len(sys.argv) == 2:
-            print("You require a search option, here are the usage statements, please run again")
-            new_book_program.help_txt()
 
-        elif sys.argv[2] == "-b" or sys.argv[2] == "--books":
-            results = new_book_program.book_option(sys.argv)
-            if len(results) == 0:
-                print("Sorry, no items came up with your search, please try again.")
-            else:
-                new_book_program.print_books(results)
-        elif sys.argv[2] == "-a" or sys.argv[2] == "--author":
-            results = new_book_program.author_option(sys.argv)
-            if len(results) == 0:
-                print("Sorry, no items came up with your search, please try again.")
-            else:
-                new_book_program.print_auth(results)
-        elif sys.argv[2] == "-y" or sys.argv[2] == "--year":
+else:
+
+    # Check when no search command was given
+    if len(sys.argv) == 2:
+        print("You require a search option, here are the usage statements, please run again")
+        new_book_program.help_txt()
+
+    # First search option for books, can have a search string
+    elif sys.argv[2] == "-b" or sys.argv[2] == "--books":
+        results = new_book_program.book_option(sys.argv)
+        if len(results) == 0:
+            print("Sorry, no items came up with your search, please try again.")
+        else:
+            new_book_program.print_books(results)
+
+    # Author option to search for authors, can include a search substring
+    elif sys.argv[2] == "-a" or sys.argv[2] == "--author":
+        results = new_book_program.author_option(sys.argv)
+        if len(results) == 0:
+            print("Sorry, no items came up with your search, please try again.")
+        else:
+            new_book_program.print_auth(results)
+
+    # Year option, search for books between two years, don't require a second year
+    elif sys.argv[2] == "-y" or sys.argv[2] == "--year":
+        if len(sys.argv) == 3:
+            print("Invalid syntax refer to usage statements by using -h or --help")
+        else:
             results = new_book_program.year_option(sys.argv)
             if len(results) == 0:
                 print("Sorry, no items came up with your search, please try again.")
             else:
                 new_book_program.print_books(results)
-        else:
-            print("Invalid syntax. Refer to usage statements using -h or --help and rerun")
+
+    # Invalid syntax output statement
+    else:
+        print("Invalid syntax. Refer to usage statements using -h or --help and rerun")
