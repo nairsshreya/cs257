@@ -9,9 +9,9 @@ CREATE TABLE athlete_awh (
 
 	athlete_id integer,
 	game_id integer,
-	age integer,
-	weight integer,
-	height integer
+	age text,
+	weight text,
+	height text
 
 );
 

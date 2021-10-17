@@ -6,22 +6,26 @@ Olympics project CS 257 Fall 2021
 
 
 1. SELECT * FROM noc
-   ORDER BY noc.noc;
+   ORDER BY noc_id;
 
-2. SELECT athletes.name
-   FROM athletes, athlete_noc, noc
-   WHERE athletes.id = athlete_noc.athlete_id 
-   AND noc.id = athlete_noc.noc_id
-   AND noc.noc = 'KEN';
+2. SELECT DISTINCT athletes.name
+   FROM athletes, athlete_medal, noc
+   WHERE athletes.id = athlete_medal.athlete_id 
+   AND noc.noc_id = athlete_medal.noc_id
+   AND noc.noc_id = 'KEN';
 
-
-3. SELECT medal.type, games.year, event.event_type
-   FROM athlete_medal, athletes, games, event, athlete_event
-   WHERE athlete.id = athlete_medal.athlete_id
-   AND athlete.name = 'Greg Louganis'
+3. SELECT athletes.name, athlete_medal.medal, event.event_name, noc.region, games.year
+   FROM athletes, athlete_medal, event, noc, games
+   WHERE athletes.id = athlete_medal.athlete_id
+   AND event.event_id = athlete_medal.event_id
+   AND noc.noc_id = athlete_medal.noc_id
+   AND games.game_id = athlete_medal.game_id
+   AND athletes.name LIKE '%Louganis%'
    ORDER BY games.year;
 
-4. SELECT noc_medal.gold, noc.noc, noc.region
-   FROM noc_medal, noc
-   WHERE noc.id = noc_medal.noc_id
-   ORDER BY noc_medal.gold DESC;
+4. SELECT COUNT (athlete_medal.medal), athlete_medal.noc_id
+   FROM athlete_medal, noc
+   WHERE noc.noc_id = athlete_medal.noc_id
+   AND athlete_medal.medal = 'Gold'
+   GROUP BY athlete_medal.noc_id
+   ORDER BY COUNT(athlete_medal.medal) DESC;
