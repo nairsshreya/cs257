@@ -1,0 +1,25 @@
+Author : Shreya Nair 
+CS 257 Fall 2021
+Olympics Project 
+
+SYNOPSIS 
+
+	python3 olympics.py -h
+	python3 olympics.py -lan noc_name
+	python3 olympics.py -lng 
+	python3 olympics.py -ae athlete_name
+	python3 olympics.py -e
+NOTES 
+
+	-h | --help : This command will print these usages statements to help a user with descriptions of this program's 
+		functionality. 
+
+	-lan | --listathletenoc : This command will return a list of athletes from a specified NOC. 
+
+	-lng | --listnocgold : This command will return a list of all the NOCs and the number of gold medals they have won in 
+		decreasing order 
+
+	-ae | --athleteevent  : This command will return a list of events that the given athlete participated in.
+	
+	-e | --events : This command will return a list of all the events in our database.
+  
