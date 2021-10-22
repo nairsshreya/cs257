@@ -9,7 +9,8 @@ SYNOPSIS
 	python3 olympics.py -lng 
 	python3 olympics.py -ae athlete_name
 	python3 olympics.py -e
-NOTES 
+
+DESCRIPTION
 
 	-h | --help : This command will print these usages statements to help a user with descriptions of this program's 
 		functionality. 
