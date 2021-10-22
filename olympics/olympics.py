@@ -165,33 +165,37 @@ def check_empty_result(results):
 
 if len(sys.argv) < 2:
     print("Require a command for program, please try again")
+else :
+    if sys.argv[1] == "-h" or sys.argv[1] == "--help":
+        help_txt()
 
-if sys.argv[1] == "-h" or sys.argv[1] == "--help":
-    help_txt()
+    # Command for search : Athlete names from specified NOC
+    if sys.argv[1] == "-lan" or sys.argv[1] == "--listathletenoc":
+        if len(sys.argv) == 3:
+            search = sys.argv[2].upper()
+            results = list_athlete_from_noc(search)
+            if not check_empty_result(results):
+                display_noc_athletes(results, search)
+        else:
+            print("Wrong syntax, requires an NOC search string,  check usages by running with -h or --help.")
 
-# Command for search : Athlete names from specified NOC
-if sys.argv[1] == "-lan" or sys.argv[1] == "--listathletenoc":
-    if len(sys.argv) == 3:
-        search = sys.argv[2].upper()
-        results = list_athlete_from_noc(search)
+    if sys.argv[1] == "-lng" or sys.argv[1] == "--listnocgold":
+        results = gold_medal_num()
         if not check_empty_result(results):
-            display_noc_athletes(results, search)
-    else:
-        print("Wrong syntax, requires an NOC search string,  check usages by running with -h or --help.")
+            display_noc_medals(results)
 
-if sys.argv[1] == "-lng" or sys.argv[1] == "--listnocgold":
-    results = gold_medal_num()
-    if not check_empty_result(results):
-        display_noc_medals(results)
+    if sys.argv[1] == "-ae" or sys.argv[1] == "--athleteevent":
+        if len(sys.argv) == 3:
+            results = athlete_events(sys.argv[2])
+            if not check_empty_result(results):
+                display_athlete_events(results)
 
-if sys.argv[1] == "-ae" or sys.argv[1] == "--athleteevent":
-    results = athlete_events(sys.argv[2])
-    if not check_empty_result(results):
-        display_athlete_events(results)
-
-if sys.argv[1] == "-e" or sys.argv[1] == '--events':
-    results = list_all_events_and_sport()
-    if not check_empty_result(results):
-        display_events(results)
+        else:
+            print("Wrong syntax, requires an athlete's name, check usages by running with -h or --help.")
+    
+    if sys.argv[1] == "-e" or sys.argv[1] == '--events':
+        results = list_all_events_and_sport()
+        if not check_empty_result(results):
+            display_events(results)
 
 connection.close()
