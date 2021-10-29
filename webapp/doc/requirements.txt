@@ -1,4 +1,39 @@
 Authors : Elliot Hanson and Shreya Nair 
 CS 257 Webapp Assignment Fall 2021
 
+Description
+Biodiversity in National Parks https://www.kaggle.com/nationalparkservice/park-biodiversity
 
+This dataset contains information on biodiversity found in 56 national parks in the US. It has general data on each state park and further has information on each species within a park, containing data on their class, whether it is native or not. This could be really interesting to work with to have searches specific for each park  etc.
+
+
+General Information 
+ Park search bar : Park_Name, State
+ Species search bar : Scientific_name/Common_name, Category, Order, Family, Park, State, (underneath checkbox for Nativeness : native non-native)
+
+Data Stories
+STORY : A park ranger wants to find some general information about a park. 
+IMPLEMENTATION : Two pathways.
+    1) Park search bar to look up park name/drop down bar with all the parks we have. This leads user to a map with icons on it, these icons can be clicked on and lead to an information page about the park. 
+    2) Search by state code - could lead to several parks on the map page. Again, click on icon to get information about the park. 
+    
+STORY : A tourist is really interested in Yosemite. They want to know more information about species within the park.
+IMPLEMENTATION : Two pathways. 
+    1. Species search bar - here they would enter 'Yosemite' in park field. This displays a table with information about all the species found there. Search can be refined with occurrence, nativeness or specification in the earlier fields with a search bar on top. Map displayed to highlight area/state of park. 
+    2. From a park specific search - click on icon for 'Yosemite' and click on 'Species Information' button at the bottom, this will lead you to a similar page as the previous example.
+
+STORY : A naturalist is really interested in vascular plants. They want to know more information about species in this category and where unique species can be found.
+IMPLEMENTATION : 
+In species search bar, they would fill out 'vascular plant' for the category field. This would result in a map that highlights every park that has vascular plants and also an info table that has all occurances of vascular plants.
+
+
+
+
+
+
+Optional Features : 
+
+1. Search park by state - can zoom into a state and display individual locations. 
+2. Model species search bar after library databases, (optional fields)
+3. Substring based dropdown menu that adjusts options based on current search string.
+4. Map zooms in on a state or park when searched.
