@@ -4,36 +4,46 @@ CS 257 Webapp Assignment Fall 2021
 Description
 Biodiversity in National Parks https://www.kaggle.com/nationalparkservice/park-biodiversity
 
-This dataset contains information on biodiversity found in 56 national parks in the US. It has general data on each state park and further has information on each species within a park, containing data on their class, whether it is native or not. This could be really interesting to work with to have searches specific for each park  etc.
+This dataset contains information on the biodiversity found in 56 national parks in the US. It has general data on each state park and further has information on each species within a park, containing data on their class, whether it is native or not. This could be really interesting to work with to have searches specific for each park etc.
 
 
-General Information 
- Park search bar : Park_Name, State
- Species search bar : Scientific_name/Common_name, Category, Order, Family, Park, State, (underneath checkbox for Nativeness : native non-native)
+General Information
+ Home page : Contains title of our website, an image, and a small description for the usage of the website, menu button will open a menu that has Home, About, Parks, and Species options. Refer to landing_home_page.jpg
+ About page : Contains information about the creators of the website (us:)), and our data sources (kaggle and National Park Services). Refer to about_page.jpg
+ Parks page: Opens up to a parks search bar (search_bar.jpg) and then information as requested by the user's query. Refer to parks_page.jpg.
+ Species page : Opens up to a species search bar (search_bar.jpg) and then displays the results from the client's query.  Refer to species_page.jpg
+ Park and species search bars : Refer to search_bars.jpg. 
+
 
 Data Stories
-STORY : A park ranger wants to find some general information about a park. 
+STORY : A cartographer can get a list of general information about a park, such as longitude, lattitude, and acreage so that they can make an accurate map.
 IMPLEMENTATION : Two pathways.
-    1) Park search bar to look up park name/drop down bar with all the parks we have. This leads user to a map with icons on it, these icons can be clicked on and lead to an information page about the park. 
-    2) Search by state code - could lead to several parks on the map page. Again, click on icon to get information about the park. 
+    1) Park search bar to look up park name/drop-down bar with all the parks we have. This leads the user to a map with icons on it, these icons can be clicked on and lead to an information page about the park. 
+    2) Search by state code - could lead to several parks on the map page. Again, click on the icon to get information about the park. 
     
-STORY : A tourist is really interested in Yosemite. They want to know more information about species within the park.
-IMPLEMENTATION : Two pathways. 
-    1. Species search bar - here they would enter 'Yosemite' in park field. This displays a table with information about all the species found there. Search can be refined with occurrence, nativeness or specification in the earlier fields with a search bar on top. Map displayed to highlight area/state of park. 
-    2. From a park specific search - click on icon for 'Yosemite' and click on 'Species Information' button at the bottom, this will lead you to a similar page as the previous example.
-
-STORY : A naturalist is really interested in vascular plants. They want to know more information about species in this category and where unique species can be found.
+STORY : A tourist can get some information on Yosemite's biodiversity so that they will be informed for their upcoming visit. 
 IMPLEMENTATION : 
-In species search bar, they would fill out 'vascular plant' for the category field. This would result in a map that highlights every park that has vascular plants and also an info table that has all occurances of vascular plants.
+    Species search bar - here they would enter 'Yosemite' in the park field. This displays a table with information about all the species found there. The search can be refined by changing the earlier fields of the search bar at the top.
 
+STORY : A user can look at a park and view general information about a park. After this search, they can request more information about the biodiversity of the park by clicking on the Species button which leads to a specialized search display of all the species in the park. 
+IMPLEMENTATION : 
+    From a park-specific search - click on the icon for <park_name> and click on the 'Species Information' button at the bottom, this will lead you to a page that contains all the species that are found and registered at this park.
 
+STORY : A naturalist can obtain a list of all vascular plant species and their locations in US parks so that they can understand more about what vascular plants are present in the US.
+IMPLEMENTATION : 
+    In the species search bar, they would fill out 'vascular plant' for the category field. This would result in a map that highlights every park that has vascular plants and also an info table that has all occurrences of vascular plants.
 
+STORY : A data scientist can get information on our website and database so that they can understand where the data from our website comes from and determine the validity of our website.
+IMPLEMENTATION :
+    There will be an about page that is linked via a menu on the homepage. The about page will have bio's about the site creators (us) and links to the Kaggle database and also the National Park Service who collected the data. 
 
+STORY : A evolutionary biologist can get a list of all the parks a particular species exist in non-natively so that they can analyze the spread of an invasive species that was introduced into a few US national parks.
+IMPLEMENTATION : 
+    Use the species page and search bar to search up a species and then use the nativeness checkboxes to specify whether they want to view native or non-native results.
 
 
 Optional Features : 
-
 1. Search park by state - can zoom into a state and display individual locations. 
 2. Model species search bar after library databases, (optional fields)
 3. Substring based dropdown menu that adjusts options based on current search string.
-4. Map zooms in on a state or park when searched.
+4. Be able to pull up two different park's biodiversity at the same time (and compare?)
