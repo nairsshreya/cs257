@@ -1,0 +1,5 @@
+Floral White for text : #FFFAF0
+Sage for back ground : #94b289
+Seashell : #FFF5EE
+ 
+
