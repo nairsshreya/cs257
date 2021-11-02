@@ -7,7 +7,7 @@ body {
     text-align: center;
 }
 
-.text_color {
+.text_color{
  	color: #FFF5EE;
 }
 
@@ -39,8 +39,25 @@ li a:hover {
 
 .usa_collage{
     display: block;
-    max-width: 30%;  
+    max-width: 40%;  
     height: auto;
     margin-left: auto;
     margin-right: auto;
+}
+
+h3{
+    color: #FFFAF0;
+    text-align: center;
+}
+
+.description_table{
+    padding: 5px; 
+    border: 2px solid floralwhite;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+
+.description_text{
+    color: floralwhite;
 }
