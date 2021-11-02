@@ -119,6 +119,7 @@ def get_athlete_medal_in_games(games_id):
             exit()
 
     else:
+
         query = '''SELECT athletes.id, athletes.name, athletes.sex,sports.sport_name, event.event_name, athlete_medal.medal
                             FROM athletes, athlete_medal, event,games, sports, noc
                             WHERE athletes.id = athlete_medal.athlete_id
@@ -126,10 +127,10 @@ def get_athlete_medal_in_games(games_id):
                             AND athlete_medal.noc_id = %s
                             AND event.event_id = athlete_medal.event_id
                             AND event.sport_id = sports.sport_id
-                            AND games.game_id = athlete_medal.game_id 
-                            AND (athlete_medal.medal = 'Gold' OR athlete_medal.medal = 'Silver' OR athlete_medal.medal = 'Bronze') 
+                            AND games.game_id = athlete_medal.game_id
+                            AND (athlete_medal.medal = 'Gold' OR athlete_medal.medal = 'Silver' OR athlete_medal.medal = 'Bronze')
                             AND athlete_medal.noc_id = noc.noc_id;
-    
+
                         '''
         try:
             cursor.execute(query, (games_id,noc))
