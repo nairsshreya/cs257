@@ -1,0 +1,46 @@
+body {
+	background-color: #94b289;
+}
+
+.title_heading{
+	color: #FFFAF0;
+    text-align: center;
+}
+
+.text_color {
+ 	color: #FFF5EE;
+}
+
+ul {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+  background-color: #687d60;
+  color: floralwhite;
+}
+
+li {
+  float: left;
+}
+
+li a {
+  display: block;
+  color: white;
+  text-align: center;
+  padding: 14px 16px;
+  text-decoration: none;
+}
+
+/* Change the link color to #111 (black) on hover */
+li a:hover {
+  background-color: #111;
+}
+
+.usa_collage{
+    display: block;
+    max-width: 30%;  
+    height: auto;
+    margin-left: auto;
+    margin-right: auto;
+}

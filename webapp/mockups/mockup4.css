@@ -1,0 +1,24 @@
+body {
+	background-color: #94b289;
+}
+
+.title_heading{
+	color: #FFFAF0;
+    text-align: center;
+}
+
+.text_color {
+ 	color: #FFF5EE;
+}
+
+.navigation_bar{
+    display: inline;
+}
+
+table, td, th {
+    border: 1px solid black;
+    border-collapse: collapse;
+    margin-left: auto;
+    margin-right: auto;
+
+}
