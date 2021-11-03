@@ -3,15 +3,50 @@
 <!--Elliot and Shreya, Mockup 4 : Species Page -->
 <head>
     <meta charset="UTF-8">
-    <title>HTML/CSS samples</title>
+    <title>Species</title>
+    <link rel="stylesheet" href="mockup4.css" type="text/css" />
+    <h1 class = "title_heading"> National Park Biodata</h1>
+    <ul>
+        <li><a class="active" href="mockup1.html">Home</a></li>
+        <li><a href="mockup2.html">About</a></li>
+        <li><a href="mockup3.html">Parks</a></li>
+        <li><a href="mockup4.html">Species</a></li>
+    </ul>
 </head>
 
 <body>
-    <table>
+    <br>
+    <div id = "search_bar">    
+    <div class = "search_field">
+        <label for="name">Scientific/Common Name</label><br>
+        <input type="text" id="name" species_name="name">
+    </div>
+    <div class = "search_field">
+        <label for="category">Category</label><br>
+        <input type="text" id="name" species_category="category">
+    </div>
+    <div class = "search_field">
+        <label for="family">Family</label><br>
+        <input type="text" id="family" species_category="family">
+    </div>
+    <div class = "search_field">
+        <label for="park">Park</label><br>
+        <input type="text" id="park" park="park">
+    </div>
+    <div class = "search_field">
+        <label for="state">State</label><br>
+        <input type="text" id="state" state="state">
+    </div>
+    <input type="submit" value="Search">
+    </div>
+    <br><br>
+    <img src="usa_collage.jpg" id = "usa_collage">
+    <br>
+    <table id = "species_table">
         <tbody>
-            <tr><th>Home</th>
-                <th>About</th>
-                <th>Parks</th>
+            <tr><th>Common Name</th>
+                <th>Scientific Name</th>
+                <th>Family</th>
                 <th>Species</th></tr>
         </tbody>
     </table>

@@ -1,3 +1,4 @@
+/*Default Style Start*/
 body {
 	background-color: #94b289;
 }
@@ -10,39 +11,43 @@ body {
 .text_color{
  	color: #FFF5EE;
 }
+/*Default Style End*/
 
+/*Menu Bar Start*/
+li {
+    display: inline-block;
+
+}
 ul {
   list-style-type: none;
   margin: 0;
   padding: 0;
   overflow: hidden;
+    text-align: center;
   background-color: #687d60;
-  color: floralwhite;
 }
 
-li {
-  float: left;
-}
 
 li a {
   display: block;
   color: white;
   text-align: center;
-  padding: 14px 16px;
+  padding: 20px 100px;
   text-decoration: none;
 }
 
-/* Change the link color to #111 (black) on hover */
 li a:hover {
-  background-color: #111;
+  background-color: lightblue;
 }
+/*Menu Bar End*/
 
-.usa_collage{
-    display: block;
+#usa_collage{
+    display: inline-block;
     max-width: 40%;  
     height: auto;
     margin-left: auto;
     margin-right: auto;
+    padding-left: 100px
 }
 
 h3{
@@ -51,13 +56,23 @@ h3{
 }
 
 .description_table{
+    display: inline-block;
     padding: 5px; 
     border: 2px solid floralwhite;
-    margin-left: auto;
-    margin-right: auto;
+    vertical-align: top;
+    width: 500px;
+
 }
 
 
 .description_text{
     color: floralwhite;
+    word-wrap: break-word;
 }
+
+div{
+    padding-left: 40px;
+    padding-right: 40px;
+}
+
+

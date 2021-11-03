@@ -1,3 +1,4 @@
+/*Default Style Start*/
 body {
 	background-color: #94b289;
 }
@@ -10,15 +11,71 @@ body {
 .text_color {
  	color: #FFF5EE;
 }
+/*Default Style End*/
 
-.navigation_bar{
-    display: inline;
+
+/*Menu Bar Start*/
+li {
+    display: inline-block;
 }
 
-table, td, th {
-    border: 1px solid black;
-    border-collapse: collapse;
+ul {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+    text-align: center;
+  background-color: #687d60;
+}
+
+li a {
+  display: block;
+  color: white;
+  text-align: center;
+  padding: 20px 100px;
+  text-decoration: none;
+}
+
+li a:hover {
+  background-color: lightblue;
+}
+/*Menu Bar End*/
+
+/*Search Bar Start*/
+#search_bar{
+    padding-left: 40px;
+}
+
+.search_field{
+    width: 200px;
+    display: inline-block;
+    text-align: center;
+}
+
+label{
+    color: white;
+}
+
+input{
+    background-color: #FFF5EE;
+}
+/*Search Bar End*/
+
+#usa_collage{
+    display: block;
+    max-width: 40%;  
+    height: auto;
     margin-left: auto;
     margin-right: auto;
-
 }
+
+#species_table{
+    margin-left: auto;
+    margin-right: auto;
+}
+
+td, th {
+    border-collapse: collapse;
+}
+
+
