@@ -10,32 +10,30 @@ body {
  	color: #FFF5EE;
 }
 li {
-  display: inline;
+    display: inline-block;
+
 }
 ul {
   list-style-type: none;
   margin: 0;
   padding: 0;
   overflow: hidden;
+    text-align: center;
   background-color: #687d60;
 }
 
-li {
-  float: left;
-}
 
 li a {
   display: block;
   color: white;
   text-align: center;
-  padding: 20px 25px;
+  padding: 20px 100px;
   text-decoration: none;
 }
 
 li a:hover {
-  background-color: #;
+  background-color: lightblue;
 }
-
 .pfp {
 
 	display: block;
@@ -44,7 +42,6 @@ li a:hover {
 	margin-left: auto;
     	margin-right: auto;
 }
-
 .align_center {
 	text-align: center;
 }
