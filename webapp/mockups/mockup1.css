@@ -1,3 +1,4 @@
+/*Authors : Elliot Hanson and Shreya Nair for CS 257 Webapp assignment */
 /*Default Style Start*/
 html{
     font-family: Verdana, Geneva, sans-serif;
@@ -15,7 +16,7 @@ body {
 
 /*Default Style End*/
 
-/*Menu Bar Start*/
+/*Nav Bar Start*/
 li {
     display: inline-block;
 
@@ -47,7 +48,7 @@ li a {
 li a:hover {
   background-color: #5c937E;
 }
-/*Menu Bar End*/
+/*Nav Bar End*/
 
 #usa_collage{
     display: inline-block;

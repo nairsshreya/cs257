@@ -1,3 +1,4 @@
+/*Authors : Elliot Hanson and Shreya Nair for CS 257 Webapp assignment */
 html{
     font-family:Verdana, Geneva, sans-serif;
 }
@@ -9,6 +10,8 @@ body {
  	color: #FFF5EE;
 }
 
+
+/* Navigation bar settings */
 .navbar_text_disp {
     display: inline-block;
 
@@ -47,12 +50,15 @@ li a:hover {
     padding-left: 50px;
 }
 
+/* Navigation bar settings  end */
+
 .title_heading{
         color: #FFFAF0;
     text-align: center;
     font-weight: normal;
 }
 
+/* Boxes for image and text */
 #first, #second{
   box-sizing: border-box;
   -moz-box-sizing: border-box;
@@ -111,7 +117,9 @@ li a:hover {
     margin-right: auto;
     z-index: 1;
 }
+/* End of css design for the park and img boxes */
 
+/*Search bar */
 #search_bar{
     align-self: center;
     padding-top: 40px;
