@@ -85,10 +85,18 @@ input{
 #species_table{
     margin-left: auto;
     margin-right: auto;
+    color: #FFF5EE;
+    
+}
+th {
+    padding-left: 20px;
+    padding-right: 20px;
+    width:200px;
+    word-wrap: break-word;
 }
 
-td, th {
+tr{
     border-collapse: collapse;
+    outline: thin solid
 }
-
 
