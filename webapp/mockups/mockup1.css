@@ -1,4 +1,7 @@
 /*Default Style Start*/
+html{
+    font-family: Verdana, Geneva, sans-serif;
+}
 body {
 	background-color: #94b289;
 }
@@ -6,11 +9,10 @@ body {
 .title_heading{
 	color: #FFFAF0;
     text-align: center;
+    font-weight: normal;
 }
 
-.text_color{
- 	color: #FFF5EE;
-}
+
 /*Default Style End*/
 
 /*Menu Bar Start*/
@@ -18,12 +20,18 @@ li {
     display: inline-block;
 
 }
+
+.active {
+  background-color: #485643;
+  color: white;
+}
+
 ul {
   list-style-type: none;
   margin: 0;
   padding: 0;
   overflow: hidden;
-    text-align: center;
+  text-align: center;
   background-color: #687d60;
 }
 
@@ -37,7 +45,7 @@ li a {
 }
 
 li a:hover {
-  background-color: lightblue;
+  background-color: #5c937E;
 }
 /*Menu Bar End*/
 
@@ -53,6 +61,7 @@ li a:hover {
 h3{
     color: #FFFAF0;
     text-align: center;
+    font-weight: normal;
 }
 
 .description_table{
@@ -65,9 +74,10 @@ h3{
 }
 
 
-.description_text{
+#description_text{
     color: floralwhite;
     word-wrap: break-word;
+    font-weight: normal;
 }
 
 div{

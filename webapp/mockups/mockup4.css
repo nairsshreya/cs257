@@ -1,4 +1,8 @@
 /*Default Style Start*/
+html{
+    font-family: Verdana, Geneva, sans-serif;
+}
+
 body {
 	background-color: #94b289;
 }
@@ -6,6 +10,7 @@ body {
 .title_heading{
 	color: #FFFAF0;
     text-align: center;
+    font-weight: normal;
 }
 
 .text_color {
@@ -36,12 +41,12 @@ li a {
   text-decoration: none;
 }
 .active {
-   background-color: #485643;
+  background-color: #485643;
   color: white;
 }
 
 li a:hover {
-  background-color: lightblue;
+  background-color: #5c937E;
 }
 /*Menu Bar End*/
 
