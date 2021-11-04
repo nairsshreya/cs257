@@ -13,6 +13,10 @@ li {
     display: inline-block;
 
 }
+.active {
+   background-color: #485643;
+  color: white;
+}
 ul {
   list-style-type: none;
   margin: 0;

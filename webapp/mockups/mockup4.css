@@ -35,6 +35,10 @@ li a {
   padding: 20px 100px;
   text-decoration: none;
 }
+.active {
+   background-color: #485643;
+  color: white;
+}
 
 li a:hover {
   background-color: lightblue;

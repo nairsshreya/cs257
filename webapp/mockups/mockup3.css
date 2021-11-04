@@ -13,6 +13,10 @@ body {
     display: inline-block;
 
 }
+.active {
+   background-color: #485643;
+  color: white;
+}
 .navbar {
     list-style-type: none;
     margin: 0;
@@ -88,7 +92,20 @@ li a:hover {
     height: auto;
     margin-left: auto;
     margin-right: auto;
+    z-index: 1;
 }
+
+tree_img {
+
+    max-width: 10%;
+    position: relative;
+    top: 20px;
+    left: 10px;
+    z-index: 2;
+
+
+}
+
 
 .species_box {
     width: 100px;
@@ -124,3 +141,4 @@ input{
     background-color: #FFF5EE;
 }
 /*Search Bar End*/
+
