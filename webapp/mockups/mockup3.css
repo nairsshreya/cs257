@@ -89,15 +89,6 @@ li a:hover {
     margin: 100px;
 }
 
-.yose_img {
-    display: block;
-    max-width: 100%;
-    height: auto;
-    margin-left: auto;
-    margin-right: auto;
-    z-index: 1;
-}
-
 
 
 .species_box {
@@ -111,6 +102,16 @@ li a:hover {
     text-align: center;
     font-weight: normal;
 }
+
+.yose_img {
+    display: block;
+    max-width: 100%;
+    height: auto;
+    margin-left: auto;
+    margin-right: auto;
+    z-index: 1;
+}
+
 #search_bar{
     align-self: center;
     padding-top: 40px;
