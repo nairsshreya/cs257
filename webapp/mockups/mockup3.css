@@ -1,21 +1,21 @@
+html{
+    font-family:Verdana, Geneva, sans-serif;
+}
 body {
 	background-color: #94b289;
-}
-
-.heading_about{
-	color: #FFFAF0;
 }
 
 .text_color {
  	color: #FFF5EE;
 }
+
 .navbar_text_disp {
     display: inline-block;
 
 }
 .active {
-   background-color: #485643;
-  color: white;
+    background-color: #485643;
+    color: #fffcfc;
 }
 .navbar {
     list-style-type: none;
@@ -36,7 +36,7 @@ li a {
 }
 
 li a:hover {
-  background-color: lightblue;
+  background-color: #5c937e;
 }
 
 .align_center {
@@ -50,6 +50,7 @@ li a:hover {
 .title_heading{
         color: #FFFAF0;
     text-align: center;
+    font-weight: normal;
 }
 
 #first, #second{
@@ -70,11 +71,13 @@ li a:hover {
     display: flex;
 }
 #first {
-    height:250px;
+    height:300px;
     border: 1px solid #FFFAF0;
     float:left;
     width:50%;
     margin: 100px;
+    word-wrap: break-word;
+    font-weight: normal;
 
 }
 
@@ -95,16 +98,6 @@ li a:hover {
     z-index: 1;
 }
 
-tree_img {
-
-    max-width: 10%;
-    position: relative;
-    top: 20px;
-    left: 10px;
-    z-index: 2;
-
-
-}
 
 
 .species_box {
@@ -116,11 +109,13 @@ tree_img {
     border: 3px outset #FFFAF0;
     background-color:#FFFAF0 ;
     text-align: center;
+    font-weight: normal;
 }
 #search_bar{
     align-self: center;
     padding-top: 40px;
     padding-left: 400px;
+    font-weight: normal;
 }
 
 .search_field{

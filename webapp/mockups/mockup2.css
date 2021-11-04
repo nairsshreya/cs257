@@ -1,3 +1,7 @@
+html{
+    font-family:Verdana, Geneva, sans-serif;
+}
+
 body {
 	background-color: #94b289;
 }
@@ -8,6 +12,7 @@ body {
 
 .text_color {
  	color: #FFF5EE;
+    font-weight: normal;
 }
 li {
     display: inline-block;
@@ -36,7 +41,16 @@ li a {
 }
 
 li a:hover {
-  background-color: lightblue;
+  background-color: #5c937e;
+}
+
+.big_img {
+    display: block;
+	max-width: 40%;
+	height: auto;
+	margin-left: auto;
+    margin-right: auto;
+
 }
 .pfp {
 
@@ -53,4 +67,5 @@ li a:hover {
 .title_heading{
         color: #FFFAF0;
     text-align: center;
+    font-weight: normal;
 }
