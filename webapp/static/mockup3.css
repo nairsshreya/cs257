@@ -1,0 +1,148 @@
+/*Authors : Elliot Hanson and Shreya Nair for CS 257 Webapp assignment */
+html{
+    font-family:Verdana, Geneva, sans-serif;
+}
+body {
+	background-color: #94b289;
+}
+
+.text_color {
+ 	color: #FFF5EE;
+}
+
+
+/* Navigation bar settings */
+.navbar_text_disp {
+    display: inline-block;
+
+}
+.active {
+    background-color: #485643;
+    color: #fffcfc;
+}
+.navbar {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+    text-align: center;
+    background-color: #687d60;
+}
+
+
+li a {
+  display: block;
+  color: white;
+  text-align: center;
+  padding: 20px 100px;
+  text-decoration: none;
+}
+
+li a:hover {
+  background-color: #5c937e;
+}
+
+.align_center {
+	text-align: center;
+}
+
+.padded_text {
+    padding-left: 50px;
+}
+
+/* Navigation bar settings  end */
+
+.title_heading{
+        color: #FFFAF0;
+    text-align: center;
+    font-weight: normal;
+}
+
+/* Boxes for image and text */
+#first, #second{
+  box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+}
+
+#first, #second{
+  box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+}
+
+#wrapper {
+    width: 100%;
+    height: 75%;
+    display: flex;
+}
+#first {
+    height:300px;
+    border: 1px solid #FFFAF0;
+    float:left;
+    width:50%;
+    margin: 100px;
+    word-wrap: break-word;
+    font-weight: normal;
+
+}
+
+#second {
+    align-content: center;
+    border: 1px solid #FFFAF0;
+    float:right;
+    width:50%;
+    margin: 100px;
+}
+
+
+
+.species_box {
+    width: 100px;
+    height: 50px;
+    top: -150px;
+    position: relative;
+    margin-left: 100px;
+    border: 3px outset #FFFAF0;
+    background-color:#FFFAF0 ;
+    text-align: center;
+    font-weight: normal;
+}
+
+.yose_img {
+    display: block;
+    max-width: 100%;
+    height: auto;
+    margin-left: auto;
+    margin-right: auto;
+    z-index: 1;
+}
+/* End of css design for the park and img boxes */
+
+/*Search bar */
+#search_bar{
+    align-self: center;
+    padding-top: 40px;
+    padding-left: 400px;
+    font-weight: normal;
+}
+
+.search_field{
+    width: 200px;
+    display: inline-block;
+    text-align: center;
+}
+
+label{
+    color: white;
+}
+
+input{
+    background-color: #FFF5EE;
+}
+
+#search_button{
+    background-color: #FFF5EE;
+}
+/*Search Bar End*/
+

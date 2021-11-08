@@ -1,0 +1,103 @@
+/*Authors : Elliot Hanson and Shreya Nair for CS 257 Webapp assignment */
+/*Default Style Start*/
+html{
+    font-family: Verdana, Geneva, sans-serif;
+}
+
+body {
+	background-color: #94b289;
+}
+
+.title_heading{
+	color: #FFFAF0;
+    text-align: center;
+    font-weight: normal;
+}
+
+.text_color {
+ 	color: #FFF5EE;
+}
+/*Default Style End*/
+
+
+/*Menu Bar Start*/
+li {
+    display: inline-block;
+}
+
+ul {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+  text-align: center;
+  background-color: #687d60;
+}
+
+li a {
+  display: block;
+  color: white;
+  text-align: center;
+  padding: 20px 100px;
+  text-decoration: none;
+}
+.active {
+  background-color: #485643;
+  color: white;
+}
+
+li a:hover {
+  background-color: #5c937E;
+}
+/*Menu Bar End*/
+
+/*Search Bar Start*/
+#search_bar{
+    padding-left: 40px;
+}
+
+.search_field{
+    width: 200px;
+    display: inline-block;
+    text-align: center;
+}
+
+label{
+    color: white;
+}
+
+input{
+    background-color: #FFF5EE;
+}
+
+#search_button{
+    background-color: #FFF5EE;
+}
+/*Search Bar End*/
+
+#usa_collage{
+    display: block;
+    max-width: 40%;  
+    height: auto;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+#species_table{
+    margin-left: auto;
+    margin-right: auto;
+    color: #FFF5EE;
+    
+}
+th {
+    padding-left: 20px;
+    padding-right: 20px;
+    width:200px;
+    word-wrap: break-word;
+}
+
+tr{
+    border-collapse: collapse;
+    outline: thin solid
+}
+

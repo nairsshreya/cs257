@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<!--Elliot and Shreya, Mockup 3 : Parks Page -->
+    <head>
+        <meta charset="UTF-8">
+        <title>Park Data : National Park Biodata</title>
+        <link rel="stylesheet" href="mockup3.css" type="text/css"/>
+        <h1 class = "title_heading"> National Park Biodata</h1>
+
+        <ul class="navbar">
+          <li class="navbar_text_disp"><a href="mockup1.html">Home</a></li>
+          <li class="navbar_text_disp"><a href="mockup2.html">About</a></li>
+          <li class="active navbar_text_disp"><a href="mockup3.html">Parks</a></li>
+          <li class="navbar_text_disp"><a href="mockup4.html">Species</a></li>
+    </ul>
+    </head>
+    
+    <body>
+    <div id = "search_bar">
+    <div class = "search_field">
+        <label for="name">Park Code</label><br>
+        <input type="text" id="code" park_code="code">
+    </div>
+    <div class = "search_field">
+        <label for="name">Park Name</label><br>
+        <input type="text" id="name" park_name="name">
+    </div>
+    <div class = "search_field">
+        <label for="state">State</label><br>
+        <input type="text" id="state" park_state="state">
+    </div>
+    <input id = "search_button" type="submit" value="Search">
+    </div>
+
+
+     <div id="wrapper">
+        <div id="first">
+            <h2 class="align_center text_color">Park Information</h2>
+            <ul>
+                <li class="padded_text text_color"> Name : Yosemite National Parks</li> <br>
+                <li class="padded_text text_color"> Park ID : YOSE </li> <br>
+                <li class="padded_text text_color"> State : California</li><br>
+                <li class="padded_text text_color"> Acres : 761266</li><br>
+                <li class="padded_text text_color"> Latitude : 37.83 </li><br>
+                <li class="padded_text text_color"> Longitude : -119.5 </li><br>
+            </ul>
+        </div>
+        <div id="second">
+            <img src= "usa-yosemite.jpg" class = "yose_img"
+            title="Yosemite National Park">
+        </div>
+
+     </div>
+     <div class="species_box"> <a href="mockup4.html"> Species Information</a> </div>
+
+
+
+    </body>
+</html>
