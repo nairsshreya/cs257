@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <title>Species</title>
-    <link rel="stylesheet" href="mockup4.css" type="text/css" />
+    <link rel="stylesheet" href="{{ url_for('static', filename='mockup4.css') }}" type="text/css" />
     <h1 class = "title_heading"> National Park Biodata</h1>
     <ul>
         <li><a href="mockup1.html">Home</a></li>
@@ -23,7 +23,7 @@
     </div>
     <div class = "search_field">
         <label for="category">Category</label><br>
-        <input type="text" id="name" species_category="category">
+        <input type="text" id="category" species_category="category">
     </div>
     <div class = "search_field">
         <label for="family">Family</label><br>
