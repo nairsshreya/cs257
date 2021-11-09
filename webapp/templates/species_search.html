@@ -4,13 +4,13 @@
 <head>
     <meta charset="UTF-8">
     <title>Species</title>
-    <link rel="stylesheet" href="{{ url_for('static', filename='mockup4.css') }}" type="text/css" />
+    <link rel="stylesheet" href="{{ url_for('static', filename='species_search.css') }}" type="text/css" />
     <h1 class = "title_heading"> National Park Biodata</h1>
     <ul>
-        <li><a href="mockup1.html">Home</a></li>
-        <li><a href="mockup2.html">About</a></li>
-        <li><a href="mockup3.html">Parks</a></li>
-        <li class = "active"><a href="mockup4.html">Species</a></li>
+        <li><a href="/">Home</a></li>
+        <li><a href="/about">About</a></li>
+        <li><a href="/park_search">Parks</a></li>
+        <li class = "active"><a href="/species_search">Species</a></li>
     </ul>
 </head>
 
@@ -40,7 +40,7 @@
     <input id = "search_button" type="submit" value="Search">
     </div>
     <br><br>
-    <img src="usa-yosemite.jpg" id = "usa_collage">
+    <img src="{{ url_for('static', filename='usa-yosemite.jpg') }}" id = "usa_collage">
     <br>
     <table id = "species_table">
         <tbody>

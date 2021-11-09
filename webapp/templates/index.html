@@ -1,28 +1,45 @@
 <!DOCTYPE html>
-<!-- Partners : Elliot Hanson and Shreya Nair 
-Project : CS 257 Fall 2021 Webapp Project -->
 <html lang="en">
+<!--Elliot and Shreya, Mockup 1 : Home Page -->
 <head>
     <meta charset="UTF-8">
-    <title>Link To Elliot And Shreya's Mockups</title>
+    <title>Home Page</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename= 'home.css')}}" type="text/css" />
+    <h1 class = "title_heading"> National Park Biodata</h1>
+    <ul>
+        <li><a class="active" href="/">Home</a></li>
+        <li><a href="/about">About</a></li>
+        <li><a href="/park_search">Parks</a></li>
+        <li><a href="/species_search">Species</a></li>
+    </ul>
 </head>
-    
+
 <body>
-<h2> Mockups for Elliot and Shreya's Biodiversity Website</h2>
-<h3> Description :  </h3>
-    <p> Our website works with a database that contains information about the biodiversity of
-        56 National Parks. We allow a user to explore information about a specific park or search for a species
-        they have in mind </p>
+    <br>
+    <div>
+    <table class = "description_table">
+        <tbody>
+            <tr><th><h3>Description</h3></th></tr>
+            <tr>
+                <th>
+                    <p id = "description_text">
+                        Our website has biodiversity statistics on 56 unique national parks
+                        situatied in the United States of America. To begin browsing
+                        information on these parks go to the parks tab. If you have a
+                        specific organism you want to search for, go to the species tab.
+                    </p>
+                </th>
+            </tr>
+        </tbody>
+    </table>
 
-<h3>Links to our mockups : </h3>
-
-<ul>
-    <li><a href = "mockup1.html"> Mockup1 (Home Page) </a> </li>
-    <li><a href = "mockup2.html"> Mockup2 (About Page)</a></li>
-    <li><a href = "mockup3.html"> Mockup3 (Park search and results)</a></li>
-    <li><a href = "mockup4.html"> Mockup4 (Species search and results) </a></li>
-</ul>
+    <img src="{{ url_for('static', filename= 'usa_collage.jpg')}}" id = "usa_collage">
+    <br>
+    </div>
+<div class="bio_now text_color align_center padded_text">
+    <h4>State Park Biodiversity Now</h4>
+        <p><a href="https://www.sciencedaily.com/releases/2012/08/120807161035.htm"> Can nature parks save biodiversity?</a> </p>
+        <p><a href="https://mountainjournal.org/clash--between-cattle-and-elk-at-point-reyes-brings-national-park-values-into-focus">Surrendering Nature To Politics: Are US National Parks In Retreat?</a> </p>
+    </div>
 </body>
-<br>
-<br>
 </html>

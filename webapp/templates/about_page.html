@@ -5,24 +5,24 @@
 <head>
     <meta charset="UTF-8">
     <title >About : National Park Biodata</title>
-    <link rel="stylesheet" href="{{ url_for('static', filename='mockup2.css') }}" type="text/css" />
+    <link rel="stylesheet" href="{{ url_for('static', filename='about.css') }}" type="text/css" />
     <h1 class = "title_heading"> National Park Biodata</h1>
 
     <ul>
-      <li><a href="mockup1.html">Home</a></li>
-  <li><a class="active"  href="mockup2.html">About</a></li>
-  <li><a href="mockup3.html">Parks</a></li>
-  <li><a href="mockup4.html">Species</a></li>
+      <li><a href="/">Home</a></li>
+      <li><a class="active"  href="/about">About</a></li>
+      <li><a href="/park_search">Parks</a></li>
+      <li><a href="/species_search">Species</a></li>
 </ul>
 </head>
 
 <body>
 	<h2 class="heading_about align_center" > About the Creators </h2>
-	<img src= "elliot_profile.jpg" class = "pfp">
+	<img src= "{{ url_for('static', filename='elliot_profile.jpg') }}" class = "pfp">
 	<p class= "text_color align_center"> Elliot Hanson is a Junior Biology major at Carleton College. He has a vested interest in Computer Science as well. His favorite chocolates are 80% and Salted Caramel </p>
-	<img src= "shreya_profile.jpg" class = "pfp">
+	<img src= "{{ url_for('static', filename='shreya_profile.jpg') }}" class = "pfp">
 	<p class = "text_color align_center"> Shreya Nair is a Sophomore prospective Computer Science and Biology at Carleton College. Her favorite chocolate is toblerone, she also loves lindt. </p>
-    <img src="elliot_and_shreya.jpg" class="big_img">
+    <img src="{{ url_for('static', filename='elliot_and_shreya.jpg') }}" class="big_img">
     <p class="text_color align_center"> Elliot and Shreya during a coding session for the mockups of this website,
         situated in Olin 310, where great things happen.</p> <br>
 <br>

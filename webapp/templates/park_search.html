@@ -4,14 +4,15 @@
     <head>
         <meta charset="UTF-8">
         <title>Park Data : National Park Biodata</title>
-        <link rel="stylesheet" href="{{ url_for('static', filename='mockup3.css') }}" type="text/css"/>
+        <script type="text/javascript" src="{{ url_for('static', filename='park_search.js') }}"></script>
+        <link rel="stylesheet" href="{{ url_for('static', filename='park_search.css') }}" type="text/css"/>
         <h1 class = "title_heading"> National Park Biodata</h1>
 
         <ul class="navbar">
-          <li class="navbar_text_disp"><a href="mockup1.html">Home</a></li>
-          <li class="navbar_text_disp"><a href="mockup2.html">About</a></li>
-          <li class="active navbar_text_disp"><a href="mockup3.html">Parks</a></li>
-          <li class="navbar_text_disp"><a href="mockup4.html">Species</a></li>
+          <li class="navbar_text_disp"><a href="/">Home</a></li>
+          <li class="navbar_text_disp"><a href="/about">About</a></li>
+          <li class="active navbar_text_disp"><a href="/park_search">Parks</a></li>
+          <li class="navbar_text_disp"><a href="/species_search">Species</a></li>
     </ul>
     </head>
     
@@ -46,7 +47,7 @@
             </ul>
         </div>
         <div id="second">
-            <img src= "usa-yosemite.jpg" class = "yose_img"
+            <img src= "{{ url_for('static', filename= 'usa-yosemite.jpg')}}" class = "yose_img"
             title="Yosemite National Park">
         </div>
 
