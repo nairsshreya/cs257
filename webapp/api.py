@@ -55,13 +55,33 @@ def get_state():
     except Exception as e:
         print(e, file=sys.stderr)
 
-    return json.dumps(states)
+    return states
+
+
+def get_park_names():
+    query = '''SELECT park_code, park_name, state_code, acreage, longitude, latitude
+                       FROM parks ORDER BY park_name'''
+    park_names = []
+    try:
+        connection = get_connection()
+        cursor = connection.cursor()
+        cursor.execute(query, tuple())
+        for row in cursor:
+            park_info = {'park_code': row[0], 'name':row[1], 'state_code':row[2], 'acreage':row[3], 'longitude':row[4],
+                         'latitude':row[5]}
+            park_names.append(park_info)
+        cursor.close()
+        connection.close()
+    except Exception as e:
+        print(e, file=sys.stderr)
+    return park_names
+
 
 
 @api.route('/park_search', strict_slashes=False)
 def get_park():
-    return get_state()
-
+    selectors_arr = [get_park_names(), get_state()]
+    return json.dumps(selectors_arr)
 
 @api.route('/species_search', strict_slashes=False)
 def get_species():
