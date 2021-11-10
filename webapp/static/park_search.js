@@ -7,8 +7,8 @@
 window.onload = initialize;
 
 function initialize() {
+    loadParkSelector();
     loadStateSelector();
-
     let element1 = document.getElementById('park_selector');
     if (element1) {
         element1.onchange = onParkSelectionChanged;
@@ -17,6 +17,8 @@ function initialize() {
     if (element2) {
         element2.onchange = onStateSelectionChanged;
     }
+    // let element3 = document.getElementById('search_button');
+    // element3.onclick = onSearchButton;
 }
 
 // Returns the base URL of the API, onto which endpoint
@@ -115,12 +117,8 @@ function loadParkSelector() {
             selector.innerHTML = selectorBody;
         }
 
-
-
     })
-
-
-
+        
     // Log the error if anything went wrong during the fetch.
     .catch(function(error) {
         console.log(error);
@@ -134,7 +132,19 @@ function onParkSelectionChanged() {
 
     .then((response) => response.json())
 
-    .then(function(data) {
+        // // Put the table body we just built inside the table that's already on the page.
+        // let stateTable = document.getElementById('books_table');
+        // if (booksTable) {
+        //     booksTable.innerHTML = tableBody;
+        // }
+}
+
+function onSearchButton() {
+    let state_id = this.value;
+    let url = getAPIBaseURL() + '/park_search' + state_id;
+     fetch(url, {method: 'get'})
+     .then((response) => response.json())
+     .then(function(data) {
         let [parks, states] = data;
         let tableBody = '';
         tableBody += '<tr>'
@@ -150,20 +160,15 @@ function onParkSelectionChanged() {
             tableBody += '<tr>'
                 +'<td>'+ park['park_code']+'</td>'
                 +'<td>'+ park['name']+'</td>'
-                +'<td>State</td>'
-                +'<td>Acres</td>'
-               +' <td>Longitude</td>'
-                +'<td>Latitude</td>'
+                +'<td>'+park['state_code']+'</td>'
+                +'<td>'+park['acreage']+'</td>'
+               +' <td>'+park['longitude']+'</td>'
+                +'<td>'+park['latitude']+'</td>'
             +'</tr>'
         }
      let parksTable = document.getElementById('parks_table');
         if (parksTable) {
             parksTable.innerHTML = tableBody;
         }
-        // // Put the table body we just built inside the table that's already on the page.
-        // let stateTable = document.getElementById('books_table');
-        // if (booksTable) {
-        //     booksTable.innerHTML = tableBody;
-        // }
     })
 }
