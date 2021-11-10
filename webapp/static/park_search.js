@@ -20,7 +20,7 @@ function initialize() {
     }
     let element3 = document.getElementById('park_code_selector');
     if (element3) {
-        element3.onchange = onStateSelectionChanged;
+        element3.onchange = onParkCodeSelectionChanged;
     }
     let element4 = document.getElementById('search_button');
     element4.onclick = onSearchButton;
