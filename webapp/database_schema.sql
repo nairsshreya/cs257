@@ -1,19 +1,16 @@
 CREATE TABLE parks{
 park_code text,
 park_name text,
-state_id integer,
+state_code integer,
 acreage text,
 longitude text,
 latitude text
 };
 
-CREATE TABLE states{
-id serial,
-state_code text
-};
+
 
 CREATE TABLE species{
-id serial,
+id text,
 park_code text,
 category_id integer,
 order_id integer,
