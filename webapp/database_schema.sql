@@ -10,7 +10,7 @@ latitude text
 
 
 CREATE TABLE species{
-id serial,
+id text,
 park_code text,
 category_id integer,
 order_id integer,

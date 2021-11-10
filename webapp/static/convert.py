@@ -19,7 +19,7 @@ with open("parks_source.csv", 'w', newline='') as parks_file:
 
 parks_file.close()
 
-# Opening the general athlete data csv file
+# Opening the general species data csv file
 reader = csv.reader(open('athlete_events.csv', 'r'))
 next(reader)
 
