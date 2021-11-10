@@ -49,11 +49,28 @@ li a {
 li a:hover {
   background-color: #5c937E;
 }
-/*Menu Bar End*/
+.align_center {
+	text-align: center;
+}
+
+.padded_text {
+    padding-left: 50px;
+}
+
+/* Navigation bar settings  end */
+
+.title_heading{
+        color: #FFFAF0;
+    text-align: center;
+    font-weight: normal;
+}
 
 /*Search Bar Start*/
 #search_bar{
-    padding-left: 40px;
+    align-self: center;
+    padding-top: 20px;
+    font-weight: normal;
+    text-align: center;
 }
 
 .search_field{
