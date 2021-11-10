@@ -10,113 +10,89 @@ import csv
 
 # Opening and reading the parks csv
 reader_parks = csv.reader(open('parks_source.csv', 'r'))
+parks = {}
 next(reader_parks)
-with open("parks_source.csv", 'w', newline='') as parks_file:
-    
+with open("parks.csv", 'w', newline='') as parks_file:
     parks_writer = csv.writer(parks_file, delimiter=',', quoting=csv.QUOTE_ALL)
     for row in reader_parks:
+        park_id = row[0]
+        park_name = row[1]
+        parks[park_name] = park_id
         parks_writer.writerow(row)
 
 parks_file.close()
 
 # Opening the general species data csv file
-reader = csv.reader(open('athlete_events.csv', 'r'))
-next(reader)
-
-athletes = {}
-ath_awh = {}
-games = {}
-sports = {}
-events = {}
-athlete_medal = {}
-
+reader_species = csv.reader(open('species_source.csv', 'r'))
+next(reader_species)
+species = {}
+categories = {}
+orders = {}
+families = {}
 count = 0
-with open("athlete_medal.csv", 'w', newline='') as ath_medal_file:
-    medal_writer = csv.writer(ath_medal_file, delimiter=',', quoting=csv.QUOTE_ALL)
+with open("species.csv", 'w', newline='') as species_file:
+    species_writer = csv.writer(species_file, delimiter=',', quoting=csv.QUOTE_ALL)
 
-    for row in reader:
+    for row in reader_species:
 
         count += 1
-        athlete_id = row[0]
-        name = row[1]
-        sex = row[2]
-        age = row[3]
-        height = row[4]
-        weight = row[5]
-        team = row[6]
-        noc = row[7]
-        game_name = row[8]
-        year = row[9]
-        season = row[10]
-        city = row[11]
-        sport = row[12]
-        event = row[13]
-        medal = row[14]
+        species_id = row[0]
+        park_name = row[1]
+        category = row[2]
+        order = row[3]
+        family = row[4]
+        scientific_name = row[5]
+        common_names = row[6]
+        nativeness = row[9]
 
-        #Entering data into the athletes file
-
-        if athlete_id not in athletes:
-            athlete_data = [athlete_id, name, sex]
-            athletes[athlete_id] = athlete_data
-
-        if game_name not in games:
-            game_id = len(games)
-            game_data = [game_id, game_name, year, season, city]
-            games[game_name] = game_data
+        if order == "":
+                order = "Unknown"
+        if family == "":
+                family = "Unknown"
+        if nativeness == "":
+                nativeness = "Unknown"
+                
+        #Entering data into the species file
+        park_id = parks.get(park_name)
+        
+        if category not in categories:
+            category_id = len(categories)
+            categories[category] = category_id
         else:
-            game_id = games[game_name][0]
-        awh_id = athlete_id + str(game_id)
-        if awh_id not in ath_awh:
-            if age == 'NA':
-                age = 'NULL'
-            if weight == 'NA':
-                weight = 'NULL'
-            if height == 'NA':
-                height = 'NULL'
-            awh_data = [athlete_id, game_id, age, weight, height]
-            ath_awh[awh_id] = awh_data
+            category_id = categories[category]
 
-        if sport not in sports:
-            sport_id = len(sports)
-            sports_data = [sport_id, sport]
-            sports[sport] = sports_data
+        if order not in orders:
+            
+            order_id = len(orders)
+            orders[order] = order_id
         else:
-            sport_id = sports[sport][0]
-
-        if event not in events:
-            event_id = len(events)
-            event_data = [event_id, sport_id, event]
-            events[event] = event_data
+            order_id = orders[order]
+            
+        if family not in families:
+            family_id = len(families)
+            families[family] = family_id
         else:
-            event_id = events[event][0]
-        if medal == 'NA':
-            medal = 'NULL'
-        medal_data = [athlete_id, game_id, event_id, noc, team, medal]
-        medal_writer.writerow(medal_data)
+            family_id = families[family]
+        
+        species_data = [species_id, park_id, category_id, order_id, family_id, scientific_name, common_names, nativeness]
+        species_writer.writerow(species_data)
 
         if count % 100 == 0:
             print("Processed ", count, "  lines", end="\r", flush=True)
+        
 
-with open("athletes.csv", 'w', newline='') as ath_file:
-    ath_writer = csv.writer(ath_file, delimiter=',', quoting=csv.QUOTE_ALL)
-    for athlete, athlete_data in athletes.items():
-        ath_writer.writerow(athlete_data)
 
-with open("athlete_awh.csv", 'w', newline='') as ath_awh_file:
-    awh_writer = csv.writer(ath_awh_file, delimiter=',', quotechar='"',  quoting=csv.QUOTE_ALL)
-    for awh_id, awh_data in ath_awh.items():
-        awh_writer.writerow(awh_data)
+with open("categories.csv", 'w', newline='') as categories_file:
+    category_writer = csv.writer(categories_file, delimiter=',', quoting=csv.QUOTE_ALL)
+    for category in categories:
+        category_writer.writerow([categories[category],category])
 
-with open("games.csv", 'w', newline='') as game_file:
-    game_writer = csv.writer(game_file, delimiter=',', quoting=csv.QUOTE_ALL)
-    for game, game_data in games.items():
-        game_writer.writerow(game_data)
-
-with open("sports.csv", 'w', newline='') as sport_file:
-    sport_writer = csv.writer(sport_file, delimiter=',', quoting=csv.QUOTE_ALL)
-    for sport, sports_data in sports.items():
-        sport_writer.writerow(sports_data)
-with open("event.csv", 'w', newline='') as event_file:
-    event_writer = csv.writer(event_file, delimiter=',', quoting=csv.QUOTE_ALL)
-    for event, event_data in events.items():
-        event_writer.writerow(event_data)
+with open("orders.csv", 'w', newline='') as orders_file:
+    order_writer = csv.writer(orders_file, delimiter=',', quoting=csv.QUOTE_ALL)
+    for order in orders:
+        order_writer.writerow([orders[order],order])
+        
+with open("families.csv", 'w', newline='') as families_file:
+    family_writer = csv.writer(families_file, delimiter=',', quoting=csv.QUOTE_ALL)
+    for family in families:
+        family_writer.writerow([families[family],family])
