@@ -53,7 +53,9 @@ li a:hover {
 
 /*Search Bar Start*/
 #search_bar{
-    padding-left: 40px;
+    align-self: center;
+    font-weight: normal;
+    text-align: center;
 }
 
 .search_field{
