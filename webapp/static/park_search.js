@@ -109,10 +109,10 @@ function loadParkSelector() {
         let selectorBody = '';
         for (let k = 0; k < parks.length; k++) {
             let park = parks[k];
-            selectorBody += '<option value="' + park['name'] + '"></option>\n';
+            selectorBody += '<option value="' + park['name'] + '">' + park['name'] + '</option>\n';
         }
 
-        let selector = document.getElementById('park_selector');
+        let selector = document.getElementById('park_name_selector');
         if (selector) {
             selector.innerHTML = selectorBody;
         }
