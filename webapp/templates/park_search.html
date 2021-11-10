@@ -14,22 +14,24 @@
           <li class="active navbar_text_disp"><a href="/park_search">Parks</a></li>
           <li class="navbar_text_disp"><a href="/species_search">Species</a></li>
     </ul>
+        <link rel="stylesheet" href="../static/park_search.css">
     </head>
     
     <body>
     <h1 class = "page_header align_center text_color">Park Search</h1>
     <div id = "search_bar">
     <div class = "search_field">
-        <label for="name">Park Code</label><br>
-        <input type="text" id="code" park_code="code">
+        <label for="park_id_selector">Park Code</label><br>
+        <select id="park_id_selector"></select>
     </div>
     <div class = "search_field">
-        <label for="name">Park Name</label><br>
-        <input type="text" id="name" park_name="name">
+        <label for="park_name_selector">Park Name</label><br>
+        <select id="park_name_selector"></select>
     </div>
     <div class = "search_field">
-        <label for="state">State</label><br>
-        <input type="text" id="state" park_state="state">
+        <label for="state_selector">State</label><br>
+        <select id="state_selector"></select>
+        <!--<input type="text" id="state" park_state="state">-->
     </div>
     <input id = "search_button" type="submit" value="Search">
     </div>
