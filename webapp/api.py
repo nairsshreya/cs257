@@ -85,7 +85,8 @@ def get_park():
 
 @api.route('/species_search', strict_slashes=False)
 def get_species():
-    return get_state()
+    selectors_arr = [get_park_names(), get_state()]
+    return json.dumps(selectors_arr)
 
 
 @api.route('/dogs/')#, strict_slashes=False)

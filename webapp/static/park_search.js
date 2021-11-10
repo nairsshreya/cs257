@@ -118,7 +118,7 @@ function loadParkSelector() {
         }
 
     })
-        
+
     // Log the error if anything went wrong during the fetch.
     .catch(function(error) {
         console.log(error);

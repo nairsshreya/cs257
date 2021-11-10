@@ -37,7 +37,8 @@ function loadStateSelector() {
 
     // Once you have your list of author dictionaries, use it to build
     // an HTML table displaying the author names and lifespan.
-    .then(function(states) {
+    .then(function(data) {
+        let [parks, states] = data;
         // Add the <option> elements to the <select> element
         let selectorBody = '';
         for (let k = 0; k < states.length; k++) {
@@ -65,7 +66,8 @@ function onStateSelectionChanged() {
 
     .then((response) => response.json())
 
-    .then(function(states) {
+    .then(function(data) {
+        let [parks, states] = data;
         let tableBody = '';
         for (let k = 0; k < states.length; k++) {
             let state = states[k];
