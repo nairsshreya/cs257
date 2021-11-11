@@ -51,7 +51,8 @@ function loadStateSelector() {
     .then(function(data) {
         let [parks, states] = data;
         // Add the <option> elements to the <select> element
-        let selectorBody = '';
+        let selectorBody = '<option value="' + 'selectState' + '">'
+                                + '--' + '</option>\n';
         for (let k = 0; k < states.length; k++) {
             let state = states[k];
             selectorBody += '<option value="' + state['name'] + '">'
@@ -111,7 +112,8 @@ function loadParkSelector() {
     .then(function(data) {
           let [parks, states] = data;
         // Add the <option> elements to the <select> element
-        let selectorBody = '';
+        let selectorBody = '<option value="' + 'selectParkName' + '">'
+                                + '--' + '</option>\n';
         for (let k = 0; k < parks.length; k++) {
             let park = parks[k];
             selectorBody += '<option value="' + park['name'] + '">' + park['name'] + '</option>\n';
@@ -159,7 +161,8 @@ function loadParkCodeSelector() {
     .then(function(data) {
         let [parks, states] = data;
         // Add the <option> elements to the <select> element
-        let selectorBody = '';
+        let selectorBody = '<option value="' + 'selectParkName' + '">'
+                                + '--' + '</option>\n';
         for (let k = 0; k < parks.length; k++) {
             let park = parks[k];
             selectorBody += '<option value="' + park['park_code'] + '">'

@@ -76,6 +76,14 @@ input{
 #search_button{
     background-color: #E5E5E5;
     border-radius: 25px;
+    height: 30px;
+    width: 200px;
+}
+
+#search_button_div{
+    align-self: center;
+    font-weight: normal;
+    text-align: center;
 }
 
 .selector{

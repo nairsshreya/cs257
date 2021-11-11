@@ -45,7 +45,8 @@ function loadStateSelector() {
     .then(function(data) {
         let [parks, states] = data;
         // Add the <option> elements to the <select> element
-        let selectorBody = '';
+        let selectorBody = '<option value="' + 'selectState' + '">'
+                                + '--' + '</option>\n';
         for (let k = 0; k < states.length; k++) {
             let state = states[k];
             selectorBody += '<option value="' + state['id'] + '">'
@@ -108,7 +109,8 @@ function loadParkSelector() {
     .then(function(data) {
           let [parks, states] = data;
         // Add the <option> elements to the <select> element
-        let selectorBody = '';
+        let selectorBody = '<option value="' + 'selectPark' + '">'
+                                + '--' + '</option>\n';
         for (let k = 0; k < parks.length; k++) {
             let park = parks[k];
             selectorBody += '<option value="' + park['name'] + '">' + park['name'] + '</option>\n';
