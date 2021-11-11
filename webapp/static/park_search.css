@@ -10,6 +10,12 @@ body {
  	color: #FFF5EE;
 }
 
+.title_heading{
+    color: #FFFAF0;
+    text-align: center;
+    font-weight: normal;
+    margin-bottom: 0px;
+}
 
 /* Navigation bar settings */
 .navbar_text_disp {
@@ -51,12 +57,6 @@ li a:hover {
 }
 
 /* Navigation bar settings  end */
-
-.title_heading{
-        color: #FFFAF0;
-    text-align: center;
-    font-weight: normal;
-}
 
 /* Boxes for image and text */
 #first, #second{
@@ -122,7 +122,6 @@ li a:hover {
 /*Search bar */
 #search_bar{
     align-self: center;
-    padding-top: 20px;
     font-weight: normal;
     text-align: center;
 }
@@ -145,8 +144,13 @@ input{
 }
 
 #search_button{
-    background-color: #E5E5E5;
+    background-color: #687d60;
     border-radius: 25px;
+    height: 30px;
+    width: 100px;
+    color: #FFF5EE;
+    border-color: #FFF5EE;
+    border-style: solid;
 }
 
 .selector{

@@ -20,19 +20,19 @@
     <div id = "search_bar">    
     <div class = "search_field">
         <label for="name">Scientific/Common Name</label><br>
-        <input type="text" id="name" species_name="name">
+        <input type="text" id="name" species_name="name" value="--">
     </div>
     <div class = "search_field">
         <label for="category">Category</label><br>
-        <input type="text" id="category" species_category="category">
+        <input type="text" id="category" species_category="category" value="--">
     </div>
     <div class = "search_field">
         <label for="order">Order</label><br>
-        <input type="text" id="order" species_order="order">
+        <input type="text" id="order" species_order="order" value="--">
     </div>
     <div class = "search_field">
         <label for="family">Family</label><br>
-        <input type="text" id="family" species_category="family">
+        <input type="text" id="family" species_category="family" value="--">
     </div>
     <div class = "search_field">
         <label for="park_selector">Park</label><br>
@@ -47,7 +47,7 @@
     <div id = "search_button_div">
         <input id = "search_button" type="submit" value="Search">
     </div>
-    <br><br>
+    <br>
     <img src="{{ url_for('static', filename='usa-yosemite.jpg') }}" id = "usa_collage">
     <br>
     <table id = "species_table">
