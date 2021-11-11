@@ -9,6 +9,7 @@ window.onload = initialize;
 function initialize() {
     loadStateSelector();
     loadParkSelector();
+    loadCategorySelector();
 
     let element1 = document.getElementById('state_selector');
     if (element1) {
@@ -17,6 +18,10 @@ function initialize() {
     let element2 = document.getElementById('park_selector');
     if (element2) {
         element2.onchange = onParkSelectionChanged;
+    }
+    let element3 = document.getElementById('category_selector');
+    if (element3) {
+        element3.onchange = onCategorySelectionChanged;
     }
 }
 
@@ -73,7 +78,7 @@ function onStateSelectionChanged() {
     .then((response) => response.json())
 
     .then(function(data) {
-        let [parks, states] = data;
+        let [parks, states, categories] = data;
         let tableBody = '';
         for (let k = 0; k < states.length; k++) {
             let state = states[k];
@@ -107,7 +112,7 @@ function loadParkSelector() {
     // Once you have your list of author dictionaries, use it to build
     // an HTML table displaying the author names and lifespan.
     .then(function(data) {
-          let [parks, states] = data;
+          let [parks, states, categories] = data;
         // Add the <option> elements to the <select> element
         let selectorBody = '<option value="' + 'selectPark' + '">'
                                 + '--' + '</option>\n';
@@ -130,7 +135,55 @@ function loadParkSelector() {
 }
 function onParkSelectionChanged() {
     let state_id = this.value;
-    let url = getAPIBaseURL() + '/park_search' + state_id;
+    let url = getAPIBaseURL() + '/species_search';
+
+    fetch(url, {method: 'get'})
+
+    .then((response) => response.json())
+
+        // // Put the table body we just built inside the table that's already on the page.
+        // let stateTable = document.getElementById('books_table');
+        // if (booksTable) {
+        //     booksTable.innerHTML = tableBody;
+        // }
+}
+function loadCategorySelector() {
+    let url = getAPIBaseURL() + '/species_search';
+
+    // Send the request to the parks API /authors/ endpoint
+    fetch(url, {method: 'get'})
+
+    // When the results come back, transform them from a JSON string into
+    // a Javascript object (in this case, a list of author dictionaries).
+    .then((response) => response.json())
+
+    // Once you have your list of author dictionaries, use it to build
+    // an HTML table displaying the author names and lifespan.
+    .then(function(data) {
+          let [parks, states, categories] = data;
+        // Add the <option> elements to the <select> element
+        let selectorBody = '<option value="' + 'selectCategory' + '">'
+                                + '--' + '</option>\n';
+        for (let k = 0; k < categories.length; k++) {
+            let category = categories[k];
+            selectorBody += '<option value="' + category['name'] + '">' +category['name']+ '</option>\n';
+        }
+
+        let selector = document.getElementById('category_selector');
+        if (selector) {
+            selector.innerHTML = selectorBody;
+        }
+
+    })
+
+    // Log the error if anything went wrong during the fetch.
+    .catch(function(error) {
+        console.log(error);
+    });
+}
+function onCategorySelectionChanged() {
+    let state_id = this.value;
+    let url = getAPIBaseURL() + '/species_search' ;
 
     fetch(url, {method: 'get'})
 
