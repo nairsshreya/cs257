@@ -76,6 +76,22 @@ def get_park_names():
         print(e, file=sys.stderr)
     return park_names
 
+def get_category():
+    query = '''SELECT category
+                       FROM categories ORDER BY category'''
+    categories = []
+    try:
+        connection = get_connection()
+        cursor = connection.cursor()
+        cursor.execute(query, tuple())
+        for row in cursor:
+            category = {'name': row[0]}
+            categories.append(category)
+        cursor.close()
+        connection.close()
+    except Exception as e:
+        print(e, file=sys.stderr)
+    return categories
 
 
 @api.route('/park_search', strict_slashes=False)
@@ -85,11 +101,7 @@ def get_park():
 
 @api.route('/species_search', strict_slashes=False)
 def get_species():
-    selectors_arr = [get_park_names(), get_state()]
+    selectors_arr = [get_park_names(), get_state(), get_category()]
     return json.dumps(selectors_arr)
 
-
-@api.route('/dogs/')#, strict_slashes=False)
-def get_dogs():
-    return json.dumps(dogs)
 
