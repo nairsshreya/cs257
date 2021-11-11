@@ -54,7 +54,6 @@ def get_state():
         connection.close()
     except Exception as e:
         print(e, file=sys.stderr)
-
     return states
 
 
@@ -93,6 +92,22 @@ def get_category():
         print(e, file=sys.stderr)
     return categories
 
+def park_search_state():
+    query = '''SELECT park_name
+                          FROM parks, states WHERE state.id = park.state_id ORDER BY park_name'''
+    categories = []
+    try:
+        connection = get_connection()
+        cursor = connection.cursor()
+        cursor.execute(query, tuple())
+        for row in cursor:
+            category = {'name': row[0]}
+            categories.append(category)
+        cursor.close()
+        connection.close()
+    except Exception as e:
+        print(e, file=sys.stderr)
+    return categories
 
 @api.route('/park_search', strict_slashes=False)
 def get_park():

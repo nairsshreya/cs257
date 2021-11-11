@@ -209,9 +209,11 @@ function onParkCodeSelectionChanged() {
 
 function onSearchButton() {
     let state_id = this.value;
-    let url = getAPIBaseURL() + '/park_search' + state_id;
+    let url = getAPIBaseURL() + '/park_search/searching';
      fetch(url, {method: 'get'})
-     .then((response) => response.json())
+
+         // way to get search filters from the user and then give that to the api
+         .then((response) => response.json())
      .then(function(data) {
         let [parks, states] = data;
         let tableBody = '';
@@ -240,3 +242,5 @@ function onSearchButton() {
         }
     })
 }
+
+// figure out a way to get selected values from the search - use app and api ?
