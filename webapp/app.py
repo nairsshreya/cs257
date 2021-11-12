@@ -33,6 +33,11 @@ def park_search():
 def species_search():
     return flask.render_template('species_search.html')
 
+@app.route('/help')
+def help():
+
+    return flask.render_template('help.html')
+
 if __name__ == '__main__':
     parser = argparse.ArgumentParser('A tiny Flask application, including API')
     parser.add_argument('host', help='the host to run on')

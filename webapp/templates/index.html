@@ -6,11 +6,12 @@
     <title>Home Page</title>
     <link rel="stylesheet" href="{{ url_for('static', filename= 'home.css')}}" type="text/css" />
     <h1 class = "title_heading"> National Park Biodata</h1>
-    <ul>
-        <li><a class="active" href="/">Home</a></li>
-        <li><a href="/about">About</a></li>
-        <li><a href="/park_search">Parks</a></li>
-        <li><a href="/species_search">Species</a></li>
+    <ul class="navbar">
+            <li class="active navbar_text_disp"><a href="/">Home</a></li>
+            <li class="navbar_text_disp"><a href="/about">About</a></li>
+            <li class="navbar_text_disp"><a href="/park_search">Parks</a></li>
+            <li class="navbar_text_disp"><a href="/species_search">Species</a></li>
+            <li class="navbar_text_disp"><a href="/help">Help</a> </li>
     </ul>
 </head>
 
