@@ -113,19 +113,36 @@ def park_search_state():
 
 @api.route('/park_search/', strict_slashes=False)
 def get_park():
-
-    selectors_arr = [get_park_names(), get_state()]
-    code = flask.request.args.get('park_code')
     name = flask.request.args.get('park_name')
     state = flask.request.args.get('state')
+#    if name == 'selectParkName':
+#        name = ''
+#    if state == 'selectState':
+#        state = ''
+    print(name)
+    print(state)
     query = '''SELECT park_code, park_name, state_code, acreage, longitude, latitude
                            FROM parks, states  
-                           WHERE parks.park_code LIKE %s 
-                           AND  parks.park_name LIKE %s 
-                           AND parks.state_id = states.id 
-                           AND parks.state_id LIKE %s 
+                           WHERE parks.park_name LIKE %s 
+                           AND parks.state_code = states.id 
+                           AND parks.state_code LIKE %s 
                            ORDER BY park_name'''
-    return json.dumps(selectors_arr)
+    park_results = []
+    try:
+        connection = get_connection()
+        cursor = connection.cursor()
+        cursor.execute(query, tuple())
+        
+        for row in cursor:
+            park = {'park_code': row[0], 'name': row[1], 'state_code': row[2], 'acreage': row[3], 'longitude': row[4], 'latitude': row[5]}
+            print(row)
+            park_results.append(park)
+        cursor.close()
+        connection.close()
+    except Exception as e:
+        print(e, file=sys.stderr)
+    
+    return json.dumps(park_results)
 
 
 @api.route('/park_search/parks', strict_slashes=False)

@@ -153,16 +153,15 @@ function onParkSelectionChanged() {
 }
 
 function onSearchButton() {
-    let state_id = doc.getElementById('state').value
-    let park_name = doc.getElementById('name').value
+    let state_id = document.getElementById('state_selector').value
+    let park_name = document.getElementById('park_name_selector').value
 
     let url = getAPIBaseURL() + '/park_search'+ '?park_name='+ park_name + '&state=' + state_id;
      fetch(url, {method: 'get'})
 
          // way to get search filters from the user and then give that to the api
          .then((response) => response.json())
-     .then(function(data) {
-        let [parks, states] = data;
+     .then(function(park_results) {
         let tableBody = '';
         tableBody += '<tr>'
                 +'<th>Park Code </th>'
@@ -172,8 +171,8 @@ function onSearchButton() {
                +' <th>Longitude</th>'
                 +'<th>Latitude</th>'
             +'</tr>'
-        for (let k = 0; k < parks.length; k++) {
-            let park = parks[k];
+        for (let k = 0; k < park_results.length; k++) {
+            let park = park_results[k];
             tableBody += '<tr>'
                 +'<td>'+ park['park_code']+'</td>'
                 +'<td>'+ park['name']+'</td>'
