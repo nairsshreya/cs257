@@ -65,8 +65,8 @@ function loadStateSelector() {
                                 + '--' + '</option>\n';
         for (let k = 0; k < states.length; k++) {
             let state = states[k];
-            selectorBody += '<option value="' + state['name'] + '">'
-                                + state['id'] + '</option>\n';
+            selectorBody += '<option value="' + state['id'] + '">'
+                                + state['name'] + '</option>\n';
         }
 
         let selector = document.getElementById('state_selector');
