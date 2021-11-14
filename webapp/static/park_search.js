@@ -126,8 +126,8 @@ function loadParkSelector() {
                                 + '--' + '</option>\n';
         for (let k = 0; k < parks.length; k++) {
             let park = parks[k];
-            disp_string = park['park_code']+' -- '+park['name']
-            selectorBody += '<option value="'+ park['name']+ '">' + disp_string + '</option>\n';
+            // disp_string = park['park_code']+' -- '+park['name']
+            selectorBody += '<option value="'+ park['name']+ '">' + park['name']+ '</option>\n';
         }
 
         let selector = document.getElementById('park_name_selector');
