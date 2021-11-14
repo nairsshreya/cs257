@@ -18,7 +18,6 @@ function initialize() {
 
     loadParkSelector();
     loadStateSelector();
-    loadParkCodeSelector();
     let element1 = document.getElementById('park_name_selector');
     if (element1) {
         element1.onchange = onParkSelectionChanged;
@@ -26,10 +25,6 @@ function initialize() {
     let element2 = document.getElementById('state_selector');
     if (element2) {
         element2.onchange = onStateSelectionChanged;
-    }
-    let element3 = document.getElementById('park_code_selector');
-    if (element3) {
-        element3.onchange = onParkCodeSelectionChanged;
     }
     let element4 = document.getElementById('search_button');
 
@@ -157,70 +152,11 @@ function onParkSelectionChanged() {
         // }
 }
 
-function loadParkCodeSelector() {
-    let url = getAPIBaseURL() + '/park_search/';
-
-    // Send the request to the parks API /authors/ endpoint
-    fetch(url, {method: 'get'})
-
-    // When the results come back, transform them from a JSON string into
-    // a Javascript object (in this case, a list of author dictionaries).
-    .then((response) => response.json())
-
-    // Once you have your list of author dictionaries, use it to build
-    // an HTML table displaying the author names and lifespan.
-    .then(function(data) {
-        let [parks, states] = data;
-        // Add the <option> elements to the <select> element
-        let selectorBody = '<option value="' + 'selectParkName' + '">'
-                                + '--' + '</option>\n';
-        for (let k = 0; k < parks.length; k++) {
-            let park = parks[k];
-            selectorBody += '<option value="' + park['park_code'] + '">'
-                                + park['park_code'] + '</option>\n';
-        }
-
-        let selector = document.getElementById('park_code_selector');
-        if (selector) {
-            selector.innerHTML = selectorBody;
-        }
-    })
-
-    // Log the error if anything went wrong during the fetch.
-    .catch(function(error) {
-        console.log(error);
-    });
-}
-function onParkCodeSelectionChanged() {
-    let state_id = this.value;
-    let url = getAPIBaseURL() + '/park_search/' + state_id;
-
-    fetch(url, {method: 'get'})
-
-    .then((response) => response.json())
-
-    .then(function(data) {
-        let [parks, states] = data;
-        let tableBody = '';
-        for (let k = 0; k < parks.length; k++) {
-            let park = parks[k];
-            tableBody += '<tr>'
-                            + '<td>' + park['code'] + '</td>'
-                            + '<td>' + park['name'] + '</td>'
-                            + '</tr>\n';
-        }
-
-        // // Put the table body we just built inside the table that's already on the page.
-        // let stateTable = document.getElementById('books_table');
-        // if (booksTable) {
-        //     booksTable.innerHTML = tableBody;
-        // }
-    })
-}
-
 function onSearchButton() {
-    let state_id = this.value;
-    let url = getAPIBaseURL() + '/park_search/searching';
+    let state_id = doc.getElementById('state').value
+    let park_name = doc.getElementById('name').value
+
+    let url = getAPIBaseURL() + '/park_search'+ '?park_name='+ park_name + '&state=' + state_id;
      fetch(url, {method: 'get'})
 
          // way to get search filters from the user and then give that to the api

@@ -1,0 +1,9 @@
+REQUEST : /park_search
+
+GET parameters
+	park_name (Optional, default: '--') -- return the park information for the selected national park. 
+	
+
+	state_name (Optional, default: '--') -- return the park(s) information for the selected state.
+
+RESPONSE:
