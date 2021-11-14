@@ -6,7 +6,16 @@
 
 window.onload = initialize;
 
+// For map
+var extraStateInfo = {
+    MN: {population: 5640000, jeffhaslivedthere: true, fillColor: '#2222aa'},
+    CA: {population: 39500000, jeffhaslivedthere: true, fillColor: '#2222aa'},
+    NM: {population: 2100000, jeffhaslivedthere: false, fillColor: '#2222aa'},
+    OH: {population: 0, jeffhaslivedthere: false, fillColor: '#aa2222'}
+};
+
 function initialize() {
+
     loadParkSelector();
     loadStateSelector();
     loadParkCodeSelector();
@@ -23,6 +32,7 @@ function initialize() {
         element3.onchange = onParkCodeSelectionChanged;
     }
     let element4 = document.getElementById('search_button');
+
     element4.onclick = onSearchButton;
 }
 
@@ -37,7 +47,7 @@ function getAPIBaseURL() {
 }
 
 function loadStateSelector() {
-    let url = getAPIBaseURL() + '/park_search';
+    let url = getAPIBaseURL() + '/park_search/states';
 
     // Send the request to the parks API /authors/ endpoint
     fetch(url, {method: 'get'})
@@ -48,8 +58,8 @@ function loadStateSelector() {
 
     // Once you have your list of author dictionaries, use it to build
     // an HTML table displaying the author names and lifespan.
-    .then(function(data) {
-        let [parks, states] = data;
+    .then(function(states) {
+        //let [parks, states] = data;
         // Add the <option> elements to the <select> element
         let selectorBody = '<option value="' + 'selectState' + '">'
                                 + '--' + '</option>\n';
@@ -72,7 +82,7 @@ function loadStateSelector() {
 }
 function onStateSelectionChanged() {
     let state_id = this.value;
-    let url = getAPIBaseURL() + '/park_search' + state_id;
+    let url = getAPIBaseURL() + '/park_search/states' + state_id;
 
     fetch(url, {method: 'get'})
 
@@ -84,8 +94,8 @@ function onStateSelectionChanged() {
         for (let k = 0; k < states.length; k++) {
             let state = states[k];
             tableBody += '<tr>'
-                            + '<td>' + state['id'] + '</td>'
                             + '<td>' + state['name'] + '</td>'
+                            + '<td>' + state['id'] + '</td>'
                             + '</tr>\n';
         }
 
@@ -98,7 +108,7 @@ function onStateSelectionChanged() {
 }
 
 function loadParkSelector() {
-    let url = getAPIBaseURL() + '/park_search';
+    let url = getAPIBaseURL() + '/park_search/parks';
 
     // Send the request to the parks API /authors/ endpoint
     fetch(url, {method: 'get'})
@@ -109,14 +119,15 @@ function loadParkSelector() {
 
     // Once you have your list of author dictionaries, use it to build
     // an HTML table displaying the author names and lifespan.
-    .then(function(data) {
-          let [parks, states] = data;
+    .then(function(parks) {
+          //let [parks, states] = data;
         // Add the <option> elements to the <select> element
         let selectorBody = '<option value="' + 'selectParkName' + '">'
                                 + '--' + '</option>\n';
         for (let k = 0; k < parks.length; k++) {
             let park = parks[k];
-            selectorBody += '<option value="' + park['name'] + '">' + park['name'] + '</option>\n';
+            disp_string = park['park_code']+' -- '+park['name']
+            selectorBody += '<option value="'+ park['name']+ '">' + disp_string + '</option>\n';
         }
 
         let selector = document.getElementById('park_name_selector');
@@ -133,7 +144,7 @@ function loadParkSelector() {
 }
 function onParkSelectionChanged() {
     let state_id = this.value;
-    let url = getAPIBaseURL() + '/park_search' + state_id;
+    let url = getAPIBaseURL() + '/park_search/' + state_id;
 
     fetch(url, {method: 'get'})
 
@@ -147,7 +158,7 @@ function onParkSelectionChanged() {
 }
 
 function loadParkCodeSelector() {
-    let url = getAPIBaseURL() + '/park_search';
+    let url = getAPIBaseURL() + '/park_search/';
 
     // Send the request to the parks API /authors/ endpoint
     fetch(url, {method: 'get'})
@@ -182,7 +193,7 @@ function loadParkCodeSelector() {
 }
 function onParkCodeSelectionChanged() {
     let state_id = this.value;
-    let url = getAPIBaseURL() + '/park_search' + state_id;
+    let url = getAPIBaseURL() + '/park_search/' + state_id;
 
     fetch(url, {method: 'get'})
 
@@ -242,5 +253,9 @@ function onSearchButton() {
         }
     })
 }
+
+
+
+
 
 // figure out a way to get selected values from the search - use app and api ?

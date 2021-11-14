@@ -109,14 +109,46 @@ def park_search_state():
         print(e, file=sys.stderr)
     return categories
 
-@api.route('/park_search', strict_slashes=False)
+
+
+@api.route('/park_search/', strict_slashes=False)
 def get_park():
+
     selectors_arr = [get_park_names(), get_state()]
+    code = flask.request.args.get('park_code')
+    name = flask.request.args.get('park_name')
+    state = flask.request.args.get('state')
+    query = '''SELECT park_code, park_name, state_code, acreage, longitude, latitude
+                           FROM parks, states  
+                           WHERE parks.park_code LIKE %s 
+                           AND  parks.park_name LIKE %s 
+                           AND parks.state_id = states.id 
+                           AND parks.state_id LIKE %s 
+                           ORDER BY park_name'''
     return json.dumps(selectors_arr)
 
-@api.route('/species_search', strict_slashes=False)
+
+@api.route('/park_search/parks', strict_slashes=False)
+def load_parks():
+    return json.dumps(get_park_names())
+
+
+@api.route('/park_search/states', strict_slashes=False)
+def load_states():
+    return json.dumps(get_state())
+
+
+@api.route('/species_search/', strict_slashes=False)
 def get_species():
     selectors_arr = [get_park_names(), get_state(), get_category()]
     return json.dumps(selectors_arr)
+
+
+# @api.route('/species_search/categories', strict_slashes=False)
+# def get_species():
+#     return json.dumps(get_category())
+
+
+
 
 

@@ -19,21 +19,21 @@ def home():
     return flask.render_template('index.html')
 
 
-@app.route('/about')
+@app.route('/about/')
 def about():
     return flask.render_template('about_page.html')
 
 
-@app.route('/park_search')
+@app.route('/park_search/')
 def park_search():
     return flask.render_template('park_search.html')
 
 
-@app.route('/species_search')
+@app.route('/species_search/')
 def species_search():
     return flask.render_template('species_search.html')
 
-@app.route('/help')
+@app.route('/help/')
 def help():
 
     return flask.render_template('help.html')
