@@ -7,3 +7,4 @@ GET parameters
 	state_name (Optional, default: '--') -- return the park(s) information for the selected state.
 
 RESPONSE:
+    a JSON list of dictionaries 
