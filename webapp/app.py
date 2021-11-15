@@ -35,8 +35,8 @@ def species_search():
 
 @app.route('/help/')
 def help():
-
-    return flask.render_template('help.txt')
+    help_text = open('templates/help.txt').read()
+    return flask.Response(help_text, mimetype='text/plain')
 
 if __name__ == '__main__':
     parser = argparse.ArgumentParser('A tiny Flask application, including API')

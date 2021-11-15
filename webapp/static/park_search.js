@@ -175,7 +175,7 @@ function onSearchButton() {
             let park = park_results[k];
             tableBody += '<tr>'
                 +'<td>'+ park['park_code']+'</td>'
-                +'<td>'+ park['name']+'</td>'
+                +'<td><a href="/species_search/">'+ park['name']+'</a></td>'
                 +'<td>'+park['state_code']+'</td>'
                 +'<td>'+park['acreage']+'</td>'
                +' <td>'+park['longitude']+'</td>'

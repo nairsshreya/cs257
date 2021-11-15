@@ -71,29 +71,39 @@ li a:hover {
   -webkit-box-sizing: border-box;
 }
 
-#wrapper {
-    width: 100%;
-    height: 75%;
-    display: flex;
-}
-#first {
+/*#wrapper {*/
+/*    width: 100%;*/
+/*    height: 75%;*/
+/*    display: block;*/
+/*}*/
+#second {
     height:300px;
     border: 1px solid #FFFAF0;
-    float:left;
     width:50%;
     margin: 50px;
     word-wrap: break-word;
     font-weight: normal;
     display: block;
+    float: left;
 
 }
 
-#second {
+#first {
+
     align-content: center;
     border: 1px solid #FFFAF0;
-    float:right;
+    float: right;
     width:50%;
     margin: 50px;
+    display: block;
+}
+
+#parks_table {
+    font-family:Verdana, Geneva, sans-serif;
+    margin-left: auto;
+    margin-right: auto;
+    color: #FFF5EE;
+
 }
 
 
