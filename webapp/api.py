@@ -115,88 +115,35 @@ def park_search_state():
 def get_park():
     name = flask.request.args.get('park_name')
     state = flask.request.args.get('state')
-    if name == 'selectParkName' and state != 'selectState':
-        query = '''SELECT park_code, park_name, state_code, acreage, longitude, 
-                    parks.latitude 
-                    FROM parks, states 
-                    WHERE parks.state_code = states.id 
-                    AND parks.state_code LIKE %s ORDER BY park_name '''
-        park_results = []
-        try:
-            connection = get_connection()
-            cursor = connection.cursor()
-            cursor.execute(query, (state,))
+    if name == 'selectParkName':
+        name = ''
+    if state == 'selectState':
+        state = ''
+    
+    name = '%' + name + '%'
+    state = '%' + state + '%'
+    
+    query = '''SELECT park_code, park_name, state_code, acreage, longitude, latitude
+                               FROM parks, states
+                               WHERE parks.park_name LIKE %s
+                               AND parks.state_code = states.id
+                               AND parks.state_code LIKE %s
+                               ORDER BY park_name'''
+    park_results = []
+    try:
+        connection = get_connection()
+        cursor = connection.cursor()
+        cursor.execute(query, (name, state))
 
-            for row in cursor:
-                park = {'park_code': row[0], 'name': row[1], 'state_code': row[2], 'acreage': row[3],
-                        'longitude': row[4], 'latitude': row[5]}
-                print(row)
-                park_results.append(park)
-            cursor.close()
-            connection.close()
-        except Exception as e:
-            print(e, file=sys.stderr)
-
-    elif name != 'selectParkName' and state == 'selectState':
-        query = '''SELECT park_code, park_name, state_code, acreage, longitude, 
-                    parks.latitude 
-                    FROM parks, states 
-                    WHERE parks.park_name LIKE %s 
-                    AND parks.state_code = states.id ORDER BY park_name '''
-        park_results = []
-        try:
-            connection = get_connection()
-            cursor = connection.cursor()
-            cursor.execute(query, (name,))
-
-            for row in cursor:
-                park = {'park_code': row[0], 'name': row[1], 'state_code': row[2], 'acreage': row[3],
-                        'longitude': row[4], 'latitude': row[5]}
-                print(row)
-                park_results.append(park)
-            cursor.close()
-            connection.close()
-        except Exception as e:
-            print(e, file=sys.stderr)
-    elif name == 'selectParkName' and state == 'selectState' :
-        query = '''SELECT * FROM parks ORDER BY parks.park_name'''
-        park_results = []
-        try:
-            connection = get_connection()
-            cursor = connection.cursor()
-            cursor.execute(query, ())
-            for row in cursor:
-                park = {'park_code': row[0], 'name': row[1], 'state_code': row[2],
-                'acreage': row[3], 'longitude': row[4], 'latitude': row[5]}
-                print(row)
-                park_results.append(park)
-            cursor.close()
-            connection.close()
-        except Exception as e:
-            print(e, file=sys.stderr)
-
-    else :
-        query = '''SELECT park_code, park_name, state_code, acreage, longitude, latitude
-                                   FROM parks, states
-                                   WHERE parks.park_name LIKE %s
-                                   AND parks.state_code = states.id
-                                   AND parks.state_code LIKE %s
-                                   ORDER BY park_name'''
-        park_results = []
-        try:
-            connection = get_connection()
-            cursor = connection.cursor()
-            cursor.execute(query, (name, state))
-
-            for row in cursor:
-                park = {'park_code': row[0], 'name': row[1], 'state_code': row[2],
-                        'acreage': row[3], 'longitude': row[4], 'latitude': row[5]}
-                print(row)
-                park_results.append(park)
-            cursor.close()
-            connection.close()
-        except Exception as e:
-            print(e, file=sys.stderr)
+        for row in cursor:
+            park = {'park_code': row[0], 'name': row[1], 'state_code': row[2],
+                    'acreage': row[3], 'longitude': row[4], 'latitude': row[5]}
+            print(row)
+            park_results.append(park)
+        cursor.close()
+        connection.close()
+    except Exception as e:
+        print(e, file=sys.stderr)
     
     return json.dumps(park_results)
 
