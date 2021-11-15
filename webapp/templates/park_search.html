@@ -27,10 +27,6 @@
     <body>
     <h1 class = "page_header align_center text_color">Park Search</h1>
     <div id = "search_bar">
-<!--    <div class = "search_field">-->
-<!--        <label for="park_code_selector">Park Code</label><br>-->
-<!--        <select class = "selector" id="park_code_selector"></select>-->
-<!--    </div>-->
     <div class = "search_field">
         <label for="park_name_selector">Park Name</label><br>
         <select class = "selector" id="park_name_selector"></select>
@@ -38,42 +34,18 @@
     <div class = "search_field">
         <label for="state_selector">State</label><br>
         <select class = "selector" id="state_selector"></select>
-        <!--<input type="text" id="state" park_state="state">-->
     </div>
     <input id = "search_button" type="submit" value="Search">
     </div>
+    <br>
+    <div id="map-container"></div>
+    <br>
+    <div id="results">
+        <h2 class="align_center text_color">Park Information</h2>
+        <table id="parks_table">
+        </table>
+    </div>
 
-     <div id="wrapper">
-
-        <div id="first">
-             <div id="map-container"></div>
-            <!--<img src= "{{ url_for('static', filename= 'usa-yosemite.jpg')}}" class = "yose_img"
-            title="Yosemite National Park"> -->
-        </div>
-          <div id="second">
-            <h2 class="align_center text_color">Park Information</h2>
-            <table id="parks_table">
-<!--            <tr>-->
-<!--                <th>Park Code </th>-->
-<!--                <th>Park Name</th>-->
-<!--                <th>State</th>-->
-<!--                <th>Acres</th>-->
-<!--                <th>Longitude</th>-->
-<!--                <th>Latitude</th>-->
-<!--            </tr>-->
-            </table>
-<!--            <h2 class="align_center text_color">Park Information</h2>-->
-<!--            <ul>-->
-<!--                <li class="padded_text text_color"> Name : Yosemite National Parks</li> <br>-->
-<!--                <li class="padded_text text_color"> Park ID : YOSE </li> <br>-->
-<!--                <li class="padded_text text_color"> State : California</li><br>-->
-<!--                <li class="padded_text text_color"> Acres : 761266</li><br>-->
-<!--                <li class="padded_text text_color"> Latitude : 37.83 </li><br>-->
-<!--                <li class="padded_text text_color"> Longitude : -119.5 </li><br>-->
-<!--            </ul>-->
-<!--            <div class="species_box"> <a href="/species_search"> Species Information</a> </div>--></div>
-
-     </div>
 
 
 

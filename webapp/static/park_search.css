@@ -59,43 +59,14 @@ li a:hover {
 /* Navigation bar settings  end */
 
 /* Boxes for image and text */
-#first, #second{
-  box-sizing: border-box;
-  -moz-box-sizing: border-box;
-  -webkit-box-sizing: border-box;
-}
-
-#first, #second{
-  box-sizing: border-box;
-  -moz-box-sizing: border-box;
-  -webkit-box-sizing: border-box;
-}
-
-/*#wrapper {*/
-/*    width: 100%;*/
-/*    height: 75%;*/
-/*    display: block;*/
-/*}*/
-#second {
-    height:300px;
+#results {
     border: 1px solid #FFFAF0;
-    width:50%;
-    margin: 50px;
+    width:90%;
     word-wrap: break-word;
     font-weight: normal;
     display: block;
-    float: left;
-
-}
-
-#first {
-
-    align-content: center;
-    border: 1px solid #FFFAF0;
-    float: right;
-    width:50%;
-    margin: 50px;
-    display: block;
+    margin-left: auto;
+    margin-right: auto;
 }
 
 #parks_table {
@@ -103,8 +74,20 @@ li a:hover {
     margin-left: auto;
     margin-right: auto;
     color: #FFF5EE;
-
 }
+
+th, td {
+    padding-left: 20px;
+    padding-right: 20px;
+    word-wrap: break-word;
+    text-align: center;
+    padding-bottom: 15px;
+}
+
+td{
+    padding-bottom: 20px;
+}
+
 
 
 
@@ -188,18 +171,21 @@ h1{
  * https://github.com/markmarkoh/datamaps
  */
 #map-container {
-    position: relative;
-    float: left;
-
+    
+    align-content: center;
+    border: 1px solid #FFFAF0;
+    width:50%;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    
     /* Preserving the container div's aspect ratio (which should be 4:3 for
      * the Datamap US map) uses this slightly bizarre CSS trick, where you make
      * sure the height is 0 and the ratio between width and padding-bottom
      * is your desired aspect ratio. See this pretty good article for details:
      * https://css-tricks.com/aspect-ratio-boxes/
      */
-    height: 0;
-    width: 100%;
-    padding-bottom: 60%;
+    height: 300px;
 
     /* My friend Shaun (Carleton CS '02) is even worse than I am at the details of
      * graphic design. So when he wants to make sure the designers don't preserve
