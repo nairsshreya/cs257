@@ -1,5 +1,5 @@
 '''
-    api.py
+    app.py
     Shreya Nair and Elliot Hanson, 25 April 2016
     Updated 5 November 2021
 
@@ -12,7 +12,7 @@ import psycopg2
 import config
 import sys
 
-
+api = flask.Blueprint('api', __name__)
 
 
 def get_connection():
