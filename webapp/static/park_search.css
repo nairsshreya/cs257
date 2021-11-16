@@ -181,7 +181,9 @@ h1{
      * is your desired aspect ratio. See this pretty good article for details:
      * https://css-tricks.com/aspect-ratio-boxes/
      */
-    height: 300px;
+
+    height: 400px;
+    width: 50%;
 
     /* My friend Shaun (Carleton CS '02) is even worse than I am at the details of
      * graphic design. So when he wants to make sure the designers don't preserve

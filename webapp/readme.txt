@@ -27,4 +27,6 @@ What doesn't work :
 
 - Species Search : 
 	* The searching and results don't work 
-	* Map doesn't work 
+	* Map doesn't work
+
+- Need to clean up our css files and organize them with comments 
