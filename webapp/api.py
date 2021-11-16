@@ -133,7 +133,6 @@ def get_park():
         for row in cursor:
             park = {'park_code': row[0], 'park_name': row[1], 'state_code': row[2],
                     'acreage': row[3], 'longitude': row[4], 'latitude': row[5]}
-            print(row)
             park_results.append(park)
         cursor.close()
         connection.close()

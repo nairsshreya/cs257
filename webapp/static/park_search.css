@@ -165,19 +165,11 @@ h1{
     font-weight: normal;
 }
 
-/*
- * map.css
- * Shreya Nair and Elliot Hanson
- * 11 November 2021
- *
- *
- * Datamaps is Copyright (c) 2012 Mark DiMarco
+/* Datamaps is Copyright (c) 2012 Mark DiMarco
  * https://github.com/markmarkoh/datamaps
  */
-#map-container {
-    
+#map-container {    
     align-content: center;
-    border: 1px solid #FFFAF0;
     width:50%;
     display: block;
     margin-left: auto;
@@ -196,9 +188,7 @@ h1{
      * his color choices, he makes stuff orange to force their hand. I am using
      * orange here both to remind you to change the color, and to make visible the
      * size and aspect ratio of the US map object. */
-    background: orange;
 }
-
 
 #state-summary {
     float: right;
