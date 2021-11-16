@@ -1,10 +1,10 @@
 '''
-    app.py
-    Shreya Nair and Elliot Hanson, 25 April 2016
-    Updated 5 November 2021
+    api.py
+    Shreya Nair and Elliot Hanson, 5th November 2021
+    Updated 15th November 2021
 
-    Tiny Flask API to support a cats and dogs web application
-    that doesn't use a database.
+    Flask API to support a national parks web application that connects to a database and uses user input to
+    format queries and display results.
 '''
 import flask
 import json
@@ -57,8 +57,8 @@ def get_park_info():
         cursor = connection.cursor()
         cursor.execute(query, tuple())
         for row in cursor:
-            park_info = {'park_code': row[0], 'park_name':row[1], 'state_code':row[2], 'acreage':row[3], 'longitude':row[4],
-                         'latitude':row[5]}
+            park_info = {'park_code': row[0], 'park_name': row[1], 'state_code': row[2], 'acreage': row[3], 'longitude': row[4],
+                         'latitude': row[5]}
             park_names.append(park_info)
         cursor.close()
         connection.close()
@@ -86,28 +86,43 @@ def get_category():
     return categories
 
 
-def park_search_state():
+# TODO Not sure what this is but might break code ? hopefully not will remove before final turn in.
+# def park_search_state():
+#
+#     query = '''SELECT park_name
+#                           FROM parks, states WHERE state.id = park.state_id ORDER BY park_name'''
+#     categories = []
+#     try:
+#         connection = get_connection()
+#         cursor = connection.cursor()
+#         cursor.execute(query, tuple())
+#         for row in cursor:
+#             category = {'name': row[0]}
+#             categories.append(category)
+#         cursor.close()
+#         connection.close()
+#     except Exception as e:
+#         print(e, file=sys.stderr)
+#     return categories
 
-    query = '''SELECT park_name
-                          FROM parks, states WHERE state.id = park.state_id ORDER BY park_name'''
-    categories = []
-    try:
-        connection = get_connection()
-        cursor = connection.cursor()
-        cursor.execute(query, tuple())
-        for row in cursor:
-            category = {'name': row[0]}
-            categories.append(category)
-        cursor.close()
-        connection.close()
-    except Exception as e:
-        print(e, file=sys.stderr)
-    return categories
 
+@api.route('/park_search/parks', strict_slashes=False)
+def load_parks():
+    ''' Loads the information for our parks selector and returns data to the javascript file. '''
+    return json.dumps(get_park_info())
+
+
+@api.route('/park_search/states', strict_slashes=False)
+def load_states():
+    ''' Loads the information for our states selector and returns data to the javascript file. '''
+    return json.dumps(get_state())
 
 
 @api.route('/park_search/', strict_slashes=False)
 def get_park():
+    '''Queries the database for the park(s) information based on selected values from the user.
+        Handles exceptions when park names and/or state names are not selected.
+    '''
     name = flask.request.args.get('park_name')
     state = flask.request.args.get('state')
     if name == 'selectParkName' or name is None :
@@ -143,18 +158,12 @@ def get_park():
     return json.dumps(park_results)
 
 
-@api.route('/park_search/parks', strict_slashes=False)
-def load_parks():
-    return json.dumps(get_park_info())
 
-
-@api.route('/park_search/states', strict_slashes=False)
-def load_states():
-    return json.dumps(get_state())
-
-
+# Code for Species Page
 @api.route('/species_search/', strict_slashes=False)
 def get_species():
+    ''' Loads the information for our selectors for species page and returns data to the javascript file.
+        NEEDS WORK, UPDATES TO STRUCTURE but can run so page will load but not return results yet.'''
     selectors_arr = [get_park_info(), get_state(), get_category()]
     return json.dumps(selectors_arr)
 
