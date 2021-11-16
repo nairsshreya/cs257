@@ -45,7 +45,7 @@ def get_state():
     return states
 
 
-def get_park_names():
+def get_park_info():
 
     '''  Queries the database for the names of all 56 National Parks for our drop down selector '''
 
@@ -57,7 +57,7 @@ def get_park_names():
         cursor = connection.cursor()
         cursor.execute(query, tuple())
         for row in cursor:
-            park_info = {'park_code': row[0], 'name':row[1], 'state_code':row[2], 'acreage':row[3], 'longitude':row[4],
+            park_info = {'park_code': row[0], 'park_name':row[1], 'state_code':row[2], 'acreage':row[3], 'longitude':row[4],
                          'latitude':row[5]}
             park_names.append(park_info)
         cursor.close()
@@ -110,9 +110,9 @@ def park_search_state():
 def get_park():
     name = flask.request.args.get('park_name')
     state = flask.request.args.get('state')
-    if name == 'selectParkName':
+    if name == 'selectParkName' or name is None :
         name = ''
-    if state == 'selectState':
+    if state == 'selectState' or state is None:
         state = ''
     
     name = '%' + name + '%'
@@ -145,7 +145,7 @@ def get_park():
 
 @api.route('/park_search/parks', strict_slashes=False)
 def load_parks():
-    return json.dumps(get_park_names())
+    return json.dumps(get_park_info())
 
 
 @api.route('/park_search/states', strict_slashes=False)
@@ -155,7 +155,7 @@ def load_states():
 
 @api.route('/species_search/', strict_slashes=False)
 def get_species():
-    selectors_arr = [get_park_names(), get_state(), get_category()]
+    selectors_arr = [get_park_info(), get_state(), get_category()]
     return json.dumps(selectors_arr)
 
 

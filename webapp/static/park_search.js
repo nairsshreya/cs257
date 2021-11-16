@@ -18,6 +18,7 @@ function initialize() {
 
     loadParkSelector();
     loadStateSelector();
+    initializeMap();
     let element1 = document.getElementById('park_name_selector');
     if (element1) {
         element1.onchange = onParkSelectionChanged;
@@ -29,6 +30,29 @@ function initialize() {
     let element4 = document.getElementById('search_button');
 
     element4.onclick = onSearchButton;
+}
+
+function initializeMap() {
+    var map = new Datamap({ element: document.getElementById('map-container'), // where in the HTML to put the map
+                            scope: 'usa', // which map?
+                            projection: 'equirectangular', // what map projection? 'mercator' is also an option
+                            done: onMapDone, // once the map is loaded, call this function
+                            data: extraStateInfo, // here's some data that will be used by the popup template
+                            fills: { defaultFill: '#999999' },
+                            geographyConfig: {
+                                //popupOnHover: false, // You can disable the hover popup
+                                //highlightOnHover: false, // You can disable the color change on hover
+                                popupTemplate: hoverPopupTemplate, // call this to obtain the HTML for the hover popup
+                                borderColor: '#eeeeee', // state/country border color
+                                highlightFillColor: '#bbbbbb', // color when you hover on a state/country
+                                highlightBorderColor: '#000000', // border color when you hover on a state/country
+                            }
+                          });
+}
+// This gets called once the map is drawn, so you can set various attributes like
+// state/country click-handlers, etc.
+function onMapDone(dataMap) {
+    dataMap.svg.selectAll('.datamaps-subunit').on('click', onStateClick);
 }
 
 // Returns the base URL of the API, onto which endpoint

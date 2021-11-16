@@ -17,6 +17,102 @@ RESPONSE:
             park_code -- (TEXT) the 4-letter code associated with each National Park.
             park_name -- (TEXT) the name of the National Park.
             state_code -- (TEXT) the 2-letter code for each state.
+            acreage -- (TEXT) the acreage of each park (size).
+            longitude -- (TEXT) the longitude for the park's location.
+            latitude -- (TEXT) the latitude for the park's location.
+
+EXAMPLE(S):
+    /park_search?park_name=Yosemite%20National%20Park%20&state=CA
+
+       [{'park_code':'YOSE', 'park_name':'Yosemite National Park', state_code:'CA', acreage:'761266', longitude:'37.83', latitude:'-119.5'}]
+
+   /park_search?park_name='selectParkName'&state=TX
+
+        [{'park_code':'BIBE', 'park_name':'Big Bend National Park', state_code:'TX', acreage:'801163', longitude:'29.25', latitude:'-103.25'},
+        {'park_code':'GUMO', 'park_name':'Guadalupe Mountains National Park', state_code:'TX', acreage:'86416', longitude:'31.92', latitude:'-104.87'}]
+
+
+
+
+REQUEST : /park_search/states
+
+
+RESPONSE:
+    a JSON list of dictionaries, each of which represents one state, sorted alphabetically by state name. This response
+    fills in the options in the state selector. Each dictionary in this list will have the following fields:
+
+            state_id -- (TEXT) the 2-letter code for each state.
+            name -- (TEXT) the name for each state.
+
+
+
+
+
+REQUEST : /park_search/parks
+
+
+RESPONSE:
+    a JSON list of dictionaries, each of which represents one national park, sorted alphabetically by park name. This response
+    fills in the options in the park selector. Each dictionary in this list will have the following fields:
+
+            park_code -- (TEXT) the 4-letter code associated with each National Park.
+            park_name -- (TEXT) the name of the National Park.
+            state_code -- (TEXT) the 2-letter code for each state.
+            acreage -- (TEXT) the acreage of each park (size).
+            longitude -- (TEXT) the longitude for the park's location.
+            latitude -- (TEXT) the latitude for the park's location.
+
+REQUEST: /species_search/
+
+
+GET parameters
+
+
+    name (Optional, default: '--') -- return information only on species whose scientific or common name
+                                           contains the search string.
+	                                    * clarification : default value of '--' shows up in the input bar, however for a
+	                                        default value, 'name' is used in the javascript and api.
+
+    category (Optional, default: '--') -- return information only on species whose order match the selected
+                                            category.
+	                                    * clarification : default value of '--' shows up in the input bar, however for
+	                                    a default value, 'order' is used in the javascript and api.
+
+    order (Optional, default: '--') -- return information only on species whose order contains the search string.
+	                                    * clarification : default value of '--' shows up in the input bar, however for a
+	                                    default value, 'name' is used in the javascript and api.
+
+    family (Optional, default: '--') -- return information only on species whose family contains the search string.
+	                                    * clarification : default value of '--' shows up in the input bar, however for a
+	                                    default value, 'family' is used in the javascript and api
+
+    park_name (Optional, default: '--') -- return information only on species who are present in the selected national park.
+                                           * clarification : default value of '--' shows up in the selector bar,
+                                           however for a default value, 'selectParkName' is used in the javascript and api.
+
+    state_name (Optional, default: '--') -- return information only on species who are present in parks in the selected state.
+	                                    * clarification : default value of '--' shows up on selector bar, however for
+	                                    a default value, 'selectState' is used in the javascript and api.
+RESPONSE:
+    a JSON list of dictionaries, each of which represents one species in a specific park, sorted alphabetically by
+    species' scientific name. Each dictionary in this list will have the following fields :
+
+            id -- (TEXT) the 4-letter plus 4-number code associated with each species within a specific park.
+            park_code -- (TEXT) the 4-letter code associated with a National Park.
+            category -- (TEXT) the biological category that a species is a member of.
+            order -- (TEXT) the biological order that a species is a member of.
+            family -- (TEXT) the biological family that a species is a member of.
+            scientific_name -- (TEXT) the scientific name associated with the species.
+            common_names -- (TEXT) the common names associated with the species.
+            nativeness -- (TEXT) the status of the nativity of the species in the specific park.
+
+EXAMPLE(S):
+
+    /park_search?scicom_name=&state=CA
+
+
+
+
 
 
 
