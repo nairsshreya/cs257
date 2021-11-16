@@ -1,10 +1,10 @@
 #!/usr/bin/env python3
 '''
-    Jeff Ondich
-    Updated: 5 November 2021
+    Authors : Elliot Hanson and Shreya Nair, 5th November 2021
+    Updated: 15th November 2021
 
-    A tiny Flask web application, including API and Javascript,
-    to be used as a template for setting up your web app assignment.
+    A Flask web application, that links our api and html files together. This is run with host and port name to display
+    website.
 '''
 import argparse
 import flask

@@ -1,6 +1,7 @@
 Webapp Assignment for CS 257 Fall 2021
 Authors : Elliot Hanson and Shreya Nair, 10th Novemeber, 2021
 
+Data : This data contains information about 56 National Parks and 10,000+ species in these parks.  
 
 What works : 
 
