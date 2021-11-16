@@ -122,7 +122,7 @@ function loadParkSelector() {
         for (let k = 0; k < parks.length; k++) {
             let park = parks[k];
             // disp_string = park['park_code']+' -- '+park['name']
-            selectorBody += '<option value="'+ park['name']+ '">' + park['name']+ '</option>\n';
+            selectorBody += '<option value="'+ park['park_name']+ '">' + park['park_name']+ '</option>\n';
         }
 
         let selector = document.getElementById('park_name_selector');
@@ -162,29 +162,33 @@ function onSearchButton() {
          // way to get search filters from the user and then give that to the api
          .then((response) => response.json())
      .then(function(park_results) {
-        let tableBody = '';
-        tableBody += '<tr>'
-                +'<th>Park Code </th>'
-                +'<th>Park Name</th>'
-                +'<th>State</th>'
-                +'<th>Acres</th>'
-               +' <th>Longitude</th>'
-                +'<th>Latitude</th>'
-            +'</tr>'
-        for (let k = 0; k < park_results.length; k++) {
-            let park = park_results[k];
-            tableBody += '<tr>'
-                +'<td>'+ park['park_code']+'</td>'
-                +'<td><a href="/species_search/">'+ park['name']+'</a></td>'
-                +'<td>'+park['state_code']+'</td>'
-                +'<td>'+park['acreage']+'</td>'
-               +' <td>'+park['longitude']+'</td>'
-                +'<td>'+park['latitude']+'</td>'
-            +'</tr>'
-        }
-     let parksTable = document.getElementById('parks_table');
+         let tableBody = '';
+         if (park_results.length == 0) {
+             tableBody = '<tr> No results came up for your search. Please try again </tr>'
+         } else {
+         tableBody += '<tr>'
+             + '<th>Park Code </th>'
+             + '<th>Park Name</th>'
+             + '<th>State</th>'
+             + '<th>Acres</th>'
+             + ' <th>Longitude</th>'
+             + '<th>Latitude</th>'
+             + '</tr>'
+         for (let k = 0; k < park_results.length; k++) {
+             let park = park_results[k];
+             tableBody += '<tr>'
+                 + '<td>' + park['park_code'] + '</td>'
+                 + '<td><a href="/species_search/">' + park['park_name'] + '</a></td>'
+                 + '<td>' + park['state_code'] + '</td>'
+                 + '<td>' + park['acreage'] + '</td>'
+                 + ' <td>' + park['longitude'] + '</td>'
+                 + '<td>' + park['latitude'] + '</td>'
+                 + '</tr>'
+         }
+         }
+        let parksTable = document.getElementById('parks_table');
         if (parksTable) {
-            parksTable.innerHTML = tableBody;
+        parksTable.innerHTML = tableBody;
         }
     })
 }

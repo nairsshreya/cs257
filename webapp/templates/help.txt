@@ -1,10 +1,23 @@
 REQUEST : /park_search
 
 GET parameters
-	park_name (Optional, default: '--') -- return the park information for the selected national park. 
-	
+
+	park_name (Optional, default: '--') -- return the park information for the selected national park.
+	                                    * clarification : default value of '--' shows up on selector bar, however for
+	                                    a default value, 'selectParkName' is used in the javascript and api.
 
 	state_name (Optional, default: '--') -- return the park(s) information for the selected state.
+	                                    * clarification : default value of '--' shows up on selector bar, however for
+	                                    a default value, 'selectState' is used in the javascript and api.
 
 RESPONSE:
-    a JSON list of dictionaries 
+    a JSON list of dictionaries, each of which represents one national park, sorted alphabetically by Park Name. Each
+    dictionary in this list will have the following fields :
+
+            park_code -- (TEXT) the 4-letter code associated with each National Park.
+            park_name -- (TEXT) the name of the National Park.
+            state_code -- (TEXT) the 2-letter code for each state.
+
+
+
+

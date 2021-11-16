@@ -1,5 +1,5 @@
 '''
-    app.py
+    api.py
     Shreya Nair and Elliot Hanson, 25 April 2016
     Updated 5 November 2021
 
@@ -12,21 +12,7 @@ import psycopg2
 import config
 import sys
 
-api = flask.Blueprint('api', __name__)
 
-# # Of course, your API will be extracting data from your postgresql database.
-# # To keep the structure of this tiny API crystal-clear, I'm just hard-coding data here.
-cats = [{'name':'Emma', 'birth_year':1983, 'death_year':2003, 'description':'the boss'},
-        {'name':'Aleph', 'birth_year':1984, 'death_year':2002, 'description':'sweet and cranky'},
-        {'name':'Curby', 'birth_year':1999, 'death_year':2000, 'description':'gone too soon'},
-        {'name':'Digby', 'birth_year':2000, 'death_year':2018, 'description':'the epitome of Cat'},
-        {'name':'Max', 'birth_year':1998, 'death_year':2009, 'description':'seismic'},
-        {'name':'Scout', 'birth_year':2007, 'death_year':None, 'description':'accident-prone'}]
-
-dogs = [{'name':'Ruby', 'birth_year':2003, 'death_year':2016, 'description':'a very good dog'},
-        {'name':'Maisie', 'birth_year':2017, 'death_year':None, 'description':'a very good dog'}]
-#
-# states = [{'id':'CA', 'name':'California'}]
 
 
 def get_connection():
@@ -39,6 +25,8 @@ def get_connection():
 
 
 def get_state():
+
+    '''  Queries the database for the names and id of all 50 American states for our drop down selector '''
 
     query = '''SELECT id, name
                    FROM states ORDER BY id'''
@@ -58,6 +46,9 @@ def get_state():
 
 
 def get_park_names():
+
+    '''  Queries the database for the names of all 56 National Parks for our drop down selector '''
+
     query = '''SELECT park_code, park_name, state_code, acreage, longitude, latitude
                        FROM parks ORDER BY park_name'''
     park_names = []
@@ -75,7 +66,9 @@ def get_park_names():
         print(e, file=sys.stderr)
     return park_names
 
+
 def get_category():
+    '''  Queries the database for the names of 14 categories of species for our drop down selector '''
     query = '''SELECT category
                        FROM categories ORDER BY category'''
     categories = []
@@ -92,7 +85,9 @@ def get_category():
         print(e, file=sys.stderr)
     return categories
 
+
 def park_search_state():
+
     query = '''SELECT park_name
                           FROM parks, states WHERE state.id = park.state_id ORDER BY park_name'''
     categories = []
@@ -136,7 +131,7 @@ def get_park():
         cursor.execute(query, (name, state))
 
         for row in cursor:
-            park = {'park_code': row[0], 'name': row[1], 'state_code': row[2],
+            park = {'park_code': row[0], 'park_name': row[1], 'state_code': row[2],
                     'acreage': row[3], 'longitude': row[4], 'latitude': row[5]}
             print(row)
             park_results.append(park)
