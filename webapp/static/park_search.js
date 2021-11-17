@@ -104,7 +104,7 @@ function loadStateSelector() {
 }
 function onStateSelectionChanged() {
     let state_id = this.value;
-    let url = getAPIBaseURL() + '/park_search/states' + state_id;
+    let url = getAPIBaseURL() + '/park_search?states=' + state_id;
 
     fetch(url, {method: 'get'})
 
@@ -160,18 +160,25 @@ function loadParkSelector() {
     });
 }
 function onParkSelectionChanged() {
-    let state_id = this.value;
-    let url = getAPIBaseURL() + '/park_search/' + state_id;
+    //let state_id = this.value;
+    let park_name = this.value;
+    let url = getAPIBaseURL() + '/park_search?park_name=' + park_name;
 
     fetch(url, {method: 'get'})
 
     .then((response) => response.json())
 
-        // // Put the table body we just built inside the table that's already on the page.
-        // let stateTable = document.getElementById('books_table');
-        // if (booksTable) {
-        //     booksTable.innerHTML = tableBody;
-        // }
+    // WE WERE TRYING SOMETHING
+        // .then(function (park_results){
+        //     let park = park_results[0];
+        //     let selectorBody = '<option' + park['state_code']+'>'+ park['park_name']+ '</option>\n';
+        //     let selector = document.getElementById('state_selector');
+        //     if (selector) {
+        //         selector.innerHTML = selectorBody;
+    //     //     }
+    // })
+
+
 }
 
 function onSearchButton() {

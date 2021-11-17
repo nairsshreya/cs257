@@ -202,3 +202,7 @@ h1{
     border: 1px black solid;
     padding: 5px;
 }
+
+ body {
+    padding-bottom: 50px;
+}
