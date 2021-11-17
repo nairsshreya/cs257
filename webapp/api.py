@@ -164,6 +164,7 @@ def get_species():
         NEEDS WORK, UPDATES TO STRUCTURE but can run so page will load but not return results yet.'''
     name = flask.request.args.get('park')
     state = flask.request.args.get('state')
+    category = flask.request.args.get('category')
 
 
 
