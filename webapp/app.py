@@ -33,10 +33,7 @@ def park_search():
 def species_search():
     return flask.render_template('species_search.html')
 
-@app.route('/help/')
-def help():
-    help_text = open('templates/help.txt').read()
-    return flask.Response(help_text, mimetype='text/plain')
+
 
 if __name__ == '__main__':
     parser = argparse.ArgumentParser('A tiny Flask application, including API')

@@ -166,6 +166,11 @@ def get_species():
     selectors_arr = [get_park_info(), get_state(), get_category()]
     return json.dumps(selectors_arr)
 
+@api.route('/help/')
+def help():
+    help_text = open('templates/help.txt').read()
+    return flask.Response(help_text, mimetype='text/plain')
+
 
 # @api.route('/species_search/categories', strict_slashes=False)
 # def get_species():
