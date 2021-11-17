@@ -47,8 +47,7 @@ function loadStateSelector() {
 
     // Once you have your list of author dictionaries, use it to build
     // an HTML table displaying the author names and lifespan.
-    .then(function(data) {
-        let [parks, states] = data;
+    .then(function(states) {
         // Add the <option> elements to the <select> element
         let selectorBody = '<option value="' + 'selectState' + '">'
                                 + '--' + '</option>\n';
@@ -77,8 +76,7 @@ function onStateSelectionChanged() {
 
     .then((response) => response.json())
 
-    .then(function(data) {
-        let [parks, states, categories] = data;
+    .then(function(states) {
         let tableBody = '';
         for (let k = 0; k < states.length; k++) {
             let state = states[k];
@@ -111,8 +109,8 @@ function loadParkSelector() {
 
     // Once you have your list of author dictionaries, use it to build
     // an HTML table displaying the author names and lifespan.
-    .then(function(data) {
-          let [parks, states, categories] = data;
+    .then(function(parks) {
+
         // Add the <option> elements to the <select> element
         let selectorBody = '<option value="' + 'selectPark' + '">'
                                 + '--' + '</option>\n';
@@ -159,8 +157,8 @@ function loadCategorySelector() {
 
     // Once you have your list of author dictionaries, use it to build
     // an HTML table displaying the author names and lifespan.
-    .then(function(data) {
-          let [parks, states, categories] = data;
+    .then(function(categories) {
+
         // Add the <option> elements to the <select> element
         let selectorBody = '<option value="' + 'selectCategory' + '">'
                                 + '--' + '</option>\n';

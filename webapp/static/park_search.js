@@ -7,12 +7,13 @@
 window.onload = initialize;
 
 // For map
-//var extraStateInfo = {
-//    MN: {population: 5640000, jeffhaslivedthere: true, fillColor: '#2222aa'},
-//    CA: {population: 39500000, jeffhaslivedthere: true, fillColor: '#2222aa'},
-//    NM: {population: 2100000, jeffhaslivedthere: false, fillColor: '#2222aa'},
-//    OH: {population: 0, jeffhaslivedthere: false, fillColor: '#aa2222'}
-//};
+var extraStateInfo = {
+   MN: {population: 5640000, jeffhaslivedthere: true, fillColor: '#2222aa'},
+   CA: {population: 39500000, jeffhaslivedthere: true, fillColor: '#2222aa'},
+   NM: {population: 2100000, jeffhaslivedthere: false, fillColor: '#2222aa'},
+   OH: {population: 0, jeffhaslivedthere: false, fillColor: '#aa2222'}
+};
+
 
 function initialize() {
 
@@ -185,6 +186,8 @@ function onSearchButton() {
     let state_id = document.getElementById('state_selector').value
     let park_name = document.getElementById('park_name_selector').value
 
+    extraStateInfo
+    //initializeMap()
     let url = getAPIBaseURL() + '/park_search'+ '?park_name='+ park_name + '&state=' + state_id;
      fetch(url, {method: 'get'})
 
