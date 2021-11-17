@@ -23,6 +23,8 @@ function initialize() {
     if (element3) {
         element3.onchange = onCategorySelectionChanged;
     }
+    let element4 = document.getElementById('search_button');
+    element4.onclick = onSearchButton;
 }
 
 // Returns the base URL of the API, onto which endpoint
@@ -36,7 +38,7 @@ function getAPIBaseURL() {
 }
 
 function loadStateSelector() {
-    let url = getAPIBaseURL() + '/park_search';
+    let url = getAPIBaseURL() + '/species_search/states';
 
     // Send the request to the parks API /authors/ endpoint
     fetch(url, {method: 'get'})
@@ -54,7 +56,7 @@ function loadStateSelector() {
         for (let k = 0; k < states.length; k++) {
             let state = states[k];
             selectorBody += '<option value="' + state['id'] + '">'
-                                + state['id'] + '</option>\n';
+                                + state['name'] + '</option>\n';
         }
 
         let selector = document.getElementById('state_selector');
@@ -68,37 +70,30 @@ function loadStateSelector() {
         console.log(error);
     });
 }
+
 function onStateSelectionChanged() {
     let state_id = this.value;
-    let url = getAPIBaseURL() + '/park_search' + state_id;
+    let url = getAPIBaseURL() + '/park_search?states=' + state_id;
 
     fetch(url, {method: 'get'})
 
     .then((response) => response.json())
 
-    .then(function(states) {
+    .then(function(data) {
+        let [parks, states] = data;
         let tableBody = '';
         for (let k = 0; k < states.length; k++) {
             let state = states[k];
             tableBody += '<tr>'
-                            + '<td>' + state['id'] + '</td>'
                             + '<td>' + state['name'] + '</td>'
+                            + '<td>' + state['id'] + '</td>'
                             + '</tr>\n';
         }
 
-        // // Put the table body we just built inside the table that's already on the page.
-        // let stateTable = document.getElementById('books_table');
-        // if (booksTable) {
-        //     booksTable.innerHTML = tableBody;
-        // }
     })
-
-    .catch(function(error) {
-        console.log(error);
-    });
 }
 function loadParkSelector() {
-    let url = getAPIBaseURL() + '/species_search';
+    let url = getAPIBaseURL() + '/species_search/parks';
 
     // Send the request to the parks API /authors/ endpoint
     fetch(url, {method: 'get'})
@@ -146,7 +141,7 @@ function onParkSelectionChanged() {
         // }
 }
 function loadCategorySelector() {
-    let url = getAPIBaseURL() + '/species_search';
+    let url = getAPIBaseURL() + '/species_search/categories';
 
     // Send the request to the parks API /authors/ endpoint
     fetch(url, {method: 'get'})
@@ -192,4 +187,8 @@ function onCategorySelectionChanged() {
         // if (booksTable) {
         //     booksTable.innerHTML = tableBody;
         // }
+}
+
+function onSearchButton() {
+
 }

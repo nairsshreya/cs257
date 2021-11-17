@@ -157,14 +157,30 @@ def get_park():
     return json.dumps(park_results)
 
 
-
 # Code for Species Page
 @api.route('/species_search/', strict_slashes=False)
 def get_species():
     ''' Loads the information for our selectors for species page and returns data to the javascript file.
         NEEDS WORK, UPDATES TO STRUCTURE but can run so page will load but not return results yet.'''
-    selectors_arr = [get_park_info(), get_state(), get_category()]
-    return json.dumps(selectors_arr)
+    name = flask.request.args.get('park')
+    state = flask.request.args.get('state')
+
+
+
+@api.route('/species_search/categories', strict_slashes=False)
+def load_categories():
+    return json.dumps(get_category())
+
+
+@api.route('/species_search/states', strict_slashes=False)
+def load_states_species():
+    return json.dumps(get_state())
+
+
+@api.route('/species_search/parks', strict_slashes=False)
+def load_parks_species():
+    return json.dumps(get_park_info())
+
 
 @api.route('/help/')
 def help():
@@ -172,9 +188,7 @@ def help():
     return flask.Response(help_text, mimetype='text/plain')
 
 
-# @api.route('/species_search/categories', strict_slashes=False)
-# def get_species():
-#     return json.dumps(get_category())
+
 
 
 
