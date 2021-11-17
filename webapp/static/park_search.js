@@ -8,12 +8,10 @@ window.onload = initialize;
 
 // For map
 var extraStateInfo = {
-   MN: {population: 5640000, jeffhaslivedthere: true, fillColor: '#2222aa'},
-   CA: {population: 39500000, jeffhaslivedthere: true, fillColor: '#2222aa'},
-   NM: {population: 2100000, jeffhaslivedthere: false, fillColor: '#2222aa'},
-   OH: {population: 0, jeffhaslivedthere: false, fillColor: '#aa2222'}
+   
 };
 
+var map = null;
 
 function initialize() {
 
@@ -34,11 +32,11 @@ function initialize() {
 }
 
 function initializeMap() {
-    var map = new Datamap({ element: document.getElementById('map-container'), // where in the HTML to put the map
+     map = new Datamap({ element: document.getElementById('map-container'), // where in the HTML to put the map
                             scope: 'usa', // which map?
                             projection: 'equirectangular', // what map projection? 'mercator' is also an option
                             done: onMapDone, // once the map is loaded, call this function
-                            //data: extraStateInfo, // here's some data that will be used by the popup template
+                            data: extraStateInfo, // here's some data that will be used by the popup template
                             fills: { defaultFill: '#999999' },
                             geographyConfig: {
                                 popupOnHover: false, // You can disable the hover popup
@@ -186,8 +184,6 @@ function onSearchButton() {
     let state_id = document.getElementById('state_selector').value
     let park_name = document.getElementById('park_name_selector').value
 
-    extraStateInfo
-    //initializeMap()
     let url = getAPIBaseURL() + '/park_search'+ '?park_name='+ park_name + '&state=' + state_id;
      fetch(url, {method: 'get'})
 
@@ -217,6 +213,8 @@ function onSearchButton() {
                  + '<td>' + park['latitude'] + '</td>'
                  + '</tr>'
          }
+            extraStateInfo = {IL : {population: 39500000, jeffhaslivedthere: true, fillColor: '#2222aa'}}
+            map.updateChoropleth({IL: 'green'}, {reset: true})
          }
         let parksTable = document.getElementById('parks_table');
         if (parksTable) {
