@@ -162,9 +162,87 @@ def get_park():
 def get_species():
     ''' Loads the information for our selectors for species page and returns data to the javascript file.
         NEEDS WORK, UPDATES TO STRUCTURE but can run so page will load but not return results yet.'''
-    name = flask.request.args.get('park')
-    state = flask.request.args.get('state')
+    
+    species_name = flask.request.args.get('name')
+    if species_name == 'species_name' or species_name is None:
+        species_name = ''
+    species_name = '%' + species_name + '%'
+    
     category = flask.request.args.get('category')
+    if category == 'category' or category is None:
+        category = ''
+    category = '%' + category + '%'
+    
+    order = flask.request.args.get('order')
+    if order == 'order' or order is None:
+        order = ''
+    order = '%' + order + '%'
+        
+    family = flask.request.args.get('family')
+    if family == 'family' or family is None:
+        family = ''
+    family = '%' + family + '%'
+        
+    park_name = flask.request.args.get('park')
+    if park_name == 'selectParkName' or park_name is None :
+        park_name = ''  
+    park_name = '%' + park_name + '%'
+        
+    state = flask.request.args.get('state')
+    if state == 'selectState' or state is None:
+        state = ''
+    state = '%' + state + '%'
+    
+    query = '''SELECT species.common_names, species.scientific_name, categories.category, orders.order, 
+                    families.family, species.nativeness, parks.park_name, states.id
+                    FROM species, categories, orders, families, states, parks 
+                    WHERE species.common_names LIKE %s
+                    OR species.scientific_name LIKE %s
+                    AND categories.category LIKE %s
+                    AND orders.order LIKE %s
+                    AND families.family LIKE %s
+                    AND parks.park_name LIKE %s
+                    AND parks.state_code LIKE %s
+                    AND species.park_code = park.park_code
+                    AND parks.state_code = states.id
+                    AND species.category_id = category.id
+                    AND species.order_id = orders.id
+                    AND species.family_id = family.id
+                    ORDER BY species.scientific_name'''
+    
+    park_results = []
+    try:
+        connection = get_connection()
+        cursor = connection.cursor()
+        cursor.execute(query, (species_name, species_name, category, order, family, park_name, state))
+
+        for row in cursor:
+            park = {'park_code': row[0], 'park_name': row[1], 'state_code': row[2],
+                    'acreage': row[3], 'longitude': row[4], 'latitude': row[5]}
+            park_results.append(park)
+        cursor.close()
+        connection.close()
+    except Exception as e:
+        print(e, file=sys.stderr)
+    
+    return json.dumps(park_results)
+
+    SELECT species.common_names, species.scientific_name, categories.category, orders.order_name, 
+                    families.family, species.nativeness, parks.park_name, states.id
+                    FROM species, categories, orders, families, states, parks 
+                    WHERE species.common_names LIKE '%Gray Wolf%'
+                    OR species.scientific_name LIKE '%Gray Wolf%'
+                    AND categories.category LIKE '%Mammal%'
+                    AND orders.order_name LIKE '%Carnivora%'
+                    AND families.family LIKE '%canidae%'
+                    AND parks.park_name LIKE '%Acadia%'
+                    AND parks.state_code LIKE '%ME'
+                    AND species.park_code = parks.park_code
+                    AND parks.state_code = states.id
+                    AND species.category_id = categories.id
+                    AND species.order_id = orders.id
+                    AND species.family_id = family.id
+                    ORDER BY species.scientific_name
 
 
 
