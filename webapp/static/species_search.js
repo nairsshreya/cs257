@@ -92,6 +92,7 @@ function onStateSelectionChanged() {
 
     })
 }
+
 function loadParkSelector() {
     let url = getAPIBaseURL() + '/species_search/parks';
 
@@ -175,8 +176,8 @@ function loadCategorySelector() {
     });
 }
 function onCategorySelectionChanged() {
-    let state_id = this.value;
-    let url = getAPIBaseURL() + '/species_search' ;
+    let category = this.value;
+    let url = getAPIBaseURL() + '/species_search?category='+category ;
 
     fetch(url, {method: 'get'})
 
@@ -190,5 +191,49 @@ function onCategorySelectionChanged() {
 }
 
 function onSearchButton() {
+    let state_id = document.getElementById('state_selector').value
+    let park_name = document.getElementById('park_name_selector').value
+    let category = document.getElementById('category_selector').value
+    let species_name = document.getElementById('species_name').value
+    let order = document.getElementById('order').value
+    let family = document.getElementById('family').value
+    let url = getAPIBaseURL() + '/species_search'+'?name='+ species_name +'&category='+ category +'&order='+ order
+        +'&family='+ family +'&park_name='+ park_name + '&state=' + state_id ;
 
+     fetch(url, {method: 'get'})
+         // way to get search filters from the user and then give that to the api
+         .then((response) => response.json())
+     .then(function(species_results) {
+         let tableBody = '';
+         if (species_results.length == 0) {
+             tableBody = '<tr> No results came up for your search. Please try again </tr>'
+         } else {
+         tableBody += '<tr>'
+             + '<th> Common Name </th>'
+             + '<th>Scientific Name</th>'
+             + '<th>Category</th>'
+             + '<th>Order</th>'
+             + '<th>Family</th>'
+             + '<th className="nativity_field">Native to</th>'
+             + '<th className="nativity_field">Non-Native</th>'
+             + '<th className="nativity_field">Nativity Unkown In</th>'
+         for (let k = 0; k < species_results.length; k++) {
+             let species = species_results[k];
+             tableBody += '<tr>'
+                 + '<td>' + species['common_name'] + '</td>'
+                 + '<td>' + species['scientific_name'] + '</a></td>'
+                 + '<td>' + species['category'] + '</td>'
+                 + '<td>' + species['order'] + '</td>'
+                 + ' <td>' + species['family'] + '</td>'
+                 + '<td>' + species['native'] + '</td>'
+                 + '</tr>'
+         }
+            extraStateInfo = {IL : {population: 39500000, jeffhaslivedthere: true, fillColor: '#2222aa'}}
+            map.updateChoropleth({IL: 'green'}, {reset: true})
+         }
+        let speciesTable = document.getElementById('species_table');
+        if (speciesTable) {
+        speciesTable.innerHTML = tableBody;
+        }
+    })
 }
