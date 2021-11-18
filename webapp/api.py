@@ -195,22 +195,40 @@ def get_species():
         state = ''
     state = '%' + state + '%'
     
-    query = '''SELECT species.common_names, species.scientific_name, categories.category, orders.order, 
+    query = '''SELECT species.common_names, species.scientific_name, categories.category, orders.order_name, 
                     families.family, species.nativeness, parks.park_name, states.id
                     FROM species, categories, orders, families, states, parks 
-                    WHERE species.common_names LIKE %s
-                    OR species.scientific_name LIKE %s
+                    WHERE (species.common_names LIKE %s
+                    OR species.scientific_name LIKE %s)
                     AND categories.category LIKE %s
-                    AND orders.order LIKE %s
+                    AND orders.order_name LIKE %s
                     AND families.family LIKE %s
                     AND parks.park_name LIKE %s
                     AND parks.state_code LIKE %s
-                    AND species.park_code = park.park_code
+                    AND parks.state_code LIKE CONCAT ('%', states.id, '%')
+                    AND species.park_code = parks.park_code
                     AND parks.state_code = states.id
-                    AND species.category_id = category.id
+                    AND species.category_id = categories.id
                     AND species.order_id = orders.id
-                    AND species.family_id = family.id
-                    ORDER BY species.scientific_name'''
+                    AND species.family_id = families.id
+                    ORDER BY species.scientific_name
+                    '''
+#    SELECT species.common_names, species.scientific_name, categories.category, orders.order, 
+#                    families.family, species.nativeness, parks.park_name, states.id
+#                    FROM species, categories, orders, families, states, parks 
+#                    WHERE species.common_names LIKE %s
+#                    OR species.scientific_name LIKE %s
+#                    AND categories.category LIKE %s
+#                    AND orders.order LIKE %s
+#                    AND families.family LIKE %s
+#                    AND parks.park_name LIKE %s
+#                    AND parks.state_code LIKE %s
+#                    AND species.park_code = park.park_code
+#                    AND parks.state_code = states.id
+#                    AND species.category_id = category.id
+#                    AND species.order_id = orders.id
+#                    AND species.family_id = family.id
+#                    ORDER BY species.scientific_name
     
     park_results = []
     try:
@@ -232,18 +250,19 @@ def get_species():
     SELECT species.common_names, species.scientific_name, categories.category, orders.order_name, 
                     families.family, species.nativeness, parks.park_name, states.id
                     FROM species, categories, orders, families, states, parks 
-                    WHERE species.common_names LIKE '%Gray Wolf%'
-                    OR species.scientific_name LIKE '%Gray Wolf%'
+                    WHERE (species.common_names LIKE '%Gray Wolf%'
+                    OR species.scientific_name LIKE '%Gray Wolf%')
                     AND categories.category LIKE '%Mammal%'
                     AND orders.order_name LIKE '%Carnivora%'
-                    AND families.family LIKE '%canidae%'
-                    AND parks.park_name LIKE '%Acadia%'
-                    AND parks.state_code LIKE '%ME'
+                    AND families.family LIKE '%Canidae%'
+                    AND parks.park_name LIKE '%%'
+                    AND parks.state_code LIKE '%%'
+                    AND parks.state_code LIKE CONCAT ('%', states.id, '%')
                     AND species.park_code = parks.park_code
                     AND parks.state_code = states.id
                     AND species.category_id = categories.id
                     AND species.order_id = orders.id
-                    AND species.family_id = family.id
+                    AND species.family_id = families.id
                     ORDER BY species.scientific_name
 
 
