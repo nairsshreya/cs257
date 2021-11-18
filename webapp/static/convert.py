@@ -51,10 +51,10 @@ with open("species.csv", 'w', newline='') as species_file:
                 family = "Unknown"
         if nativeness == "":
                 nativeness = "Unknown"
-                
+
         #Entering data into the species file
         park_id = parks.get(park_name)
-        
+
         if category not in categories:
             category_id = len(categories)
             categories[category] = category_id
@@ -62,24 +62,24 @@ with open("species.csv", 'w', newline='') as species_file:
             category_id = categories[category]
 
         if order not in orders:
-            
+
             order_id = len(orders)
             orders[order] = order_id
         else:
             order_id = orders[order]
-            
+
         if family not in families:
             family_id = len(families)
             families[family] = family_id
         else:
             family_id = families[family]
-        
+
         species_data = [species_id, park_id, category_id, order_id, family_id, scientific_name, common_names, nativeness]
         species_writer.writerow(species_data)
 
         if count % 100 == 0:
             print("Processed ", count, "  lines", end="\r", flush=True)
-        
+
 
 
 with open("categories.csv", 'w', newline='') as categories_file:
@@ -91,8 +91,8 @@ with open("orders.csv", 'w', newline='') as orders_file:
     order_writer = csv.writer(orders_file, delimiter=',', quoting=csv.QUOTE_ALL)
     for order in orders:
         order_writer.writerow([orders[order],order])
-        
+
 with open("families.csv", 'w', newline='') as families_file:
     family_writer = csv.writer(families_file, delimiter=',', quoting=csv.QUOTE_ALL)
     for family in families:
-        family_writer.writerow([families[family],family])
+        family_writer.writerow([families[family], family])

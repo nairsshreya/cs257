@@ -122,6 +122,7 @@ def load_states():
 def get_park():
     '''Queries the database for the park(s) information based on selected values from the user.
         Handles exceptions when park names and/or state names are not selected.
+        AND parks.state_code LIKE CONCAT('%',states.id,'%')
     '''
     name = flask.request.args.get('park_name')
     state = flask.request.args.get('state')
@@ -132,11 +133,11 @@ def get_park():
     
     name = '%' + name + '%'
     state = '%' + state + '%'
+    print(name, state)
     
-    query = '''SELECT park_code, park_name, state_code, acreage, longitude, latitude
+    query = '''SELECT DISTINCT park_code, park_name, state_code, acreage, longitude, latitude
                                FROM parks, states
                                WHERE parks.park_name LIKE %s
-                               AND parks.state_code = states.id
                                AND parks.state_code LIKE %s
                                ORDER BY park_name'''
     park_results = []
@@ -146,6 +147,7 @@ def get_park():
         cursor.execute(query, (name, state))
 
         for row in cursor:
+            print(row)
             park = {'park_code': row[0], 'park_name': row[1], 'state_code': row[2],
                     'acreage': row[3], 'longitude': row[4], 'latitude': row[5]}
             park_results.append(park)
