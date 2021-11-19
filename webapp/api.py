@@ -203,7 +203,7 @@ def get_species():
                     AND categories.category LIKE %s
                     AND orders.order_name LIKE %s
                     AND families.family LIKE %s
-                    AND parks.park_name LIKE %s
+                    AND species.park_code LIKE %s
                     AND parks.state_code LIKE %s
                     
                     AND species.park_code = parks.park_code

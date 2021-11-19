@@ -112,7 +112,7 @@ function loadParkSelector() {
                                 + '--' + '</option>\n';
         for (let k = 0; k < parks.length; k++) {
             let park = parks[k];
-            selectorBody += '<option value="' + park['park_name'] + '">' + park['park_name'] + '</option>\n';
+            selectorBody += '<option value="' + park['park_code'] + '">' + park['park_name'] + '</option>\n';
         }
 
         let selector = document.getElementById('park_selector');
