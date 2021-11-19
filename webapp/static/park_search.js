@@ -214,7 +214,7 @@ function onSearchButton() {
                  + '</tr>'
          }
             extraStateInfo = {IL : {population: 39500000, jeffhaslivedthere: true, fillColor: '#2222aa'}}
-            map.updateChoropleth({IL: 'green'}, {reset: true})
+            map.updateChoropleth({'IL': 'green'}, {reset: true})
          }
         let parksTable = document.getElementById('parks_table');
         if (parksTable) {

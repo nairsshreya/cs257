@@ -20,7 +20,7 @@ def get_connection():
         config module. May raise an exception as described in the
         documentation for psycopg2.connect. '''
     return psycopg2.connect(database=config.database,
-                            user=config.username,
+                            user=config.user,
                             password=config.password)
 
 
@@ -205,7 +205,7 @@ def get_species():
                     AND families.family LIKE %s
                     AND parks.park_name LIKE %s
                     AND parks.state_code LIKE %s
-                    AND parks.state_code LIKE CONCAT ('%', states.id, '%')
+                    
                     AND species.park_code = parks.park_code
                     AND parks.state_code = states.id
                     AND species.category_id = categories.id
@@ -229,42 +229,63 @@ def get_species():
 #                    AND species.order_id = orders.id
 #                    AND species.family_id = family.id
 #                    ORDER BY species.scientific_name
+#     AND parks.state_code LIKE CONCAT('%', states.id, '%')
     
-    park_results = []
+    species_results = []
+    parks = []
     try:
         connection = get_connection()
         cursor = connection.cursor()
         cursor.execute(query, (species_name, species_name, category, order, family, park_name, state))
+        print(cursor.query)
 
+        results = {}
         for row in cursor:
-            park = {'park_code': row[0], 'park_name': row[1], 'state_code': row[2],
-                    'acreage': row[3], 'longitude': row[4], 'latitude': row[5]}
-            park_results.append(park)
+            if row[1] in results:
+                if row[5] == 'Native':
+                    temp = results[row[1]]
+                    temp['nativeTo'].append(row[6])
+                    temp['state'].append(row[7])
+                    print("native", temp)
+
+                elif row[5] == 'Not Native':
+                    temp = results[row[1]]
+                    temp['notNative'].append(row[6])
+                    temp['state'].append(row[7])
+                    print("not native", temp)
+                else:
+                    temp = results[row[1]]
+                    temp['unknown'].append(row[6])
+                    temp['state'].append(row[7])
+                    print("unknown", temp)
+
+            else:
+                if row[5] == 'Native':
+                    results[row[1]] = {'common_name': row[0], 'scientific_name': row[1], 'category': row[2],
+                    'order': row[3], 'family': row[4], 'nativeTo': [row[6]], 'notNative': [], 'unknown':[], 'state':[row[7]]}
+
+                elif row[5] == 'Not Native':
+                    results[row[1]] = {'common_name': row[0], 'scientific_name': row[1], 'category': row[2],
+                                       'order': row[3], 'family': row[4], 'nativeTo': [], 'notNative': [row[6]],
+                                       'unknown': [], 'state': [row[7]]}
+                else :
+                    results[row[1]] = {'common_name': row[0], 'scientific_name': row[1], 'category': row[2],
+                                       'order': row[3], 'family': row[4], 'nativeTo': [], 'notNative': [],
+                                       'unknown': [row[6]], 'state': [row[7]]}
+
+            # species = {'common_name': row[0], 'scientific_name': row[1], 'category': row[2],
+            #         'order': row[3], 'family': row[4], 'nativeness': row[5], 'park_name':row[6], 'state':[row[7]]}
+            # species_results.append(species)
         cursor.close()
         connection.close()
     except Exception as e:
         print(e, file=sys.stderr)
+
+        # Filtering out the redundant results
+
+
     
-    return json.dumps(park_results)
-
-    SELECT species.common_names, species.scientific_name, categories.category, orders.order_name, 
-                    families.family, species.nativeness, parks.park_name, states.id
-                    FROM species, categories, orders, families, states, parks 
-                    WHERE (species.common_names LIKE '%Gray Wolf%'
-                    OR species.scientific_name LIKE '%Gray Wolf%')
-                    AND categories.category LIKE '%Mammal%'
-                    AND orders.order_name LIKE '%Carnivora%'
-                    AND families.family LIKE '%Canidae%'
-                    AND parks.park_name LIKE '%%'
-                    AND parks.state_code LIKE '%%'
-                    AND parks.state_code LIKE CONCAT ('%', states.id, '%')
-                    AND species.park_code = parks.park_code
-                    AND parks.state_code = states.id
-                    AND species.category_id = categories.id
-                    AND species.order_id = orders.id
-                    AND species.family_id = families.id
-                    ORDER BY species.scientific_name
-
+    return json.dumps(results)
 
 
 @api.route('/species_search/categories', strict_slashes=False)

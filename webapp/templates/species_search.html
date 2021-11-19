@@ -20,8 +20,8 @@
     <h1 class = "title_heading align center text-color">Species Search</h1>
     <div id = "search_bar">    
     <div class = "search_field">
-        <label for="name">Scientific/Common Name</label><br>
-        <input type="text" id="name" species_name="name" placeholder="--">
+        <label for="species_name">Scientific/Common Name</label><br>
+        <input type="text" id="species_name"  placeholder="--">
     </div>
     <div class = "search_field">
          <label for="category_selector">Category</label><br>
@@ -29,11 +29,11 @@
     </div>
     <div class = "search_field">
         <label for="order">Order</label><br>
-        <input type="text" id="order" species_order="order" placeholder="--">
+        <input type="text" id="order"  placeholder="--">
     </div>
     <div class = "search_field">
         <label for="family">Family</label><br>
-        <input type="text" id="family" species_category="family" placeholder="--">
+        <input type="text" id="family"  placeholder="--">
     </div>
     <div class = "search_field">
         <label for="park_selector">Park</label><br>
@@ -52,31 +52,6 @@
     <img src="{{ url_for('static', filename='usa-yosemite.jpg') }}" id = "usa_collage">
     <br>
     <table id = "species_table">
-        <tbody>
-            <tr><th>Common Name</th>
-                <th>Scientific Name</th>
-                <th>Category</th>
-                <th>Order</th>
-                <th>Family</th>
-                <th class = "nativity_field">Native to</th>
-                <th class = "nativity_field">Non-Native</th>
-                <th class = "nativity_field">Nativity Unkown In</th></tr>
-            <tr><th>Sierra Nevada Bighorn Sheep</th>
-                <th>Ovis canadensis sierrae</th>
-                <th>Mammal</th>
-                <th>Artiodactyla</th>
-                <th>Bovidae</th>
-                <th class = "nativity_field">YOSE</th></tr>
-            <tr><th>Chestnut-Collared Longspur</th>
-                <th>Calcarius ornatus</th>
-                <th>Bird</th>
-                <th>Passeriformes</th>
-                <th>Calcariidae</th>
-                <th class = "nativity_field"></th>
-                <th class = "nativity_field">YOSE</th></tr>
-                
-            
-        </tbody>
     </table>
     </body>
 </html>
