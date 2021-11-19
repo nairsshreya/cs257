@@ -171,7 +171,7 @@ def get_species():
     species_name = '%' + species_name + '%'
     
     category = flask.request.args.get('category')
-    if category == 'category' or category is None:
+    if category == 'selectCategory' or category is None:
         category = ''
     category = '%' + category + '%'
     
@@ -185,8 +185,8 @@ def get_species():
         family = ''
     family = '%' + family + '%'
         
-    park_name = flask.request.args.get('park')
-    if park_name == 'selectParkName' or park_name is None :
+    park_name = flask.request.args.get('park_name')
+    if park_name == 'selectPark' or park_name is None :
         park_name = ''  
     park_name = '%' + park_name + '%'
         
@@ -194,25 +194,22 @@ def get_species():
     if state == 'selectState' or state is None:
         state = ''
     state = '%' + state + '%'
-    
-    query = '''SELECT species.common_names, species.scientific_name, categories.category, orders.order_name, 
-                    families.family, species.nativeness, parks.park_name, states.id
-                    FROM species, categories, orders, families, states, parks 
-                    WHERE (species.common_names LIKE %s
-                    OR species.scientific_name LIKE %s)
-                    AND categories.category LIKE %s
-                    AND orders.order_name LIKE %s
-                    AND families.family LIKE %s
-                    AND species.park_code LIKE %s
-                    AND parks.state_code LIKE %s
-                    
-                    AND species.park_code = parks.park_code
-                    AND parks.state_code = states.id
-                    AND species.category_id = categories.id
-                    AND species.order_id = orders.id
-                    AND species.family_id = families.id
-                    ORDER BY species.scientific_name
-                    '''
+    print(species_name, species_name, category, order, family, park_name, state)
+    query = '''SELECT species.common_names, species.scientific_name, categories.category, orders.order_name,
+                families.family, species.nativeness, parks.park_code, states.id                    
+                FROM species, categories, orders, families, states, parks
+                WHERE (species.common_names iLIKE %s OR species.scientific_name iLIKE %s)
+                AND species.category_id = categories.id
+                AND species.order_id = orders.id
+                AND orders.order_name iLIKE %s
+                AND categories.category iLIKE %s
+                AND species.family_id = families.id
+                AND families.family iLIKE %s
+                AND species.park_code iLIKE %s
+                AND parks.state_code iLIKE %s
+                AND parks.state_code iLIKE concat('%%', states.id, '%%')
+                AND species.park_code = parks.park_code
+                ORDER BY species.scientific_name'''
 #    SELECT species.common_names, species.scientific_name, categories.category, orders.order, 
 #                    families.family, species.nativeness, parks.park_name, states.id
 #                    FROM species, categories, orders, families, states, parks 
@@ -236,42 +233,38 @@ def get_species():
     try:
         connection = get_connection()
         cursor = connection.cursor()
-        cursor.execute(query, (species_name, species_name, category, order, family, park_name, state))
+        cursor.execute(query, (species_name, species_name, order, category, family, park_name, state))
         print(cursor.query)
 
         results = {}
         for row in cursor:
             if row[1] in results:
-                if row[5] == 'Native':
-                    temp = results[row[1]]
-                    temp['nativeTo'].append(row[6])
-                    temp['state'].append(row[7])
-                    print("native", temp)
+                temp = results[row[1]]
+                if row[5] == 'Native' and (' ' + row[6]) not in temp['nativeTo']:
+                    temp['nativeTo'].append(' ' + row[6])
+                    temp['state'].append(row[7] + ' ')
 
-                elif row[5] == 'Not Native':
-                    temp = results[row[1]]
-                    temp['notNative'].append(row[6])
+                elif row[5] == 'Not Native' and (' ' + row[6]) not in temp['notNative']:
+                    temp['notNative'].append(' ' + row[6])
                     temp['state'].append(row[7])
-                    print("not native", temp)
                 else:
-                    temp = results[row[1]]
-                    temp['unknown'].append(row[6])
-                    temp['state'].append(row[7])
-                    print("unknown", temp)
+                    if (' ' + row[6]) not in temp['unknown']:
+                        temp['unknown'].append(' ' + row[6])
+                        temp['state'].append(row[7])
 
             else:
                 if row[5] == 'Native':
                     results[row[1]] = {'common_name': row[0], 'scientific_name': row[1], 'category': row[2],
-                    'order': row[3], 'family': row[4], 'nativeTo': [row[6]], 'notNative': [], 'unknown':[], 'state':[row[7]]}
+                    'order': row[3], 'family': row[4], 'nativeTo': [' ' + row[6]], 'notNative': [], 'unknown':[], 'state':[row[7]]}
 
                 elif row[5] == 'Not Native':
                     results[row[1]] = {'common_name': row[0], 'scientific_name': row[1], 'category': row[2],
-                                       'order': row[3], 'family': row[4], 'nativeTo': [], 'notNative': [row[6]],
+                                       'order': row[3], 'family': row[4], 'nativeTo': [], 'notNative': [' ' + row[6]],
                                        'unknown': [], 'state': [row[7]]}
                 else :
                     results[row[1]] = {'common_name': row[0], 'scientific_name': row[1], 'category': row[2],
                                        'order': row[3], 'family': row[4], 'nativeTo': [], 'notNative': [],
-                                       'unknown': [row[6]], 'state': [row[7]]}
+                                       'unknown': [' ' + row[6]], 'state': [row[7]]}
 
             # species = {'common_name': row[0], 'scientific_name': row[1], 'category': row[2],
             #         'order': row[3], 'family': row[4], 'nativeness': row[5], 'park_name':row[6], 'state':[row[7]]}
