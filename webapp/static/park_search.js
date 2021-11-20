@@ -27,7 +27,6 @@ function initialize() {
         element2.onchange = onStateSelectionChanged;
     }
     let element4 = document.getElementById('search_button');
-
     element4.onclick = onSearchButton;
 }
 
@@ -202,11 +201,13 @@ function onSearchButton() {
              + ' <th>Longitude</th>'
              + '<th>Latitude</th>'
              + '</tr>'
+
          for (let k = 0; k < park_results.length; k++) {
              let park = park_results[k];
+             let link = '/species_search?park_name='+ park['park_code']
              tableBody += '<tr>'
                  + '<td>' + park['park_code'] + '</td>'
-                 + '<td><a href="/species_search/">' + park['park_name'] + '</a></td>'
+                 + '<td><a href='+link+'>' + park['park_name'] + '</a></td>'
                  + '<td>' + park['state_code'] + '</td>'
                  + '<td>' + park['acreage'] + '</td>'
                  + ' <td>' + park['longitude'] + '</td>'

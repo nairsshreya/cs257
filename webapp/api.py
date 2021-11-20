@@ -185,16 +185,16 @@ def get_species():
         family = ''
     family = '%' + family + '%'
         
-    park_name = flask.request.args.get('park_name')
-    if park_name == 'selectPark' or park_name is None :
-        park_name = ''  
-    park_name = '%' + park_name + '%'
+    park_code = flask.request.args.get('park_code')
+    if park_code == 'selectPark' or park_code is None :
+        park_code = ''
+    park_code = '%' + park_code + '%'
         
     state = flask.request.args.get('state')
     if state == 'selectState' or state is None:
         state = ''
     state = '%' + state + '%'
-    print(species_name, species_name, category, order, family, park_name, state)
+    print(species_name, species_name, category, order, family, park_code, state)
     query = '''SELECT species.common_names, species.scientific_name, categories.category, orders.order_name,
                 families.family, species.nativeness, parks.park_code, states.id                    
                 FROM species, categories, orders, families, states, parks
@@ -233,7 +233,7 @@ def get_species():
     try:
         connection = get_connection()
         cursor = connection.cursor()
-        cursor.execute(query, (species_name, species_name, order, category, family, park_name, state))
+        cursor.execute(query, (species_name, species_name, order, category, family, park_code, state))
         print(cursor.query)
 
         results = {}

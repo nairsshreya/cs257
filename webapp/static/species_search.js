@@ -7,6 +7,11 @@
 window.onload = initialize;
 
 function initialize() {
+    let url = window.location.href;
+    if (url != getAPIBaseURL()+'/species_search'){
+        let park_code = url.substring(url.length-4)
+        onSearchButton(park_code)
+    }
     loadStateSelector();
     loadParkSelector();
     loadCategorySelector();
@@ -24,6 +29,7 @@ function initialize() {
         element3.onchange = onCategorySelectionChanged;
     }
     let element4 = document.getElementById('search_button');
+
     element4.onclick = onSearchButton;
 }
 
@@ -190,15 +196,22 @@ function onCategorySelectionChanged() {
         // }
 }
 
-function onSearchButton() {
+function onSearchButton(park_code_input) {
+    let park_code = ''
+    if (park_code_input.length == 0){
+        park_code = document.getElementById('park_selector').value
+    }
+    else {
+        park_code = park_code_input
+    }
     let state_id = document.getElementById('state_selector').value
-    let park_name = document.getElementById('park_selector').value
+    // let park_name = document.getElementById('park_selector').value
     let category = document.getElementById('category_selector').value
     let species_name = document.getElementById('species_name').value
     let order = document.getElementById('order').value
     let family = document.getElementById('family').value
     let url = getAPIBaseURL() + '/species_search'+'?name='+ species_name +'&category='+ category +'&order='+ order
-        +'&family='+ family +'&park_name='+ park_name + '&state=' + state_id ;
+        +'&family='+ family +'&park_code='+ park_code + '&state=' + state_id ;
 
      fetch(url, {method: 'get'})
          // way to get search filters from the user and then give that to the api
