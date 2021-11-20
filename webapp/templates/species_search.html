@@ -5,6 +5,9 @@
     <meta charset="UTF-8">
     <title>Species : National Park Biodata</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='species_search.css') }}" type="text/css" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/3.5.3/d3.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/topojson/1.6.9/topojson.min.js"></script>
+    <script src="{{ url_for('static', filename='datamaps.usa.min.js') }}"></script>
     <script type="text/javascript" src="{{ url_for('static', filename='species_search.js') }}"></script>
     <h1 class = "title_heading"> National Park Biodata</h1>
     <ul class="navbar">
@@ -49,7 +52,8 @@
         <input id = "search_button" type="submit" value="Search">
     </div>
     <br>
-    <img src="{{ url_for('static', filename='usa-yosemite.jpg') }}" id = "usa_collage">
+    <div id="map-container"></div>
+<!--    <img src="{{ url_for('static', filename='usa-yosemite.jpg') }}" id = "usa_collage">-->
     <br>
     <table id = "species_table">
     </table>

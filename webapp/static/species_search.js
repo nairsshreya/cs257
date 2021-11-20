@@ -6,16 +6,28 @@
 
 window.onload = initialize;
 
+// For map
+var extraStateInfo = {
+
+};
+
+var map = null;
+
 function initialize() {
+    let park_code  =''
     let url = window.location.href;
-    if (url != getAPIBaseURL()+'/species_search'){
-        let park_code = url.substring(url.length-4)
+    let base_url = window.location.protocol
+                    + '//' + window.location.hostname
+                    + ':' + window.location.port
+                    + '/species_search/';
+    if (url != base_url){
+        park_code = url.substring(url.length-4)
         onSearchButton(park_code)
     }
     loadStateSelector();
     loadParkSelector();
     loadCategorySelector();
-
+    initializeMap();
     let element1 = document.getElementById('state_selector');
     if (element1) {
         element1.onchange = onStateSelectionChanged;
@@ -30,7 +42,35 @@ function initialize() {
     }
     let element4 = document.getElementById('search_button');
 
-    element4.onclick = onSearchButton;
+    element4.onclick = onSearchButton(park_code);
+}
+
+function initializeMap() {
+     map = new Datamap({ element: document.getElementById('map-container'), // where in the HTML to put the map
+                            scope: 'usa', // which map?
+                            projection: 'equirectangular', // what map projection? 'mercator' is also an option
+                            done: onMapDone, // once the map is loaded, call this function
+                            data: extraStateInfo, // here's some data that will be used by the popup template
+                            fills: { defaultFill: '#999999' },
+                            geographyConfig: {
+                                popupOnHover: false, // You can disable the hover popup
+                                highlightOnHover: false, // You can disable the color change on hover
+                                //popupTemplate: hoverPopupTemplate, // call this to obtain the HTML for the hover popup
+                                borderColor: '#eeeeee', // state/country border color
+                                highlightFillColor: '#bbbbbb', // color when you hover on a state/country
+                                highlightBorderColor: '#000000', // border color when you hover on a state/country
+                            }
+                          });
+}
+// This gets called once the map is drawn, so you can set various attributes like
+// state/country click-handlers, etc.
+function onMapDone(dataMap) {
+    dataMap.svg.selectAll('.datamaps-subunit').on('click', onStateClick);
+}
+
+function onStateClick(geography){
+    return
+
 }
 
 // Returns the base URL of the API, onto which endpoint
