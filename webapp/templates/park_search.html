@@ -24,15 +24,16 @@
     <body>
     <h1 class = "page_header align_center text_color">Park Search</h1>
     <div id = "search_bar">
-    <div class = "search_field">
+    <div class = "search_field" id = "park_field">
         <label for="park_name_selector">Park Name</label><br>
         <select class = "selector" id="park_name_selector"></select>
     </div>
-    <div class = "search_field">
+        <input id = "park_search" type="submit" value="Search">
+    <div class = "search_field" id = "state_field">
         <label for="state_selector">State</label><br>
         <select class = "selector" id="state_selector"></select>
     </div>
-    <input id = "search_button" type="submit" value="Search">
+        <input id = "state_search" type="submit" value="Search">
     </div>
     <div id="map-container"></div>
     <div id="results">

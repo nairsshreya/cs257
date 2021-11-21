@@ -14,35 +14,38 @@ var extraStateInfo = {
 var map = null;
 
 function initialize() {
-    let park_code  =''
-    let url = window.location.href;
-    let base_url = window.location.protocol
-                    + '//' + window.location.hostname
-                    + ':' + window.location.port
-                    + '/species_search/';
-    if (url != base_url){
-        park_code = url.substring(url.length-4)
-        onSearchButton(park_code)
-    }
+    
     loadStateSelector();
     loadParkSelector();
     loadCategorySelector();
     initializeMap();
-    let element1 = document.getElementById('state_selector');
-    if (element1) {
-        element1.onchange = onStateSelectionChanged;
-    }
-    let element2 = document.getElementById('park_selector');
-    if (element2) {
-        element2.onchange = onParkSelectionChanged;
-    }
-    let element3 = document.getElementById('category_selector');
-    if (element3) {
-        element3.onchange = onCategorySelectionChanged;
-    }
-    let element4 = document.getElementById('search_button');
 
-    element4.onclick = onSearchButton(park_code);
+    let url = window.location.href;
+    let base_url = window.location.protocol
+                        + '//' + window.location.hostname
+                        + ':' + window.location.port
+                        + '/species_search/';
+    if (url != base_url){
+        let park_code  =''
+        park_code = url.substring(url.length-4)
+        onSearchButton(park_code)
+    }
+    else {
+        let element1 = document.getElementById('state_selector');
+        if (element1) {
+            element1.onchange = onStateSelectionChanged;
+        }
+        let element2 = document.getElementById('park_selector');
+        if (element2) {
+            element2.onchange = onParkSelectionChanged;
+        }
+        let element3 = document.getElementById('category_selector');
+        if (element3) {
+            element3.onchange = onCategorySelectionChanged;
+        }       
+        let element4 = document.getElementById('search_button');
+        element4.onclick = onSearchButton;
+    }
 }
 
 function initializeMap() {
@@ -119,7 +122,7 @@ function loadStateSelector() {
 
 function onStateSelectionChanged() {
     let state_id = this.value;
-    let url = getAPIBaseURL() + '/park_search?states=' + state_id;
+    let url = getAPIBaseURL() + '/park_search/states';
 
     fetch(url, {method: 'get'})
 
@@ -175,7 +178,7 @@ function loadParkSelector() {
 }
 function onParkSelectionChanged() {
     let state_id = this.value;
-    let url = getAPIBaseURL() + '/species_search';
+    let url = getAPIBaseURL() + '/species_search/parks';
 
     fetch(url, {method: 'get'})
 
@@ -223,7 +226,7 @@ function loadCategorySelector() {
 }
 function onCategorySelectionChanged() {
     let category = this.value;
-    let url = getAPIBaseURL() + '/species_search?category='+category ;
+    let url = getAPIBaseURL() + '/species_search/category';
 
     fetch(url, {method: 'get'})
 
@@ -238,7 +241,7 @@ function onCategorySelectionChanged() {
 
 function onSearchButton(park_code_input) {
     let park_code = ''
-    if (park_code_input.length == 0){
+    if (park_code_input.length != 4){
         park_code = document.getElementById('park_selector').value
     }
     else {

@@ -247,7 +247,8 @@ def get_species():
                 elif row[5] == 'Not Native' and (' ' + row[6]) not in temp['notNative']:
                     temp['notNative'].append(' ' + row[6])
                     temp['state'].append(row[7])
-                else:
+                    
+                elif row[5] == 'Unknown' or row[5] == 'Present' or row[5] == 'Not Confirmed':
                     if (' ' + row[6]) not in temp['unknown']:
                         temp['unknown'].append(' ' + row[6])
                         temp['state'].append(row[7])
@@ -261,7 +262,7 @@ def get_species():
                     results[row[1]] = {'common_name': row[0], 'scientific_name': row[1], 'category': row[2],
                                        'order': row[3], 'family': row[4], 'nativeTo': [], 'notNative': [' ' + row[6]],
                                        'unknown': [], 'state': [row[7]]}
-                else :
+                else:
                     results[row[1]] = {'common_name': row[0], 'scientific_name': row[1], 'category': row[2],
                                        'order': row[3], 'family': row[4], 'nativeTo': [], 'notNative': [],
                                        'unknown': [' ' + row[6]], 'state': [row[7]]}
@@ -269,6 +270,7 @@ def get_species():
             # species = {'common_name': row[0], 'scientific_name': row[1], 'category': row[2],
             #         'order': row[3], 'family': row[4], 'nativeness': row[5], 'park_name':row[6], 'state':[row[7]]}
             # species_results.append(species)
+        print(len(results))
         cursor.close()
         connection.close()
     except Exception as e:

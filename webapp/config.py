@@ -1,4 +1,4 @@
-user = "shreya"
+user = "hansone2"
 password = ""
 database = "nationalparksbiodata"
 
