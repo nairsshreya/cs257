@@ -22,9 +22,7 @@ What works :
 What doesn't work : 
 
 - Parks Search : 
-	* Our map doesn't display results that we show in our table
-	* Links to species page specific to that park - we link to the page but not the specific park.  
-
+	* We have two buttons for our park search and state search but haven't been able to elegantly change our search. 
 - Species Search : 
 	* The searching and results don't work 
 	* Map doesn't work
