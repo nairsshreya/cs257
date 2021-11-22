@@ -26,11 +26,16 @@ function initialize() {
     if (element2) {
         element2.onchange = onStateSelectionChanged;
     }
-    let element4 = document.getElementById('search_button');
+    let element4 = document.getElementById('park_search');
     element4.onclick = onSearchButton;
+    let element5 = document.getElementById('state_search');
+    element5.onclick = onSearchButton;
+
 }
 
 function initializeMap() {
+    document.getElementById('map-container').innerHTML='';
+    map = null;
      map = new Datamap({ element: document.getElementById('map-container'), // where in the HTML to put the map
                             scope: 'usa', // which map?
                             projection: 'equirectangular', // what map projection? 'mercator' is also an option
@@ -180,8 +185,9 @@ function onParkSelectionChanged() {
 }
 
 function onSearchButton() {
-    let state_id = document.getElementById('state_selector').value
-    let park_name = document.getElementById('park_name_selector').value
+    extraStateInfo = {}
+    let state_id =  document.getElementById('state_selector').value;
+    let park_name = document.getElementById('park_name_selector').value;
 
     let url = getAPIBaseURL() + '/park_search'+ '?park_name='+ park_name + '&state=' + state_id;
      fetch(url, {method: 'get'})
@@ -213,9 +219,21 @@ function onSearchButton() {
                  + ' <td>' + park['longitude'] + '</td>'
                  + '<td>' + park['latitude'] + '</td>'
                  + '</tr>'
+
+             let state_result = '';
+             if(park['state_code'].length > 2){
+                state_result = state_id;
+             }
+             else {
+                  state_result = park['state_code'];
+             }
+             extraStateInfo[state_result]= {population: 39500000, jeffhaslivedthere: true, fillColor: 'blue'}
+
          }
-            extraStateInfo = {IL : {population: 39500000, jeffhaslivedthere: true, fillColor: '#2222aa'}}
-            map.updateChoropleth({'IL': 'green'}, {reset: true})
+         initializeMap()
+           // extraStateInfo.push({IL : {population: 39500000, jeffhaslivedthere: true, fillColor: '#2222aa'}})
+            // map.updateChoropleth({'IL': 'green'}, {reset: true})
+
          }
         let parksTable = document.getElementById('parks_table');
         if (parksTable) {
