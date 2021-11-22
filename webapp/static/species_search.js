@@ -20,32 +20,42 @@ function initialize() {
     loadCategorySelector();
     initializeMap();
 
+    let element1 = document.getElementById('state_selector');
+    if (element1) {
+        element1.onchange = onStateSelectionChanged;
+    }
+    let element2 = document.getElementById('park_selector');
+    if (element2) {
+        element2.onchange = onParkSelectionChanged;
+    }
+    let element3 = document.getElementById('category_selector');
+    if (element3) {
+        element3.onchange = onCategorySelectionChanged;
+    }       
+    
+    let element4 = document.getElementById('search_button');
+    element4.onclick = onSearchButton;
+    
     let url = window.location.href;
     let base_url = window.location.protocol
                         + '//' + window.location.hostname
                         + ':' + window.location.port
                         + '/species_search/';
+    
     if (url != base_url){
         let park_code  =''
         park_code = url.substring(url.length-4)
         onSearchButton(park_code)
-    }
-    else {
-        let element1 = document.getElementById('state_selector');
-        if (element1) {
-            element1.onchange = onStateSelectionChanged;
+        
+        let selector = document.getElementById('park_selector');
+        let selectorBody = '<option value="' + park_code + '">'
+                                + park_code + '</option>\n';
+        if (selector) {
+            selector.innerHTML = selectorBody + selector.innerHTML;
         }
-        let element2 = document.getElementById('park_selector');
-        if (element2) {
-            element2.onchange = onParkSelectionChanged;
-        }
-        let element3 = document.getElementById('category_selector');
-        if (element3) {
-            element3.onchange = onCategorySelectionChanged;
-        }       
-        let element4 = document.getElementById('search_button');
-        element4.onclick = onSearchButton;
     }
+    
+ 
 }
 
 function initializeMap() {
@@ -122,24 +132,24 @@ function loadStateSelector() {
 
 function onStateSelectionChanged() {
     let state_id = this.value;
-    let url = getAPIBaseURL() + '/park_search/states';
+//    let url = getAPIBaseURL() + '/park_search/states';
+//
+//    fetch(url, {method: 'get'})
+//
+//    .then((response) => response.json())
+//
+//    .then(function(data) {
+//        let [parks, states] = data;
+//        let tableBody = '';
+//        for (let k = 0; k < states.length; k++) {
+//            let state = states[k];
+//            tableBody += '<tr>'
+//                            + '<td>' + state['name'] + '</td>'
+//                            + '<td>' + state['id'] + '</td>'
+//                            + '</tr>\n';
+//        }
 
-    fetch(url, {method: 'get'})
-
-    .then((response) => response.json())
-
-    .then(function(data) {
-        let [parks, states] = data;
-        let tableBody = '';
-        for (let k = 0; k < states.length; k++) {
-            let state = states[k];
-            tableBody += '<tr>'
-                            + '<td>' + state['name'] + '</td>'
-                            + '<td>' + state['id'] + '</td>'
-                            + '</tr>\n';
-        }
-
-    })
+//    })
 }
 
 function loadParkSelector() {
@@ -178,11 +188,11 @@ function loadParkSelector() {
 }
 function onParkSelectionChanged() {
     let state_id = this.value;
-    let url = getAPIBaseURL() + '/species_search/parks';
+//    let url = getAPIBaseURL() + '/species_search/parks';
 
-    fetch(url, {method: 'get'})
-
-    .then((response) => response.json())
+//    fetch(url, {method: 'get'})
+//
+//    .then((response) => response.json())
 
         // // Put the table body we just built inside the table that's already on the page.
         // let stateTable = document.getElementById('books_table');
@@ -226,11 +236,11 @@ function loadCategorySelector() {
 }
 function onCategorySelectionChanged() {
     let category = this.value;
-    let url = getAPIBaseURL() + '/species_search/category';
+    //let url = getAPIBaseURL() + '/species_search/category';
 
-    fetch(url, {method: 'get'})
+    //fetch(url, {method: 'get'})
 
-    .then((response) => response.json())
+    //.then((response) => response.json())
 
         // // Put the table body we just built inside the table that's already on the page.
         // let stateTable = document.getElementById('books_table');
@@ -248,7 +258,6 @@ function onSearchButton(park_code_input) {
         park_code = park_code_input
     }
     let state_id = document.getElementById('state_selector').value
-    // let park_name = document.getElementById('park_selector').value
     let category = document.getElementById('category_selector').value
     let species_name = document.getElementById('species_name').value
     let order = document.getElementById('order').value

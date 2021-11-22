@@ -14,7 +14,6 @@ var extraStateInfo = {
 var map = null;
 
 function initialize() {
-
     loadParkSelector();
     loadStateSelector();
     initializeMap();
