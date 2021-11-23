@@ -224,13 +224,13 @@ function onSearchButton() {
                      let state_split = temp.trim().split(",");
                      if (state_id.length <= 2 & state_id != '--'){
                          state_result = state_id;
-                         extraStateInfo[state_result] = {population: 39500000, jeffhaslivedthere: true, fillColor: 'blue'}
+                         extraStateInfo[state_result] = {population: 39500000, jeffhaslivedthere: true, fillColor: '#052D00'}
                      }
                     else {
                         for (let i = 0; i < state_split.length; i++){
                             //let state_str = state_split[i].replace('/\s/g', "")
                             let state = state_split[i].trim();
-                            extraStateInfo[state] = {population: 39500000, jeffhaslivedthere: true, fillColor: 'blue'}
+                            extraStateInfo[state] = {population: 39500000, jeffhaslivedthere: true, fillColor: '#052D00'}
                         }
 
                      }
@@ -238,7 +238,7 @@ function onSearchButton() {
 
                  } else {
                      state_result = park['state_code'];
-                     extraStateInfo[state_result] = {population: 39500000, jeffhaslivedthere: true, fillColor: 'blue'}
+                     extraStateInfo[state_result] = {population: 39500000, jeffhaslivedthere: true, fillColor: '#052D00'}
                  }
                  // extraStateInfo[state_result] = {population: 39500000, jeffhaslivedthere: true, fillColor: 'blue'}
 
