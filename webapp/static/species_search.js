@@ -12,9 +12,8 @@ var extraStateInfo = {};
 var map = null;
 
 function initialize() {
-    
-    loadStateSelector();
     loadParkSelector();
+    loadStateSelector();
     loadCategorySelector();
     initializeMap();
 
@@ -43,16 +42,9 @@ function initialize() {
     if (url != base_url){
         let park_code  =''
         park_code = url.substring(url.length-4)
-        onSearchButton(park_code)
-        
-        let selector = document.getElementById('park_selector');
-        let selectorBody = '<option value="' + park_code + '">'
-                                + park_code + '</option>\n';
-        if (selector) {
-            selector.innerHTML = selectorBody + selector.innerHTML;
-        }
+        onSearchButton(park_code)  
     }
-    
+
  
 }
 
@@ -165,19 +157,33 @@ function loadParkSelector() {
     // Once you have your list of author dictionaries, use it to build
     // an HTML table displaying the author names and lifespan.
     .then(function(parks) {
+        let selector = document.getElementById('park_selector');
+        let url = window.location.href;
+        let base_url = window.location.protocol
+                            + '//' + window.location.hostname
+                            + ':' + window.location.port
+                            + '/species_search/';
+        let selectorBody = ''
+        
+        if (url != base_url){
+            park_code = url.substring(url.length-4)
+            onSearchButton(park_code)
+            selectorBody += '<option value="' + park_code + '">'
+                            + park_code + '</option>\n';
+        }
 
         // Add the <option> elements to the <select> element
-        let selectorBody = '<option value="' + 'selectPark' + '">'
+        selectorBody += '<option value="' + 'selectPark' + '">'
                                 + '--' + '</option>\n';
         for (let k = 0; k < parks.length; k++) {
             let park = parks[k];
             selectorBody += '<option value="' + park['park_code'] + '">' + park['park_name'] + '</option>\n';
         }
 
-        let selector = document.getElementById('park_selector');
         if (selector) {
-            selector.innerHTML = selectorBody;
-        }
+                selector.innerHTML = selectorBody;
+            }
+        
 
     })
 
@@ -331,7 +337,7 @@ function onSearchButton(park_code_input) {
          }
             initializeMap()
          }
-            extraStateInfo = {IL : {population: 39500000, jeffhaslivedthere: true, fillColor: '#2222aa'}}
+            
             // map.updateChoropleth({IL: 'green'}, {reset: true})
         let speciesTable = document.getElementById('species_table');
         if (speciesTable) {
