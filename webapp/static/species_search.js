@@ -18,17 +18,17 @@ function initialize() {
     initializeMap();
 
     let element1 = document.getElementById('state_selector');
-    if (element1) {
-        element1.onchange = onStateSelectionChanged;
-    }
+//    if (element1) {
+//        element1.onchange = onStateSelectionChanged;
+//    }
     let element2 = document.getElementById('park_selector');
-    if (element2) {
-        element2.onchange = onParkSelectionChanged;
-    }
+//    if (element2) {
+//        element2.onchange = onParkSelectionChanged;
+//    }
     let element3 = document.getElementById('category_selector');
-    if (element3) {
-        element3.onchange = onCategorySelectionChanged;
-    }       
+//    if (element3) {
+//        element3.onchange = onCategorySelectionChanged;
+//    }       
     
     let element4 = document.getElementById('search_button');
     element4.onclick = onSearchButton;
@@ -75,7 +75,6 @@ function onMapDone(dataMap) {
 
 function onStateClick(geography){
     return
-
 }
 
 // Returns the base URL of the API, onto which endpoint
@@ -123,7 +122,7 @@ function loadStateSelector() {
 }
 
 function onStateSelectionChanged() {
-    let state_id = this.value;
+//    let state_id = this.value;
 //    let url = getAPIBaseURL() + '/park_search/states';
 //
 //    fetch(url, {method: 'get'})
@@ -193,7 +192,7 @@ function loadParkSelector() {
     });
 }
 function onParkSelectionChanged() {
-    let state_id = this.value;
+//    let state_id = this.value;
 //    let url = getAPIBaseURL() + '/species_search/parks';
 
 //    fetch(url, {method: 'get'})
@@ -241,7 +240,7 @@ function loadCategorySelector() {
     });
 }
 function onCategorySelectionChanged() {
-    let category = this.value;
+//    let category = this.value;
     //let url = getAPIBaseURL() + '/species_search/category';
 
     //fetch(url, {method: 'get'})
@@ -278,8 +277,8 @@ function onSearchButton(park_code_input) {
      .then(function(species_results) {
 
          let tableBody = '';
-         if (species_results.length == 0) {
-             tableBody = '<tr> No results came up for your search. Please try again </tr>'
+         if (Object.keys(species_results).length == 0) {
+             tableBody = '<tr> <th>No results came up for your search. Please try again</th> </tr>'
          } else {
              tableBody += '<tr>'
                  + '<th> Common Name </th>'
@@ -335,9 +334,9 @@ function onSearchButton(park_code_input) {
              }
                 
          }
-            initializeMap()
          }
-            
+        
+        initializeMap();
             // map.updateChoropleth({IL: 'green'}, {reset: true})
         let speciesTable = document.getElementById('species_table');
         if (speciesTable) {
