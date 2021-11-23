@@ -195,43 +195,59 @@ function onSearchButton() {
          .then((response) => response.json())
      .then(function(park_results) {
          let tableBody = '';
+         let state_split;
          if (park_results.length == 0) {
              tableBody = '<tr> No results came up for your search. Please try again </tr>'
          } else {
-         tableBody += '<tr>'
-             + '<th>Park Code </th>'
-             + '<th>Park Name</th>'
-             + '<th>State</th>'
-             + '<th>Acres</th>'
-             + ' <th>Longitude</th>'
-             + '<th>Latitude</th>'
-             + '</tr>'
-
-         for (let k = 0; k < park_results.length; k++) {
-             let park = park_results[k];
-             let link = '/species_search?park_name='+ park['park_code']
              tableBody += '<tr>'
-                 + '<td>' + park['park_code'] + '</td>'
-                 + '<td><a href='+link+'>' + park['park_name'] + '</a></td>'
-                 + '<td>' + park['state_code'] + '</td>'
-                 + '<td>' + park['acreage'] + '</td>'
-                 + ' <td>' + park['longitude'] + '</td>'
-                 + '<td>' + park['latitude'] + '</td>'
+                 + '<th>Park Code </th>'
+                 + '<th>Park Name</th>'
+                 + '<th>State</th>'
+                 + '<th>Acres</th>'
+                 + ' <th>Longitude</th>'
+                 + '<th>Latitude</th>'
                  + '</tr>'
 
-             let state_result = '';
-             if(park['state_code'].length > 2){
-                state_result = state_id;
-             }
-             else {
-                  state_result = park['state_code'];
-             }
-             extraStateInfo[state_result]= {population: 39500000, jeffhaslivedthere: true, fillColor: 'blue'}
+             for (let k = 0; k < park_results.length; k++) {
+                 let park = park_results[k];
+                 let link = '/species_search?park_name=' + park['park_code']
+                 tableBody += '<tr>'
+                     + '<td>' + park['park_code'] + '</td>'
+                     + '<td><a href=' + link + '>' + park['park_name'] + '</a></td>'
+                     + '<td>' + park['state_code'] + '</td>'
+                     + '<td>' + park['acreage'] + '</td>'
+                     + ' <td>' + park['longitude'] + '</td>'
+                     + '<td>' + park['latitude'] + '</td>'
+                     + '</tr>'
 
-         }
-         initializeMap()
-           // extraStateInfo.push({IL : {population: 39500000, jeffhaslivedthere: true, fillColor: '#2222aa'}})
-            // map.updateChoropleth({'IL': 'green'}, {reset: true})
+                 let state_result = '';
+                 let temp = park['state_code'];
+                 if (park['state_code'].length > 2) {
+                     let state_split = temp.trim().split(",");
+                     if (state_id.length <= 2 & state_id != '--'){
+                         state_result = state_id;
+                         extraStateInfo[state_result] = {population: 39500000, jeffhaslivedthere: true, fillColor: 'blue'}
+                     }
+                    else {
+                        for (let i = 0; i < state_split.length; i++){
+                            //let state_str = state_split[i].replace('/\s/g', "")
+                            let state = state_split[i].trim();
+                            extraStateInfo[state] = {population: 39500000, jeffhaslivedthere: true, fillColor: 'blue'}
+                        }
+
+                     }
+
+
+                 } else {
+                     state_result = park['state_code'];
+                     extraStateInfo[state_result] = {population: 39500000, jeffhaslivedthere: true, fillColor: 'blue'}
+                 }
+                 // extraStateInfo[state_result] = {population: 39500000, jeffhaslivedthere: true, fillColor: 'blue'}
+
+             }
+             initializeMap()
+             // extraStateInfo.push({IL : {population: 39500000, jeffhaslivedthere: true, fillColor: '#2222aa'}})
+             // map.updateChoropleth({'IL': 'green'}, {reset: true})
 
          }
         let parksTable = document.getElementById('parks_table');
