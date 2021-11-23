@@ -7,9 +7,7 @@
 window.onload = initialize;
 
 // For map
-var extraStateInfo = {
-   
-};
+var extraStateInfo = {};
 
 var map = null;
 

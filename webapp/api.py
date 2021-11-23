@@ -240,18 +240,18 @@ def get_species():
         for row in cursor:
             if row[1] in results:
                 temp = results[row[1]]
+                if row[7] not in temp['state']:
+                        temp['state'].append(row[7])
+                        
                 if row[5] == 'Native' and (' ' + row[6]) not in temp['nativeTo']:
                     temp['nativeTo'].append(' ' + row[6])
-                    temp['state'].append(row[7] + ' ')
 
                 elif row[5] == 'Not Native' and (' ' + row[6]) not in temp['notNative']:
                     temp['notNative'].append(' ' + row[6])
-                    temp['state'].append(row[7])
                     
                 elif row[5] == 'Unknown' or row[5] == 'Present' or row[5] == 'Not Confirmed':
                     if (' ' + row[6]) not in temp['unknown']:
                         temp['unknown'].append(' ' + row[6])
-                        temp['state'].append(row[7])
 
             else:
                 if row[5] == 'Native':

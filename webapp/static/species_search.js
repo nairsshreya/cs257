@@ -7,9 +7,7 @@
 window.onload = initialize;
 
 // For map
-var extraStateInfo = {
-
-};
+var extraStateInfo = {};
 
 var map = null;
 
@@ -59,7 +57,9 @@ function initialize() {
 }
 
 function initializeMap() {
-     map = new Datamap({ element: document.getElementById('map-container'), // where in the HTML to put the map
+    document.getElementById('map-container').innerHTML='';
+    map = null;
+    map = new Datamap({ element: document.getElementById('map-container'), // where in the HTML to put the map
                             scope: 'usa', // which map?
                             projection: 'equirectangular', // what map projection? 'mercator' is also an option
                             done: onMapDone, // once the map is loaded, call this function
@@ -250,6 +250,7 @@ function onCategorySelectionChanged() {
 }
 
 function onSearchButton(park_code_input) {
+    extraStateInfo = {}
     let park_code = ''
     if (park_code_input.length != 4){
         park_code = document.getElementById('park_selector').value
@@ -296,7 +297,7 @@ function onSearchButton(park_code_input) {
                       + '<td>'+value['notNative']+'</td>'
                       + '<td>'+ value['unknown']+'</td>'
                       + '</tr>'
-             }
+             
 
              // for (let k = 0; k < species_results.length; k++) {
              //
@@ -321,12 +322,16 @@ function onSearchButton(park_code_input) {
              //     + '<td>' + species['park_name'] + '</td>'
              //     + '<td>' + species['state'] + '</td>'
              //     + '</tr>'
-             // if (!state_list.includes(species['state'])){
-             //     state_list.push(species['state'])
-             // }
 
+             for (let k = 0; k < value['state'].length; k++){
+                let state = value['state'][k]
+                 extraStateInfo[state]= {population: 39500000, jeffhaslivedthere: true, fillColor: 'blue'}
+             }
+                
          }
-            // extraStateInfo = {IL : {population: 39500000, jeffhaslivedthere: true, fillColor: '#2222aa'}}
+            initializeMap()
+         }
+            extraStateInfo = {IL : {population: 39500000, jeffhaslivedthere: true, fillColor: '#2222aa'}}
             // map.updateChoropleth({IL: 'green'}, {reset: true})
         let speciesTable = document.getElementById('species_table');
         if (speciesTable) {
