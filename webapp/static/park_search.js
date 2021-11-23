@@ -16,17 +16,17 @@ function initialize() {
     loadStateSelector();
     initializeMap();
     let element1 = document.getElementById('park_name_selector');
-    if (element1) {
-        element1.onchange = onParkSelectionChanged;
-    }
+//    if (element1) {
+//        element1.onchange = onParkSelectionChanged;
+//    }
     let element2 = document.getElementById('state_selector');
-    if (element2) {
-        element2.onchange = onStateSelectionChanged;
-    }
+//    if (element2) {
+//        element2.onchange = onStateSelectionChanged;
+//    }
     let element4 = document.getElementById('park_search');
-    element4.onclick = onSearchButton;
+    element4.onclick = searchPark;
     let element5 = document.getElementById('state_search');
-    element5.onclick = onSearchButton;
+    element5.onclick = searchState;
 
 }
 
@@ -103,25 +103,25 @@ function loadStateSelector() {
     });
 }
 function onStateSelectionChanged() {
-    let state_id = this.value;
-    let url = getAPIBaseURL() + '/park_search?states=' + state_id;
-
-    fetch(url, {method: 'get'})
-
-    .then((response) => response.json())
-
-    .then(function(data) {
-        let [parks, states] = data;
-        let tableBody = '';
-        for (let k = 0; k < states.length; k++) {
-            let state = states[k];
-            tableBody += '<tr>'
-                            + '<td>' + state['name'] + '</td>'
-                            + '<td>' + state['id'] + '</td>'
-                            + '</tr>\n';
-        }
-
-    })
+//    let stateId = this.value;
+//    let url = getAPIBaseURL() + '/park_search?states=' + stateId;
+//
+//    fetch(url, {method: 'get'})
+//
+//    .then((response) => response.json())
+//
+//    .then(function(data) {
+//        let [parks, states] = data;
+//        let tableBody = '';
+//        for (let k = 0; k < states.length; k++) {
+//            let state = states[k];
+//            tableBody += '<tr>'
+//                            + '<td>' + state['name'] + '</td>'
+//                            + '<td>' + state['id'] + '</td>'
+//                            + '</tr>\n';
+//        }
+//
+//    })
 }
 
 function loadParkSelector() {
@@ -160,13 +160,13 @@ function loadParkSelector() {
     });
 }
 function onParkSelectionChanged() {
-    //let state_id = this.value;
-    let park_name = this.value;
-    let url = getAPIBaseURL() + '/park_search?park_name=' + park_name;
-
-    fetch(url, {method: 'get'})
-
-    .then((response) => response.json())
+    //let stateId = this.value;
+//    let park_name = this.value;
+//    let url = getAPIBaseURL() + '/park_search?park_name=' + park_name;
+//
+//    fetch(url, {method: 'get'})
+//
+//    .then((response) => response.json())
 
     // WE WERE TRYING SOMETHING
         // .then(function (park_results){
@@ -180,20 +180,30 @@ function onParkSelectionChanged() {
 
 
 }
+function searchState(){
+    let stateId = document.getElementById('state_selector').value;
+    onSearchButton(stateId, '');
+    loadParkSelector();
+}
 
-function onSearchButton() {
+function searchPark(){
+    let parkName = document.getElementById('park_name_selector').value;
+    onSearchButton('', parkName);
+    loadStateSelector();
+}    
+    
+function onSearchButton(inputStateId, inputParkName) {
     extraStateInfo = {}
-    let state_id =  document.getElementById('state_selector').value;
-    let park_name = document.getElementById('park_name_selector').value;
-
-    let url = getAPIBaseURL() + '/park_search'+ '?park_name='+ park_name + '&state=' + state_id;
+    let stateId = inputStateId;
+    let parkName = inputParkName;
+    let url = getAPIBaseURL() + '/park_search'+ '?park_name='+ parkName + '&state=' + stateId;
      fetch(url, {method: 'get'})
 
          // way to get search filters from the user and then give that to the api
          .then((response) => response.json())
      .then(function(park_results) {
          let tableBody = '';
-         let state_split;
+         let stateSplit;
          if (park_results.length == 0) {
              tableBody = '<tr> No results came up for your search. Please try again </tr>'
          } else {
@@ -221,15 +231,15 @@ function onSearchButton() {
                  let state_result = '';
                  let temp = park['state_code'];
                  if (park['state_code'].length > 2) {
-                     let state_split = temp.trim().split(",");
-                     if (state_id.length <= 2 & state_id != '--'){
-                         state_result = state_id;
+                     let stateSplit = temp.trim().split(",");
+                     if (stateId.length <= 2 & stateId != '--'){
+                         state_result = stateId;
                          extraStateInfo[state_result] = {population: 39500000, jeffhaslivedthere: true, fillColor: '#052D00'}
                      }
                     else {
-                        for (let i = 0; i < state_split.length; i++){
-                            //let state_str = state_split[i].replace('/\s/g', "")
-                            let state = state_split[i].trim();
+                        for (let i = 0; i < stateSplit.length; i++){
+                            //let state_str = stateSplit[i].replace('/\s/g', "")
+                            let state = stateSplit[i].trim();
                             extraStateInfo[state] = {population: 39500000, jeffhaslivedthere: true, fillColor: '#052D00'}
                         }
 
@@ -243,7 +253,6 @@ function onSearchButton() {
                  // extraStateInfo[state_result] = {population: 39500000, jeffhaslivedthere: true, fillColor: 'blue'}
 
              }
-             initializeMap()
              // extraStateInfo.push({IL : {population: 39500000, jeffhaslivedthere: true, fillColor: '#2222aa'}})
              // map.updateChoropleth({'IL': 'green'}, {reset: true})
 
@@ -252,6 +261,7 @@ function onSearchButton() {
         if (parksTable) {
         parksTable.innerHTML = tableBody;
         }
+        initializeMap()
     })
 }
 
