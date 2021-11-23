@@ -185,7 +185,7 @@ def get_species():
     family = '%' + family + '%'
         
     park_code = flask.request.args.get('park_code')
-    if park_code == 'selectPark' or park_code is None :
+    if park_code == 'selectParkName' or park_code is None :
         park_code = ''
     park_code = '%' + park_code + '%'
         
