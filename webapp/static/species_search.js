@@ -165,8 +165,7 @@ function loadParkSelector() {
         let selectorBody = ''
         
         if (url != base_url){
-            park_code = url.substring(url.length-4)
-            onSearchButton(park_code)
+            let park_code = url.substring(url.length-4)
             selectorBody += '<option value="' + park_code + '">'
                             + park_code + '</option>\n';
         }
@@ -292,6 +291,25 @@ function onSearchButton(park_code_input) {
              let state_list = []
              for (var species in species_results) {
                  var value = species_results[species]
+                 for (let k = 0; k < value['nativeTo'].length; k++){
+                     let x = value['nativeTo'][k].trim()
+                     let link = '/park_search?park_name='+ x
+                     let parks = '<a href=' + link + '>'+x+'</a>'
+                     value['nativeTo'][k] = parks
+
+                 }
+                 for (let k = 0; k < value['notNative'].length; k++){
+                     let x = value['notNative'][k].trim()
+                     let link = '/park_search?park_name='+ x
+                     let parks = '<a href=' + link + '>'+x+'</a>'
+                     value['notNative'][k] = parks
+                 }
+                 for (let k = 0; k < value['unknown'].length; k++){
+                     let x = value['unknown'][k].trim()
+                     let link = '/park_search?park_name='+ x
+                     let parks = '<a href=' + link + '>'+x+'</a>'
+                     value['unknown'][k] = parks
+                 }
                  tableBody += '<tr>'
                      + '<td>' + value['common_name'] + '</td>'
                      + '<td>' + value['scientific_name'] + '</td>'
@@ -330,7 +348,7 @@ function onSearchButton(park_code_input) {
 
              for (let k = 0; k < value['state'].length; k++){
                 let state = value['state'][k]
-                 extraStateInfo[state]= {population: 39500000, jeffhaslivedthere: true, fillColor: 'blue'}
+                 extraStateInfo[state]= {population: 39500000, jeffhaslivedthere: true, fillColor: '#055D00'}
              }
                 
          }

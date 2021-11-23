@@ -27,6 +27,17 @@ function initialize() {
     element4.onclick = searchPark;
     let element5 = document.getElementById('state_search');
     element5.onclick = searchState;
+    let url = window.location.href;
+    let base_url = window.location.protocol
+                        + '//' + window.location.hostname
+                        + ':' + window.location.port
+                        + '/park_search/';
+
+    if (url != base_url){
+        let park_code  = ''
+        park_code = url.substring(url.length-4)
+        onSearchButton('',park_code)
+    }
 
 }
 
@@ -139,15 +150,45 @@ function loadParkSelector() {
     .then(function(parks) {
           //let [parks, states] = data;
         // Add the <option> elements to the <select> element
-        let selectorBody = '<option value="' + 'selectParkName' + '">'
+        let selector = document.getElementById('park_name_selector');
+        let url = window.location.href;
+        let base_url = window.location.protocol
+                            + '//' + window.location.hostname
+                            + ':' + window.location.port
+                            + '/parks_search/';
+        let selectorBody = ''
+        let park_code = url.substring(url.length-4)
+        selectorBody += '<option value="' + 'selectParkName' + '">'
                                 + '--' + '</option>\n';
+        let nameToAdd = ''
         for (let k = 0; k < parks.length; k++) {
             let park = parks[k];
-            // disp_string = park['park_code']+' -- '+park['name']
-            selectorBody += '<option value="'+ park['park_name']+ '">' + park['park_name']+ '</option>\n';
-        }
+            selectorBody += '<option value="'+ park['park_code']+ '">' + park['park_name']+ '</option>\n';
+            if (url != base_url && park['park_code'] == park_code ){
+                 nameToAdd = park['park_name']
+            }
+        if (url != base_url && park['park_code'] == park_code ){
+         selectorBody = '<option value="' + park_code + '">'
+                         + nameToAdd + '</option>\n' + selectorBody;
+     }
+            }
 
-        let selector = document.getElementById('park_name_selector');
+        // if (url != base_url){
+        //     let park_code = url.substring(url.length-4)
+        //     onSearchButton(park_code)
+        //     selectorBody += '<option value="' + park_code + '">'
+        //                     + park_code + '</option>\n';
+        // }
+        //
+        // selectorBody += '<option value="' + 'selectParkName' + '">'
+        //                         + '--' + '</option>\n';
+        // for (let k = 0; k < parks.length; k++) {
+        //     let park = parks[k];
+        //     // disp_string = park['park_code']+' -- '+park['name']
+        //     selectorBody += '<option value="'+ park['park_code']+ '">' + park['park_name']+ '</option>\n';
+        // }
+
+
         if (selector) {
             selector.innerHTML = selectorBody;
         }
@@ -187,16 +228,16 @@ function searchState(){
 }
 
 function searchPark(){
-    let parkName = document.getElementById('park_name_selector').value;
-    onSearchButton('', parkName);
+    let parkCode = document.getElementById('park_name_selector').value;
+    onSearchButton('', parkCode);
     loadStateSelector();
 }    
-    
-function onSearchButton(inputStateId, inputParkName) {
+
+function onSearchButton(inputStateId, inputParkCode) {
     extraStateInfo = {}
     let stateId = inputStateId;
-    let parkName = inputParkName;
-    let url = getAPIBaseURL() + '/park_search'+ '?park_name='+ parkName + '&state=' + stateId;
+    let parkCode = inputParkCode;
+    let url = getAPIBaseURL() + '/park_search'+ '?park_name='+ parkCode + '&state=' + stateId;
      fetch(url, {method: 'get'})
 
          // way to get search filters from the user and then give that to the api
@@ -234,13 +275,13 @@ function onSearchButton(inputStateId, inputParkName) {
                      let stateSplit = temp.trim().split(",");
                      if (stateId.length <= 2 & stateId != '--'){
                          state_result = stateId;
-                         extraStateInfo[state_result] = {population: 39500000, jeffhaslivedthere: true, fillColor: '#052D00'}
+                         extraStateInfo[state_result] = {population: 39500000, jeffhaslivedthere: true, fillColor: '#055D00'}
                      }
                     else {
                         for (let i = 0; i < stateSplit.length; i++){
                             //let state_str = stateSplit[i].replace('/\s/g', "")
                             let state = stateSplit[i].trim();
-                            extraStateInfo[state] = {population: 39500000, jeffhaslivedthere: true, fillColor: '#052D00'}
+                            extraStateInfo[state] = {population: 39500000, jeffhaslivedthere: true, fillColor: '#055D00'}
                         }
 
                      }
@@ -248,7 +289,7 @@ function onSearchButton(inputStateId, inputParkName) {
 
                  } else {
                      state_result = park['state_code'];
-                     extraStateInfo[state_result] = {population: 39500000, jeffhaslivedthere: true, fillColor: '#052D00'}
+                     extraStateInfo[state_result] = {population: 39500000, jeffhaslivedthere: true, fillColor: '#055D00'}
                  }
                  // extraStateInfo[state_result] = {population: 39500000, jeffhaslivedthere: true, fillColor: 'blue'}
 
