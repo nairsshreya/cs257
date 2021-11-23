@@ -163,26 +163,24 @@ function loadParkSelector() {
                             + ':' + window.location.port
                             + '/species_search/';
         let selectorBody = ''
-        
-        if (url != base_url){
-            let park_code = url.substring(url.length-4)
-            selectorBody += '<option value="' + park_code + '">'
-                            + park_code + '</option>\n';
-        }
-
-        // Add the <option> elements to the <select> element
-        selectorBody += '<option value="' + 'selectPark' + '">'
+        let park_code = url.substring(url.length-4)
+        selectorBody += '<option value="' + 'selectParkName' + '">'
                                 + '--' + '</option>\n';
+        let nameToAdd = ''
         for (let k = 0; k < parks.length; k++) {
             let park = parks[k];
-            selectorBody += '<option value="' + park['park_code'] + '">' + park['park_name'] + '</option>\n';
-        }
-
+            selectorBody += '<option value="'+ park['park_code']+ '">' + park['park_name']+ '</option>\n';
+            if (url != base_url && park['park_code'] == park_code ){
+                 nameToAdd = park['park_name']
+            }
+        if (url != base_url && park['park_code'] == park_code ){
+         selectorBody = '<option value="' + park_code + '">'
+                         + nameToAdd + '</option>\n' + selectorBody;
+     }
+            }
         if (selector) {
                 selector.innerHTML = selectorBody;
             }
-        
-
     })
 
     // Log the error if anything went wrong during the fetch.
