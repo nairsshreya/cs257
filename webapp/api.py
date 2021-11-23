@@ -49,7 +49,7 @@ def get_park_info():
 
     '''  Queries the database for the names of all 56 National Parks for our drop down selector '''
 
-    query = '''SELECT park_code, park_name, state_code,
+    query = '''SELECT park_code, park_name, state_code
                        FROM parks ORDER BY park_name'''
     park_names = []
     try:
