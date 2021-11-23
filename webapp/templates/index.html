@@ -17,7 +17,7 @@
 <body>
     <h1>Home</h1>
     <br>
-    <div>
+    <div id = "left_column">
     <table class = "description_table">
         <tbody>
             <tr><th><h3>Description</h3></th></tr>
@@ -33,14 +33,14 @@
             </tr>
         </tbody>
     </table>
-
-    <img src="{{ url_for('static', filename= 'usa_collage.jpg')}}" alt="Image of USA with cute nature graphics" id = "usa_collage">
-    <br>
+    <br><br>
     <div id="bio_now">
         <h4>State Park Biodiversity Now</h4>
         <p><a href="https://www.sciencedaily.com/releases/2012/08/120807161035.htm"> Can nature parks save biodiversity?</a> </p>
         <p><a href="https://mountainjournal.org/clash--between-cattle-and-elk-at-point-reyes-brings-national-park-values-into-focus">Surrendering Nature To Politics: Are US National Parks In Retreat?</a> </p>
     </div>
     </div>
+    <div id = "right_column"><img src="{{ url_for('static', filename= 'park_collage.jpg')}}" alt="Image of USA with cute nature graphics" id = "park_collage">
+    <br></div>
 </body>
 </html>
