@@ -49,7 +49,7 @@ def get_park_info():
 
     '''  Queries the database for the names of all 56 National Parks for our drop down selector '''
 
-    query = '''SELECT park_code, park_name, state_code, acreage, longitude, latitude
+    query = '''SELECT park_code, park_name, state_code,
                        FROM parks ORDER BY park_name'''
     park_names = []
     try:
@@ -57,8 +57,7 @@ def get_park_info():
         cursor = connection.cursor()
         cursor.execute(query, tuple())
         for row in cursor:
-            park_info = {'park_code': row[0], 'park_name': row[1], 'state_code': row[2], 'acreage': row[3], 'longitude': row[4],
-                         'latitude': row[5]}
+            park_info = {'park_code': row[0], 'park_name': row[1], 'state_code': row[2],}
             park_names.append(park_info)
         cursor.close()
         connection.close()
@@ -137,9 +136,9 @@ def get_park():
     
     query = '''SELECT DISTINCT park_code, park_name, state_code, acreage, longitude, latitude
                                FROM parks, states
-                               WHERE parks.park_name LIKE %s
+                               WHERE parks.park_code LIKE %s
                                AND parks.state_code LIKE %s
-                               ORDER BY park_name'''
+                               ORDER BY parks.park_name'''
     park_results = []
     try:
         connection = get_connection()
