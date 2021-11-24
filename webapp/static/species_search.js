@@ -51,7 +51,6 @@ function initializeMap() {
         map = new Datamap({ element: document.getElementById('map-container'), // where in the HTML to put the map
                             scope: 'usa', // which map?
                             projection: 'equirectangular',
-
                             data: extraStateInfo, // here's some data that will be used by the popup template
                             fills: { defaultFill: '#999999' },
                             geographyConfig: {

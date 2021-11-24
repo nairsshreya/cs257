@@ -111,7 +111,8 @@ def get_park():
     
     # name = '%' + name + '%'
     # state = '%' + state + '%'
-    # Tests
+
+    # Testing :
     # print(name, state)
     
     query = '''SELECT DISTINCT park_code, park_name, state_code, acreage, longitude, latitude
@@ -141,6 +142,7 @@ def get_park():
 # Code for Species Page
 @api.route('/species_search/', strict_slashes=False)
 def get_species():
+
     ''' Loads the information for our selectors for species page and returns data to the javascript file.
         accounts for when there is no search specified for each field. Will try using CONCAT but this works right now.'''
     
@@ -173,8 +175,10 @@ def get_species():
     if state == 'selectState' or state is None:
         state = ''
     state = '%' + state + '%'
+
     # Testing :
     # print(species_name, species_name, category, order, family, park_code, state)
+
     query = '''SELECT species.common_names, species.scientific_name, categories.category, orders.order_name,
                 families.family, species.nativeness, parks.park_code, states.id, parks.park_name                    
                 FROM species, categories, orders, families, states, parks
@@ -206,7 +210,6 @@ def get_species():
                         
                 if row[5] == 'Native' and (' ' + row[6]) not in temp['nativeTo']:
                     temp['nativeTo'].append(' ' + row[6])                
-
 
                 elif row[5] == 'Not Native' and (' ' + row[6]) not in temp['notNative']:
                     temp['notNative'].append(' ' + row[6])
