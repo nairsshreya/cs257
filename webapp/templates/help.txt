@@ -22,7 +22,7 @@ RESPONSE:
             latitude -- (TEXT) the latitude for the park's location.
 
 EXAMPLE(S):
-    /park_search?park_name=Yosemite%20National%20Park%20&state=CA
+    http://localhost:5000/api/park_search?park_name=YOSE&state=
 
        [{'park_code':'YOSE', 'park_name':'Yosemite National Park', state_code:'CA', acreage:'761266', longitude:'37.83', latitude:'-119.5'}]
 
@@ -104,11 +104,32 @@ RESPONSE:
             family -- (TEXT) the biological family that a species is a member of.
             scientific_name -- (TEXT) the scientific name associated with the species.
             common_names -- (TEXT) the common names associated with the species.
-            nativeness -- (TEXT) the status of the nativity of the species in the specific park.
+            native to  -- (TEXT) the parks in which the species is native
+            not native to -- (TEXT) the parks in which the species is not native
+            unknown -- (TEXT) the parks in which the nativity of the species is unknown.
+            state -- (TEXT) the state in which the park appears
+
+
 
 EXAMPLE(S):
 
-    /park_search?scicom_name=&state=CA
+    /api/species_search?name=Gray%20Wolf&category=Mammal&order=Carnivora&family=Canidae&park_code=REDW&state=CA
+        [{"Canis lupus": {"common_name": "Gray Wolf, Wolf", "scientific_name": "Canis lupus", "category": "Mammal",
+        "order": "Carnivora", "family": "Canidae", "nativeTo": [" DENA", " GAAR", " GLBA", " KATM", " KEFJ", " KOVA",
+        " LACL", " WRST", " PEFO", " LAVO", " REDW", " MEVE", " ROMO", " YELL", " ACAD", " ISRO", " VOYA", " GLAC",
+        " GRBA", " CAVE", " GRSM", " THRO", " CRLA", " WICA", " BIBE", " GUMO", " NOCA", " OLYM", " GRTE"],
+        "notNative": [], "unknown": [" SEKI", " YOSE"], "state": ["AK", "AZ", "CA", "CO", "ID", "ME", "MI", "MN", "MT",
+        "NV", "NM", "NC", "ND", "OR", "SD", "TN", "TX", "WA", "WY"], "park_names": ["Denali National Park and Preserve",
+        "Gates Of The Arctic National Park and Preserve", "Glacier Bay National Park and Preserve", "Katmai National
+        Park and Preserve", "Kenai Fjords National Park", "Kobuk Valley National Park", "Lake Clark National Park and
+        Preserve", "Wrangell - St Elias National Park and Preserve", "Petrified Forest National Park", "Lassen Volcanic
+        National Park", "Redwood National Park", "Sequoia and Kings Canyon National Parks", "Yosemite National Park",
+        "Mesa Verde National Park", "Rocky Mountain National Park", "Yellowstone National Park", "Acadia National Park",
+        "Isle Royale National Park", "Voyageurs National Park", "Glacier National Park", "Yellowstone National Park",
+        "Great Basin National Park", "Carlsbad Caverns National Park", "Great Smoky Mountains National Park", "Theodore
+        Roosevelt National Park", "Crater Lake National Park", "Wind Cave National Park", "Great Smoky Mountains
+        National Park", "Big Bend National Park", "Guadalupe Mountains National Park", "North Cascades National Park",
+        "Olympic National Park", "Grand Teton National Park", "Yellowstone National Park"]}}]
 
 
 

@@ -4,7 +4,9 @@ Authors : Elliot Hanson and Shreya Nair, 10th Novemeber, 2021
 Data : This data contains information about 56 National Parks and 10,000+ species in these parks.  
 
 Links to our data : https://www.kaggle.com/nationalparkservice/park-biodiversity  -  has a CC0: Public Domain.
-- Used the National Parks Logo for our favicon and image on home page. 
+- Used the National Parks Logo for our favicon and image on home page.i
+- Datamaps is Copyright (c) 2012 Mark DiMarco  https://github.com/markmarkoh/datamaps
+  
 
 What works : 
 
@@ -29,6 +31,8 @@ What works :
 
 Wishlist : 
 
+- A faster all species search, this takes a second to load. 
 - Cascading Search Bars 
 - A more elegant way to move from parks to species page 
-- Maybe a hover for our map, we like the way it works now but possibly. 
+- Maybe a hover for our map, we like the way it works now but possibly.
+- Search on hitting the enter button on the keyboard 
