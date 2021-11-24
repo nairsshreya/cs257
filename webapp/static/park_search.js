@@ -184,22 +184,6 @@ function loadParkSelector() {
      }
             }
 
-        // if (url != base_url){
-        //     let park_code = url.substring(url.length-4)
-        //     onSearchButton(park_code)
-        //     selectorBody += '<option value="' + park_code + '">'
-        //                     + park_code + '</option>\n';
-        // }
-        //
-        // selectorBody += '<option value="' + 'selectParkName' + '">'
-        //                         + '--' + '</option>\n';
-        // for (let k = 0; k < parks.length; k++) {
-        //     let park = parks[k];
-        //     // disp_string = park['park_code']+' -- '+park['name']
-        //     selectorBody += '<option value="'+ park['park_code']+ '">' + park['park_name']+ '</option>\n';
-        // }
-
-
         if (selector) {
             selector.innerHTML = selectorBody;
         }
@@ -211,27 +195,7 @@ function loadParkSelector() {
         console.log(error);
     });
 }
-function onParkSelectionChanged() {
-    //let stateId = this.value;
-//    let park_name = this.value;
-//    let url = getAPIBaseURL() + '/park_search?park_name=' + park_name;
-//
-//    fetch(url, {method: 'get'})
-//
-//    .then((response) => response.json())
 
-    // WE WERE TRYING SOMETHING
-        // .then(function (park_results){
-        //     let park = park_results[0];
-        //     let selectorBody = '<option' + park['state_code']+'>'+ park['park_name']+ '</option>\n';
-        //     let selector = document.getElementById('state_selector');
-        //     if (selector) {
-        //         selector.innerHTML = selectorBody;
-    //     //     }
-    // })
-
-
-}
 function searchState(){
     let stateId = document.getElementById('state_selector').value;
     onSearchButton(stateId, '');
