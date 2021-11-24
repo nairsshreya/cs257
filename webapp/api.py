@@ -195,7 +195,7 @@ def get_species():
     state = '%' + state + '%'
     print(species_name, species_name, category, order, family, park_code, state)
     query = '''SELECT species.common_names, species.scientific_name, categories.category, orders.order_name,
-                families.family, species.nativeness, parks.park_code, states.id                    
+                families.family, species.nativeness, parks.park_code, states.id, parks.park_name                    
                 FROM species, categories, orders, families, states, parks
                 WHERE (species.common_names iLIKE %s OR species.scientific_name iLIKE %s)
                 AND species.category_id = categories.id
@@ -209,41 +209,23 @@ def get_species():
                 AND parks.state_code iLIKE concat('%%', states.id, '%%')
                 AND species.park_code = parks.park_code
                 ORDER BY species.scientific_name'''
-#    SELECT species.common_names, species.scientific_name, categories.category, orders.order, 
-#                    families.family, species.nativeness, parks.park_name, states.id
-#                    FROM species, categories, orders, families, states, parks 
-#                    WHERE species.common_names LIKE %s
-#                    OR species.scientific_name LIKE %s
-#                    AND categories.category LIKE %s
-#                    AND orders.order LIKE %s
-#                    AND families.family LIKE %s
-#                    AND parks.park_name LIKE %s
-#                    AND parks.state_code LIKE %s
-#                    AND species.park_code = park.park_code
-#                    AND parks.state_code = states.id
-#                    AND species.category_id = category.id
-#                    AND species.order_id = orders.id
-#                    AND species.family_id = family.id
-#                    ORDER BY species.scientific_name
-#     AND parks.state_code LIKE CONCAT('%', states.id, '%')
     
     species_results = []
-    parks = []
     try:
         connection = get_connection()
         cursor = connection.cursor()
         cursor.execute(query, (species_name, species_name, order, category, family, park_code, state))
-        print(cursor.query)
-
         results = {}
         for row in cursor:
             if row[1] in results:
                 temp = results[row[1]]
+                temp['park_names'].append(row[8])
                 if row[7] not in temp['state']:
                         temp['state'].append(row[7])
                         
                 if row[5] == 'Native' and (' ' + row[6]) not in temp['nativeTo']:
-                    temp['nativeTo'].append(' ' + row[6])
+                    temp['nativeTo'].append(' ' + row[6])                
+
 
                 elif row[5] == 'Not Native' and (' ' + row[6]) not in temp['notNative']:
                     temp['notNative'].append(' ' + row[6])
@@ -255,21 +237,17 @@ def get_species():
             else:
                 if row[5] == 'Native':
                     results[row[1]] = {'common_name': row[0], 'scientific_name': row[1], 'category': row[2],
-                    'order': row[3], 'family': row[4], 'nativeTo': [' ' + row[6]], 'notNative': [], 'unknown':[], 'state':[row[7]]}
+                    'order': row[3], 'family': row[4], 'nativeTo': [' ' + row[6]], 'notNative': [], 'unknown':[], 'state':[row[7]], 'park_names':[row[8]]}
 
                 elif row[5] == 'Not Native':
                     results[row[1]] = {'common_name': row[0], 'scientific_name': row[1], 'category': row[2],
                                        'order': row[3], 'family': row[4], 'nativeTo': [], 'notNative': [' ' + row[6]],
-                                       'unknown': [], 'state': [row[7]]}
+                                       'unknown': [], 'state': [row[7]], 'park_names':[row[8]]}
                 else:
                     results[row[1]] = {'common_name': row[0], 'scientific_name': row[1], 'category': row[2],
                                        'order': row[3], 'family': row[4], 'nativeTo': [], 'notNative': [],
-                                       'unknown': [' ' + row[6]], 'state': [row[7]]}
+                                       'unknown': [' ' + row[6]], 'state': [row[7]], 'park_names':[row[8]]}
 
-            # species = {'common_name': row[0], 'scientific_name': row[1], 'category': row[2],
-            #         'order': row[3], 'family': row[4], 'nativeness': row[5], 'park_name':row[6], 'state':[row[7]]}
-            # species_results.append(species)
-        print(len(results))
         cursor.close()
         connection.close()
     except Exception as e:

@@ -88,10 +88,25 @@ function onMapDone(dataMap) {
     dataMap.svg.selectAll('.datamaps-subunit').on('click', onStateClick);
 }
 
-function onStateClick(geography){
-    return
-}
+function onStateClick(geography) {
+    // geography.properties.name will be the state/country name (e.g. 'Minnesota')
+    // geography.id will be the state/country name (e.g. 'MN')
+    var stateSummaryElement = document.getElementById('state-summary');
+    if (stateSummaryElement) {
+        var summary = '<p><strong>State:</strong> ' + geography.properties.name + '</p>\n'
+                    + '<p><strong>Abbreviation:</strong> ' + geography.id + '</p>\n';
+        if (geography.id in extraStateInfo) {
+            var info = extraStateInfo[geography.id];
+            summary += '<p><strong>National Parks:<br> </strong> ' + info.parkName + '</p>\n'
+                + '<p><strong>More information in table below</strong></p>';
+        }
+        else{
+            summary += '<p>There is no data on national parks \n in this state </p>'
+        }
 
+        stateSummaryElement.innerHTML = summary;
+    }
+}
 // Returns the base URL of the API, onto which endpoint
 // components can be appended.
 function getAPIBaseURL() {
@@ -287,20 +302,21 @@ function onSearchButton(park_code_input) {
                       + '<td class = "nativity_field">'+ value['unknown']+'</td>'
                       + '</tr>'
              
-
-             for (let k = 0; k < value['state'].length; k++){
-                let state = value['state'][k]
-                 extraStateInfo[state]= {population: 39500000, jeffhaslivedthere: true, fillColor: '#055D00'}
-             }
-                
-         }
-         }
-        
-        initializeMap();
-            // map.updateChoropleth({IL: 'green'}, {reset: true})
-        let speciesTable = document.getElementById('species_table');
-        if (speciesTable) {
-        speciesTable.innerHTML = tableBody;
-        }
-    })
+                    for(let k = 0; k < value['state'].length; k++)
+                        if(value['state'][k] in extraStateInfo){
+                            if(value['park_names'][k] in extraStateInfo[value['state'][k]].parkName){
+                                extraStateInfo[value['state'][k]].parkName.push(value['park_names'][k])
+                            }
+                         }
+                         else{
+                             extraStateInfo[value['state'][k]] = {parkName: [value['park_names'][k]], fillColor: '#055D00'}
+                         } 
+                    }   
+                 }
+                initializeMap();
+                let speciesTable = document.getElementById('species_table');
+                if (speciesTable) {
+                speciesTable.innerHTML = tableBody;
+                }
+            })
 }

@@ -112,7 +112,7 @@ input{
     margin-left: auto;
     margin-right: auto;
     color: #FFF5EE;
-    padding-bottom: 
+    padding-bottom: 50px;
     
 }
 
@@ -165,9 +165,15 @@ tr{
 }
 
 #state-summary {
-    float: right;
-    width: 40%;
+    display: inline-block;
+    float: left;
+    padding-left: 50px;
+    width: 300px;
+    max-width: 300px;
+    word-wrap: break-word;
+    color: #FFF5EE;
 }
+
 
 .hoverpopup {
     background: #eeeeee;
