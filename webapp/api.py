@@ -85,26 +85,6 @@ def get_category():
     return categories
 
 
-# TODO Not sure what this is but might break code ? hopefully not will remove before final turn in.
-# def park_search_state():
-#
-#     query = '''SELECT park_name
-#                           FROM parks, states WHERE state.id = park.state_id ORDER BY park_name'''
-#     categories = []
-#     try:
-#         connection = get_connection()
-#         cursor = connection.cursor()
-#         cursor.execute(query, tuple())
-#         for row in cursor:
-#             category = {'name': row[0]}
-#             categories.append(category)
-#         cursor.close()
-#         connection.close()
-#     except Exception as e:
-#         print(e, file=sys.stderr)
-#     return categories
-
-
 @api.route('/park_search/parks', strict_slashes=False)
 def load_parks():
     ''' Loads the information for our parks selector and returns data to the javascript file. '''
@@ -251,12 +231,7 @@ def get_species():
         cursor.close()
         connection.close()
     except Exception as e:
-        print(e, file=sys.stderr)
-
-        # Filtering out the redundant results
-
-
-    
+        print(e, file=sys.stderr)    
     return json.dumps(results)
 
 
