@@ -1,6 +1,7 @@
 /*
  * park_search.js
  * Shreya Nair and Elliot Hanson, 8th November 2021
+ * Updated between 8th and 24th November, 2021
  * Webapp assignment : Park page search
  */
 
@@ -20,12 +21,12 @@ function initialize() {
     let element5 = document.getElementById('state_search');
     element5.onclick = searchState;
     let url = window.location.href;
-    let base_url = window.location.protocol
+    let baseUrl = window.location.protocol
                         + '//' + window.location.hostname
                         + ':' + window.location.port
                         + '/park_search/';
 
-    if (url != base_url){
+    if (url != baseUrl){
         let park_code  = ''
         park_code = url.substring(url.length-4)
         onSearchButton('',park_code)
@@ -37,6 +38,7 @@ function initialize() {
 }
 
 function initializeMap() {
+    // A function that loads the map on to our page
     document.getElementById('map-container').innerHTML='';
     map = null;
     map = new Datamap({
@@ -62,26 +64,6 @@ function onMapDone(dataMap) {
         dataMap.svg.selectAll('.datamaps-subunit').on('click',onStateClick);
 }
 
-//function hoverPopupTemplate(geography, data) {
-//    var population = 0;
-//    if (data && 'population' in data) {
-//        population = data.population;
-//    }
-//
-//    var jeffHasLivedThere = 'No';
-//    if (data && 'jeffhaslivedthere' in data && data.jeffhaslivedthere) {
-//        jeffHasLivedThere = 'Yes';
-//    }
-//
-//    var template = '<div class="hoverpopup"><strong>' + geography.properties.name + '</strong><br>\n'
-//                    + '<strong>Population:</strong> ' + population + '<br>\n'
-//                    + '<strong>Has Jeff lived there?</strong> ' + jeffHasLivedThere + '<br>\n'
-//                    + '</div>';
-//
-//
-//    return template;
-//}
-
 function onStateClick(geography) {
     // geography.properties.name will be the state/country name (e.g. 'Minnesota')
     // geography.id will be the state/country name (e.g. 'MN')
@@ -95,7 +77,7 @@ function onStateClick(geography) {
                 + '<p><strong>More information in table below</strong></p>';
         }
         else{
-            summary += '<p>There is no data on national parks \n in this state </p>'
+            summary += '<p>There is no data on national parks \n related to your search or in this state </p>'
         }
 
         stateSummaryElement.innerHTML = summary;
@@ -112,17 +94,16 @@ function getAPIBaseURL() {
 }
 
 function loadStateSelector() {
+    // A function to load the states into our state selector
     let url = getAPIBaseURL() + '/park_search/states';
 
-    // Send the request to the parks API /authors/ endpoint
+
     fetch(url, {method: 'get'})
 
-    // When the results come back, transform them from a JSON string into
-    // a Javascript object (in this case, a list of author dictionaries).
+
     .then((response) => response.json())
 
-    // Once you have your list of author dictionaries, use it to build
-    // an HTML table displaying the author names and lifespan.
+
     .then(function(states) {
         // Add the <option> elements to the <select> element
         let selectorBody = '<option value="' + 'selectState' + '">'
@@ -147,6 +128,7 @@ function loadStateSelector() {
 
 
 function loadParkSelector() {
+    // A function that loads the park names into the park selector.
     let url = getAPIBaseURL() + '/park_search/parks';
 
     // Send the request to the parks API /authors/ endpoint
@@ -163,7 +145,7 @@ function loadParkSelector() {
         // Add the <option> elements to the <select> element
         let selector = document.getElementById('park_name_selector');
         let url = window.location.href;
-        let base_url = window.location.protocol
+        let baseUrl = window.location.protocol
                             + '//' + window.location.hostname
                             + ':' + window.location.port
                             + '/parks_search/';
@@ -175,10 +157,10 @@ function loadParkSelector() {
         for (let k = 0; k < parks.length; k++) {
             let park = parks[k];
             selectorBody += '<option value="'+ park['park_code']+ '">' + park['park_name']+ '</option>\n';
-            if (url != base_url && park['park_code'] == park_code ){
+            if (url != baseUrl && park['park_code'] == park_code ){
                  nameToAdd = park['park_name']
             }
-        if (url != base_url && park['park_code'] == park_code ){
+        if (url != baseUrl && park['park_code'] == park_code ){
          selectorBody = '<option value="' + park_code + '">'
                          + nameToAdd + '</option>\n' + selectorBody;
      }
@@ -209,6 +191,9 @@ function searchPark(){
 }    
 
 function onSearchButton(inputStateId, inputParkCode) {
+    // This function is called when the search button is clicked, or for some exceptions called without that trigger.
+    // It takes the results from the JSON dump and displays them to our park page. Some filtering is done to help other
+    // features like our map display etc.
     extraStateInfo = {}
     document.getElementById('state-summary').innerHTML='';
     let stateId = inputStateId;
