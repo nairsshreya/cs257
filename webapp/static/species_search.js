@@ -42,6 +42,8 @@ function initialize() {
 }
 
 function initializeMap() {
+    // A function that initializes our map, the first one is for when the page loads so there is no functionality.
+    // The second map is loaded and contains the information required for our state summary.
     document.getElementById('map-container').innerHTML='';
     map = null;
     if (isFirst) {
@@ -118,17 +120,16 @@ function getAPIBaseURL() {
 }
 
 function loadStateSelector() {
+    // A function that loads states into our state selector.
     let url = getAPIBaseURL() + '/species_search/states';
 
-    // Send the request to the parks API /authors/ endpoint
+
     fetch(url, {method: 'get'})
 
-    // When the results come back, transform them from a JSON string into
-    // a Javascript object (in this case, a list of author dictionaries).
+
     .then((response) => response.json())
 
-    // Once you have your list of author dictionaries, use it to build
-    // an HTML table displaying the author names and lifespan.
+
     .then(function(states) {
         // Add the <option> elements to the <select> element
         let selectorBody = '<option value="' + 'selectState' + '">'
@@ -154,17 +155,16 @@ function loadStateSelector() {
 
 
 function loadParkSelector() {
+    // A function that loads park names into our park selector.
     let url = getAPIBaseURL() + '/species_search/parks';
 
-    // Send the request to the parks API /authors/ endpoint
+
     fetch(url, {method: 'get'})
 
-    // When the results come back, transform them from a JSON string into
-    // a Javascript object (in this case, a list of author dictionaries).
+
     .then((response) => response.json())
 
-    // Once you have your list of author dictionaries, use it to build
-    // an HTML table displaying the author names and lifespan.
+
     .then(function(parks) {
         let selector = document.getElementById('park_selector');
         let url = window.location.href;
@@ -234,7 +234,11 @@ function loadCategorySelector() {
     });
 }
 
+
 function onSearchButton(park_code_input) {
+    // A function that is triggered by the use of our search button. That can be overridden in one case when the species
+    // a park is searched from the parks page. This function sorts through our JSON response and puts it into the
+    // table as well as the map. 
     extraStateInfo = {}
     let park_code = ''
     if (park_code_input.length != 4){
