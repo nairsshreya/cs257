@@ -11,6 +11,7 @@ var extraStateInfo = {};
 var isFirst = true;
 var map = null;
 
+
 function initialize() {
     loadParkSelector();
     loadStateSelector();
@@ -37,9 +38,8 @@ function initialize() {
         park_code = url.substring(url.length-4)
         onSearchButton(park_code)  
     }
-
- 
 }
+
 
 function initializeMap() {
     // A function that initializes our map, the first one is for when the page loads so there is no functionality.
@@ -84,11 +84,14 @@ function initializeMap() {
         });
     }
 }
+
+
 // This gets called once the map is drawn, so you can set various attributes like
 // state/country click-handlers, etc.
 function onMapDone(dataMap) {
     dataMap.svg.selectAll('.datamaps-subunit').on('click', onStateClick);
 }
+
 
 function onStateClick(geography) {
     // geography.properties.name will be the state/country name (e.g. 'Minnesota')
@@ -109,6 +112,8 @@ function onStateClick(geography) {
         stateSummaryElement.innerHTML = summary;
     }
 }
+
+
 // Returns the base URL of the API, onto which endpoint
 // components can be appended.
 function getAPIBaseURL() {
@@ -151,7 +156,6 @@ function loadStateSelector() {
         console.log(error);
     });
 }
-
 
 
 function loadParkSelector() {
@@ -199,7 +203,9 @@ function loadParkSelector() {
     });
 }
 
+
 function loadCategorySelector() {
+    // A function that loads the different categories into our category selector.
     let url = getAPIBaseURL() + '/species_search/categories';
 
     // Send the request to the parks API /authors/ endpoint
@@ -238,7 +244,7 @@ function loadCategorySelector() {
 function onSearchButton(park_code_input) {
     // A function that is triggered by the use of our search button. That can be overridden in one case when the species
     // a park is searched from the parks page. This function sorts through our JSON response and puts it into the
-    // table as well as the map. 
+    // table as well as the map.
     extraStateInfo = {}
     let park_code = ''
     if (park_code_input.length != 4){
@@ -275,6 +281,8 @@ function onSearchButton(park_code_input) {
                  + '<th class="nativity_field">Nativity Unkown In</th>'
              let state_list = []
              for (var species in species_results) {
+
+                 // Makes links for each park that shows up in the native to, non native and unknown columns
                  var value = species_results[species]
                  for (let k = 0; k < value['nativeTo'].length; k++){
                      let x = value['nativeTo'][k].trim()
@@ -305,7 +313,9 @@ function onSearchButton(park_code_input) {
                       + '<td class = "nativity_field">'+value['notNative']+'</td>'
                       + '<td class = "nativity_field">'+ value['unknown']+'</td>'
                       + '</tr>'
-             
+
+                    // This is a loop that updates our extraStateInfo to make sure that all state that come up in the
+                 // results are in the dictionary and that they have their relevant park information.
                     for(let k = 0; k < value['state'].length; k++)
                         if(value['state'][k] in extraStateInfo){
                             if(value['park_names'][k] in extraStateInfo[value['state'][k]].parkName){

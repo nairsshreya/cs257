@@ -38,7 +38,7 @@ function initialize() {
 }
 
 function initializeMap() {
-    // A function that loads the map on to our page
+    // A function that loads the map on to our page.
     document.getElementById('map-container').innerHTML='';
     map = null;
     map = new Datamap({
@@ -58,6 +58,8 @@ function initializeMap() {
         }
         });
 }
+
+
 // This gets called once the map is drawn, so you can set various attributes like
 // state/country click-handlers, etc.
 function onMapDone(dataMap) {
@@ -83,6 +85,8 @@ function onStateClick(geography) {
         stateSummaryElement.innerHTML = summary;
     }
 }
+
+
 // Returns the base URL of the API, onto which endpoint
 // components can be appended.
 function getAPIBaseURL() {
@@ -92,6 +96,7 @@ function getAPIBaseURL() {
                     + '/api';
     return baseURL;
 }
+
 
 function loadStateSelector() {
     // A function to load the states into our state selector
@@ -178,13 +183,18 @@ function loadParkSelector() {
     });
 }
 
+
 function searchState(){
+    // A function that is linked to the state search button and specifies that the search function should use a default
+    // for the park_name value
     let stateId = document.getElementById('state_selector').value;
     onSearchButton(stateId, '');
     loadParkSelector();
 }
 
 function searchPark(){
+     // A function that is linked to the state search button and specifies that the search function should use a default
+    // for the state value
     let parkCode = document.getElementById('park_name_selector').value;
     onSearchButton('', parkCode);
     loadStateSelector();
@@ -230,6 +240,8 @@ function onSearchButton(inputStateId, inputParkCode) {
                      + '<td>' + park['latitude'] + '</td>'
                      + '</tr>'
 
+
+                 // This is a filter that ensures states are individually loaded and updated with the search results. 
                  let state_result = '';
                  let temp = park['state_code'];
                  if (park['state_code'].length <= 2 & stateId != '--'){
