@@ -89,7 +89,7 @@ div{
    width: 500px;
    vertical-align: top;
    float: left;
-   padding-left: 100px;
+   padding-left: 50px;
 }
 
 #right_column{
@@ -97,7 +97,7 @@ div{
    width: 500px;
    vertical-align: top;
    float: right;
-   padding-right: 100px;
+   padding-right: 50px;
 }
 
 #bio_now {
