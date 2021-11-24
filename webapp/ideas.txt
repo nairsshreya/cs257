@@ -5,4 +5,8 @@
 Tools - inspect elements 
 use colors to figure out layout and then move it around 
 - change to divs in home 
-
+-<div id="bio_now">
+       <h4>State Park Biodiversity Now</h4>
+       <p><a href="https://www.sciencedaily.com/releases/2012/08/120807161035.htm"> Can nature parks save biodiversity?</a> </p>
+       <p><a href="https://mountainjournal.org/clash--between-cattle-and-elk-at-point-reyes-brings-national-park-values-into-focus">Surrendering Nature To Politics: Are US National Parks In Retreat?</a> </p>
+   </div>

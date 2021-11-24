@@ -3,45 +3,50 @@
 <link rel="icon" type="image/x-icon" href="/static/favicon.ico">
 <!--Elliot and Shreya : Home Page -->
 <head>
-    <meta charset="UTF-8">
-    <title>Home Page : National Park Biodata</title>
-    <link rel="stylesheet" href="{{ url_for('static', filename= 'home.css')}}" type="text/css" />
-    <h1 class = "title_heading"> National Park Biodata</h1>
-    <ul class="navbar">
-            <li class="active navbar_text_disp"><a href="/">Home</a></li>
-            <li class="navbar_text_disp"><a href="/park_search">Parks</a></li>
-            <li class="navbar_text_disp"><a href="/species_search">Species</a></li>
-            <li class="navbar_text_disp"><a href="/about">About</a></li>
-    </ul>
+   <meta charset="UTF-8">
+   <title>Home Page : National Park Biodata</title>
+   <link rel="stylesheet" href="{{ url_for('static', filename= 'home.css')}}" type="text/css" />
+   <h1 class = "title_heading"> National Park Biodata</h1>
+   <ul class="nav_ul">
+           <li class="active navbar_text_disp nav_li"><a href="/">Home</a></li>
+           <li class="navbar_text_disp nav_li"><a href="/park_search">Parks</a></li>
+           <li class="navbar_text_disp nav_li"><a href="/species_search">Species</a></li>
+           <li class="navbar_text_disp nav_li"><a href="/about">About</a></li>
+   </ul>
 </head>
 
 <body>
-    <h1>Home</h1>
-    <br>
-    <div id = "left_column">
-    <table class = "description_table">
-        <tbody>
-            <tr><th><h3>Description</h3></th></tr>
-            <tr>
-                <th>
-                    <p id = "description_text">
-                        Our website has biodiversity statistics on 56 unique national parks
-                        situatied in the United States of America. To begin browsing
-                        information on these parks go to the parks tab. If you have a
-                        specific organism you want to search for, go to the species tab.
-                    </p>
-                </th>
-            </tr>
-        </tbody>
-    </table>
-    <br><br>
-    <div id="bio_now">
-        <h4>State Park Biodiversity Now</h4>
-        <p><a href="https://www.sciencedaily.com/releases/2012/08/120807161035.htm"> Can nature parks save biodiversity?</a> </p>
-        <p><a href="https://mountainjournal.org/clash--between-cattle-and-elk-at-point-reyes-brings-national-park-values-into-focus">Surrendering Nature To Politics: Are US National Parks In Retreat?</a> </p>
-    </div>
-    </div>
-    <div id = "right_column"><img src="{{ url_for('static', filename= 'park_collage.jpg')}}" alt="Image of USA with cute nature graphics" id = "park_collage">
-    <br></div>
+   <h1>Home</h1>
+   <br>
+   <div id = "left_column">
+<!--    <table class = "description_table">-->
+<!--        <tbody>-->
+           <h3>Description</h3>
+                   <p id = "description_text">
+                       Our website has biodiversity statistics on 56 unique national parks
+                       situated in the United States of America.
+                       <br> What you can do with our website : </p>
+                       <ul class="description_cont">
+                           <li class="description_cont">Search up Parks : This page (under the Parks tab) allows you to search up parks by their
+                               name or view parks by state. A map also highlights the states which contain the resulting
+                               National Parks  </li>
+                           <li class="description_cont">Search up Species : This search (under tab Species) will allow you to search
+                           for species in our database by a variety of search fields, a map is also displayed that highlights
+                               the states that have the searched for species. The search fields include :
+                               <ul class="description_cont">
+                                   <li class="description_cont">Scientific/Common Name : Enter a full scientific/common name or even a fragment</li>
+                                   <li class="description_cont">Category : Choose from 14 categories that our species are grouped by</li>
+                                   <li class="description_cont">Order : Enter the order of the species you'd like to search for</li>
+                                   <li class="description_cont">Family : Enter the family of species you'd like to look up</li>
+                                   <li class="description_cont">Park : Select a park from which you'd like to see results for</li>
+                                   <li class="description_cont">State : Select state for which you'd like to view species of</li>
+
+                               </ul></li>
+
+                       </ul>
+   <br><br>
+   </div>
+   <div id = "right_column"><img src="{{ url_for('static', filename= 'park_collage.jpg')}}" alt="Image of USA with cute nature graphics" id = "park_collage">
+   <br></div>
 </body>
 </html>
