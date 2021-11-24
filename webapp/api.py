@@ -209,7 +209,7 @@ def get_species():
                         temp['state'].append(row[7])
                         
                 if row[5] == 'Native' and (' ' + row[6]) not in temp['nativeTo']:
-                    temp['nativeTo'].append(' ' + row[6])                
+                    temp['nativeTo'].append(' ' + row[6])
 
                 elif row[5] == 'Not Native' and (' ' + row[6]) not in temp['notNative']:
                     temp['notNative'].append(' ' + row[6])
