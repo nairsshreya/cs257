@@ -1,0 +1,15 @@
+firstname, lastname 
+events - season 
+change NA to null
+change the id from, len to len+1
+create a dicitonary of dictionaries, refer to specific bit
+
+
+
+
+
+In class confusion : (27/10/2021)
+
+- argparse
+- 
+
