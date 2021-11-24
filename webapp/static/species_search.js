@@ -314,9 +314,9 @@ function onSearchButton(park_code_input) {
                      + '<td>' + value['category'] + '</td>'
                      + '<td>' + value['order'] + '</td>'
                       + '<td>' + value['family'] + '</td>'
-                      + '<td>'+ value['nativeTo']+'</td>'
-                      + '<td>'+value['notNative']+'</td>'
-                      + '<td>'+ value['unknown']+'</td>'
+                      + '<td class = "nativity_field">'+ value['nativeTo']+'</td>'
+                      + '<td class = "nativity_field">'+value['notNative']+'</td>'
+                      + '<td class = "nativity_field">'+ value['unknown']+'</td>'
                       + '</tr>'
              
 

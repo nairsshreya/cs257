@@ -62,7 +62,6 @@ li a:hover {
 .search_field{
     width: 200px;
     display: inline-block;
-    text-align: center;
 }
 
 label{
@@ -109,38 +108,33 @@ input{
 }
 /*Search Bar End*/
 
-#usa_collage{
-    display: block;
-    max-width: 40%;  
-    height: auto;
-    margin-left: auto;
-    margin-right: auto;
-}
-
 #species_table{
     margin-left: auto;
     margin-right: auto;
     color: #FFF5EE;
+    padding-bottom: 
     
 }
+
 th, td {
-    padding-left: 20px;
-    padding-right: 20px;
     padding-bottom: 10px;
     padding-top: 10px;
-    width:200px;
+    padding-left: 10px;
+    padding-right: 10px;
+    max-width: 200px;
     word-wrap: break-word;
+    text-align: center;
 }
 
 .nativity_field {
-    width:100px;
-    padding-left: 10px;
-    padding-right: 10px;
+    max-width:100px;
+    padding-left: 9px;
+    padding-right: 9px;
 }
 
 tr{
     border-collapse: collapse;
-    outline: thin solid
+    outline: thin solid;
 }
 
 /* Datamaps is Copyright (c) 2012 Mark DiMarco
@@ -181,3 +175,6 @@ tr{
     padding: 5px;
 }
 
+body {
+    padding-bottom: 50px;
+}
