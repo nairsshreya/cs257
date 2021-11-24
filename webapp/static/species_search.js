@@ -8,7 +8,7 @@ window.onload = initialize;
 
 // For map
 var extraStateInfo = {};
-
+var isFirst = true;
 var map = null;
 
 function initialize() {
@@ -18,17 +18,10 @@ function initialize() {
     initializeMap();
 
     let element1 = document.getElementById('state_selector');
-//    if (element1) {
-//        element1.onchange = onStateSelectionChanged;
-//    }
+
     let element2 = document.getElementById('park_selector');
-//    if (element2) {
-//        element2.onchange = onParkSelectionChanged;
-//    }
-    let element3 = document.getElementById('category_selector');
-//    if (element3) {
-//        element3.onchange = onCategorySelectionChanged;
-//    }       
+
+    let element3 = document.getElementById('category_selector');      
     
     let element4 = document.getElementById('search_button');
     element4.onclick = onSearchButton;
@@ -51,10 +44,11 @@ function initialize() {
 function initializeMap() {
     document.getElementById('map-container').innerHTML='';
     map = null;
-    map = new Datamap({ element: document.getElementById('map-container'), // where in the HTML to put the map
+    if (isFirst) {
+        map = new Datamap({ element: document.getElementById('map-container'), // where in the HTML to put the map
                             scope: 'usa', // which map?
                             projection: 'equirectangular', // what map projection? 'mercator' is also an option
-                            done: onMapDone, // once the map is loaded, call this function
+                            //done: onMapDone, // once the map is loaded, call this function
                             data: extraStateInfo, // here's some data that will be used by the popup template
                             fills: { defaultFill: '#999999' },
                             geographyConfig: {
@@ -62,10 +56,31 @@ function initializeMap() {
                                 highlightOnHover: false, // You can disable the color change on hover
                                 //popupTemplate: hoverPopupTemplate, // call this to obtain the HTML for the hover popup
                                 borderColor: '#eeeeee', // state/country border color
-                                highlightFillColor: '#bbbbbb', // color when you hover on a state/country
-                                highlightBorderColor: '#000000', // border color when you hover on a state/country
+                                highlightFillColor: '#057E00', // color when you hover on a state/country
+                                highlightBorderColor: '#eeeeee', // border color when you hover on a state/country
                             }
                           });
+        isFirst = false;
+    }
+    else
+    {
+        map = new Datamap({
+            element: document.getElementById('map-container'), // where in the HTML to put the map
+            scope: 'usa', // which map?
+            projection: 'equirectangular', // what map projection? 'mercator' is also an option
+            done: onMapDone, // once the map is loaded, call this function
+            data: extraStateInfo, // here's some data that will be used by the popup template
+            fills: {defaultFill: '#999999'},
+            geographyConfig: {
+                popupOnHover: false, // You can disable the hover popup
+                highlightOnHover: true, // You can disable the color change on hover
+                //popupTemplate: hoverPopupTemplate, // call this to obtain the HTML for the hover popup
+                borderColor: '#eeeeee', // state/country border color
+                highlightFillColor: '#057E00', // color when you hover on a state/country
+                highlightBorderColor: '#eeeeee', // border color when you hover on a state/country
+            }
+        });
+    }
 }
 // This gets called once the map is drawn, so you can set various attributes like
 // state/country click-handlers, etc.
@@ -121,27 +136,7 @@ function loadStateSelector() {
     });
 }
 
-function onStateSelectionChanged() {
-//    let state_id = this.value;
-//    let url = getAPIBaseURL() + '/park_search/states';
-//
-//    fetch(url, {method: 'get'})
-//
-//    .then((response) => response.json())
-//
-//    .then(function(data) {
-//        let [parks, states] = data;
-//        let tableBody = '';
-//        for (let k = 0; k < states.length; k++) {
-//            let state = states[k];
-//            tableBody += '<tr>'
-//                            + '<td>' + state['name'] + '</td>'
-//                            + '<td>' + state['id'] + '</td>'
-//                            + '</tr>\n';
-//        }
 
-//    })
-}
 
 function loadParkSelector() {
     let url = getAPIBaseURL() + '/species_search/parks';
@@ -188,20 +183,7 @@ function loadParkSelector() {
         console.log(error);
     });
 }
-function onParkSelectionChanged() {
-//    let state_id = this.value;
-//    let url = getAPIBaseURL() + '/species_search/parks';
 
-//    fetch(url, {method: 'get'})
-//
-//    .then((response) => response.json())
-
-        // // Put the table body we just built inside the table that's already on the page.
-        // let stateTable = document.getElementById('books_table');
-        // if (booksTable) {
-        //     booksTable.innerHTML = tableBody;
-        // }
-}
 function loadCategorySelector() {
     let url = getAPIBaseURL() + '/species_search/categories';
 
@@ -235,20 +217,6 @@ function loadCategorySelector() {
     .catch(function(error) {
         console.log(error);
     });
-}
-function onCategorySelectionChanged() {
-//    let category = this.value;
-    //let url = getAPIBaseURL() + '/species_search/category';
-
-    //fetch(url, {method: 'get'})
-
-    //.then((response) => response.json())
-
-        // // Put the table body we just built inside the table that's already on the page.
-        // let stateTable = document.getElementById('books_table');
-        // if (booksTable) {
-        //     booksTable.innerHTML = tableBody;
-        // }
 }
 
 function onSearchButton(park_code_input) {
@@ -319,30 +287,6 @@ function onSearchButton(park_code_input) {
                       + '<td class = "nativity_field">'+ value['unknown']+'</td>'
                       + '</tr>'
              
-
-             // for (let k = 0; k < species_results.length; k++) {
-             //
-             //     let species = species_results[k];
-             //      tableBody += '<tr>'
-             //         + '<td>' + species['common_name'] + '</td>'
-             //         + '<td>' + species['scientific_name'] + '</a></td>'
-             //         + '<td>' + species['category'] + '</td>'
-             //         + '<td>' + species['order'] + '</td>'
-             //         + '<td>' + species['family'] + '</td>'
-             //         + '<td></td>'
-             //         + '<td></td>'
-             //         + '<td></td>'
-             //         + '</tr>'
-             // tableBody += '<tr>'
-             //     + '<td>' + species['common_name'] + '</td>'
-             //     + '<td>' + species['scientific_name'] + '</a></td>'
-             //     + '<td>' + species['category'] + '</td>'
-             //     + '<td>' + species['order'] + '</td>'
-             //     + '<td>' + species['family'] + '</td>'
-             //     + '<td>' + species['nativeTo'] + '</td>'
-             //     + '<td>' + species['park_name'] + '</td>'
-             //     + '<td>' + species['state'] + '</td>'
-             //     + '</tr>'
 
              for (let k = 0; k < value['state'].length; k++){
                 let state = value['state'][k]

@@ -178,7 +178,6 @@ h1{
     display: block;
     margin-left: auto;
     margin-right: auto;
-
     /* Preserving the container div's aspect ratio (which should be 4:3 for
      * the Datamap US map) uses this slightly bizarre CSS trick, where you make
      * sure the height is 0 and the ratio between width and padding-bottom
@@ -199,14 +198,20 @@ h1{
 
 #state-summary {
     display: inline-block;
-    float: right;
-    width: 40%;
+    float: left;
+    padding-left: 50px;
+    width: 300px;
+    max-width: 300px;
+    word-wrap: break-word;
+    color: #FFF5EE;
 }
 
 .hoverpopup {
     background: #eeeeee;
-    border: 1px black solid;
+    border: 1px white solid;
     padding: 5px;
+    margin-right: auto;
+    margin-left: auto;
 }
 
  body {

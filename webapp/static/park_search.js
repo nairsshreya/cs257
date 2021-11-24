@@ -5,10 +5,8 @@
  */
 
 window.onload = initialize;
-var isFirst = true;
 // For map
 var extraStateInfo = {};
-
 var map = null;
 
 function initialize() {
@@ -16,13 +14,7 @@ function initialize() {
     loadStateSelector();
     initializeMap();
     let element1 = document.getElementById('park_name_selector');
-//    if (element1) {
-//        element1.onchange = onParkSelectionChanged;
-//    }
     let element2 = document.getElementById('state_selector');
-//    if (element2) {
-//        element2.onchange = onStateSelectionChanged;
-//    }
     let element4 = document.getElementById('park_search');
     element4.onclick = searchPark;
     let element5 = document.getElementById('state_search');
@@ -38,49 +30,31 @@ function initialize() {
         park_code = url.substring(url.length-4)
         onSearchButton('',park_code)
     }
+    else{
+        onSearchButton('','')
+    }
 
 }
 
 function initializeMap() {
     document.getElementById('map-container').innerHTML='';
     map = null;
-    if (isFirst) {
-        map = new Datamap({ element: document.getElementById('map-container'), // where in the HTML to put the map
-                            scope: 'usa', // which map?
-                            projection: 'equirectangular', // what map projection? 'mercator' is also an option
-                            //done: onMapDone, // once the map is loaded, call this function
-                            data: extraStateInfo, // here's some data that will be used by the popup template
-                            fills: { defaultFill: '#999999' },
-                            geographyConfig: {
-                                popupOnHover: false, // You can disable the hover popup
-                                highlightOnHover: false, // You can disable the color change on hover
-                                //popupTemplate: hoverPopupTemplate, // call this to obtain the HTML for the hover popup
-                                borderColor: '#eeeeee', // state/country border color
-                                highlightFillColor: '#057E00', // color when you hover on a state/country
-                                highlightBorderColor: '#000000', // border color when you hover on a state/country
-                            }
-                          });
-        isFirst = false;
-    }
-    else
-    {
-        map = new Datamap({
-            element: document.getElementById('map-container'), // where in the HTML to put the map
-            scope: 'usa', // which map?
-            projection: 'equirectangular', // what map projection? 'mercator' is also an option
-            done: onMapDone, // once the map is loaded, call this function
-            data: extraStateInfo, // here's some data that will be used by the popup template
-            fills: {defaultFill: '#999999'},
-            geographyConfig: {
-                popupOnHover: true, // You can disable the hover popup
-                highlightOnHover: true, // You can disable the color change on hover
-                popupTemplate: hoverPopupTemplate, // call this to obtain the HTML for the hover popup
-                borderColor: '#eeeeee', // state/country border color
-                highlightFillColor: '#057E00', // color when you hover on a state/country
-                highlightBorderColor: '#000000', // border color when you hover on a state/country
-            }
+    map = new Datamap({
+        element: document.getElementById('map-container'), // where in the HTML to put the map
+        scope: 'usa', // which map?
+        projection: 'equirectangular', // what map projection? 'mercator' is also an option
+        done: onMapDone, // once the map is loaded, call this function
+        data: extraStateInfo, // here's some data that will be used by the popup template
+        fills: {defaultFill: '#999999'},
+        geographyConfig: {
+            popupOnHover: false, // You can disable the hover popup
+            highlightOnHover: true, // You can disable the color change on hover
+            //popupTemplate: hoverPopupTemplate, // call this to obtain the HTML for the hover popup
+            borderColor: '#eeeeee', // state/country border color
+            highlightFillColor: '#057E00', // color when you hover on a state/country
+            highlightBorderColor: '#eeeeee', // border color when you hover on a state/country
+        }
         });
-    }
 }
 // This gets called once the map is drawn, so you can set various attributes like
 // state/country click-handlers, etc.
@@ -88,25 +62,25 @@ function onMapDone(dataMap) {
         dataMap.svg.selectAll('.datamaps-subunit').on('click',onStateClick);
 }
 
-function hoverPopupTemplate(geography, data) {
-    var population = 0;
-    if (data && 'population' in data) {
-        population = data.population;
-    }
-
-    var jeffHasLivedThere = 'No';
-    if (data && 'jeffhaslivedthere' in data && data.jeffhaslivedthere) {
-        jeffHasLivedThere = 'Yes';
-    }
-
-    var template = '<div class="hoverpopup"><strong>' + geography.properties.name + '</strong><br>\n'
-                    + '<strong>Population:</strong> ' + population + '<br>\n'
-                    + '<strong>Has Jeff lived there?</strong> ' + jeffHasLivedThere + '<br>\n'
-                    + '</div>';
-
-
-    return template;
-}
+//function hoverPopupTemplate(geography, data) {
+//    var population = 0;
+//    if (data && 'population' in data) {
+//        population = data.population;
+//    }
+//
+//    var jeffHasLivedThere = 'No';
+//    if (data && 'jeffhaslivedthere' in data && data.jeffhaslivedthere) {
+//        jeffHasLivedThere = 'Yes';
+//    }
+//
+//    var template = '<div class="hoverpopup"><strong>' + geography.properties.name + '</strong><br>\n'
+//                    + '<strong>Population:</strong> ' + population + '<br>\n'
+//                    + '<strong>Has Jeff lived there?</strong> ' + jeffHasLivedThere + '<br>\n'
+//                    + '</div>';
+//
+//
+//    return template;
+//}
 
 function onStateClick(geography) {
     // geography.properties.name will be the state/country name (e.g. 'Minnesota')
@@ -117,7 +91,11 @@ function onStateClick(geography) {
                     + '<p><strong>Abbreviation:</strong> ' + geography.id + '</p>\n';
         if (geography.id in extraStateInfo) {
             var info = extraStateInfo[geography.id];
-            summary += '<p><strong>Population:</strong> ' + info.population + '</p>\n';
+            summary += '<p><strong>National Parks:<br> </strong> ' + info.parkName + '</p>\n'
+                + '<p><strong>More information in table below</strong></p>';
+        }
+        else{
+            summary += '<p>There is no data on national parks \n in this state </p>'
         }
 
         stateSummaryElement.innerHTML = summary;
@@ -166,27 +144,7 @@ function loadStateSelector() {
         console.log(error);
     });
 }
-function onStateSelectionChanged() {
-//    let stateId = this.value;
-//    let url = getAPIBaseURL() + '/park_search?states=' + stateId;
-//
-//    fetch(url, {method: 'get'})
-//
-//    .then((response) => response.json())
-//
-//    .then(function(data) {
-//        let [parks, states] = data;
-//        let tableBody = '';
-//        for (let k = 0; k < states.length; k++) {
-//            let state = states[k];
-//            tableBody += '<tr>'
-//                            + '<td>' + state['name'] + '</td>'
-//                            + '<td>' + state['id'] + '</td>'
-//                            + '</tr>\n';
-//        }
-//
-//    })
-}
+
 
 function loadParkSelector() {
     let url = getAPIBaseURL() + '/park_search/parks';
@@ -288,6 +246,7 @@ function searchPark(){
 
 function onSearchButton(inputStateId, inputParkCode) {
     extraStateInfo = {}
+    document.getElementById('state-summary').innerHTML='';
     let stateId = inputStateId;
     let parkCode = inputParkCode;
     let url = getAPIBaseURL() + '/park_search'+ '?park_name='+ parkCode + '&state=' + stateId;
@@ -324,32 +283,28 @@ function onSearchButton(inputStateId, inputParkCode) {
 
                  let state_result = '';
                  let temp = park['state_code'];
+                 if (park['state_code'].length <= 2 & stateId != '--'){
+                     let state_result = park['state_code'];
+                     if(state_result in extraStateInfo){
+                         extraStateInfo[state_result].parkName.push(' ' + park['park_name'])
+                     }
+                     else{
+                         extraStateInfo[state_result] = {parkName: [park['park_name']], fillColor: '#055D00'}
+                     } 
+                 }
                  if (park['state_code'].length > 2) {
                      let stateSplit = temp.trim().split(",");
-                     if (stateId.length <= 2 & stateId != '--'){
-                         state_result = stateId;
-                         extraStateInfo[state_result] = {population: 39500000, jeffhaslivedthere: true, fillColor: '#055D00'}
-                     }
-                    else {
-                        for (let i = 0; i < stateSplit.length; i++){
-                            //let state_str = stateSplit[i].replace('/\s/g', "")
-                            let state = stateSplit[i].trim();
-                            extraStateInfo[state] = {population: 39500000, jeffhaslivedthere: true, fillColor: '#055D00'}
-                        }
-
-                     }
-
-
-                 } else {
-                     state_result = park['state_code'];
-                     extraStateInfo[state_result] = {population: 39500000, jeffhaslivedthere: true, fillColor: '#055D00'}
+                     for (let i = 0; i < stateSplit.length; i++){
+                        let state_result = stateSplit[i].trim();
+                        if(state_result in extraStateInfo){
+                             extraStateInfo[state_result].parkName.push(park['park_name'])
+                         }
+                         else{
+                             extraStateInfo[state_result] = {parkName: [park['park_name']], fillColor: '#055D00'}
+                         } 
+                    }   
                  }
-                 // extraStateInfo[state_result] = {population: 39500000, jeffhaslivedthere: true, fillColor: 'blue'}
-
              }
-             // extraStateInfo.push({IL : {population: 39500000, jeffhaslivedthere: true, fillColor: '#2222aa'}})
-             // map.updateChoropleth({'IL': 'green'}, {reset: true})
-
          }
         let parksTable = document.getElementById('parks_table');
         if (parksTable) {
@@ -358,9 +313,3 @@ function onSearchButton(inputStateId, inputParkCode) {
         initializeMap()
     })
 }
-
-
-
-
-
-// figure out a way to get selected values from the search - use app and api ?
