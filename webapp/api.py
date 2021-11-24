@@ -254,11 +254,3 @@ def load_parks_species():
 def help():
     help_text = open('templates/help.txt').read()
     return flask.Response(help_text, mimetype='text/plain')
-
-
-
-
-
-
-
-
