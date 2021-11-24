@@ -5,7 +5,7 @@
  */
 
 window.onload = initialize;
-
+var isFirst = true;
 // For map
 var extraStateInfo = {};
 
@@ -44,10 +44,11 @@ function initialize() {
 function initializeMap() {
     document.getElementById('map-container').innerHTML='';
     map = null;
-     map = new Datamap({ element: document.getElementById('map-container'), // where in the HTML to put the map
+    if (isFirst) {
+        map = new Datamap({ element: document.getElementById('map-container'), // where in the HTML to put the map
                             scope: 'usa', // which map?
                             projection: 'equirectangular', // what map projection? 'mercator' is also an option
-                            done: onMapDone, // once the map is loaded, call this function
+                            //done: onMapDone, // once the map is loaded, call this function
                             data: extraStateInfo, // here's some data that will be used by the popup template
                             fills: { defaultFill: '#999999' },
                             geographyConfig: {
@@ -55,20 +56,72 @@ function initializeMap() {
                                 highlightOnHover: false, // You can disable the color change on hover
                                 //popupTemplate: hoverPopupTemplate, // call this to obtain the HTML for the hover popup
                                 borderColor: '#eeeeee', // state/country border color
-                                highlightFillColor: '#bbbbbb', // color when you hover on a state/country
+                                highlightFillColor: '#057E00', // color when you hover on a state/country
                                 highlightBorderColor: '#000000', // border color when you hover on a state/country
                             }
                           });
+        isFirst = false;
+    }
+    else
+    {
+        map = new Datamap({
+            element: document.getElementById('map-container'), // where in the HTML to put the map
+            scope: 'usa', // which map?
+            projection: 'equirectangular', // what map projection? 'mercator' is also an option
+            done: onMapDone, // once the map is loaded, call this function
+            data: extraStateInfo, // here's some data that will be used by the popup template
+            fills: {defaultFill: '#999999'},
+            geographyConfig: {
+                popupOnHover: true, // You can disable the hover popup
+                highlightOnHover: true, // You can disable the color change on hover
+                popupTemplate: hoverPopupTemplate, // call this to obtain the HTML for the hover popup
+                borderColor: '#eeeeee', // state/country border color
+                highlightFillColor: '#057E00', // color when you hover on a state/country
+                highlightBorderColor: '#000000', // border color when you hover on a state/country
+            }
+        });
+    }
 }
 // This gets called once the map is drawn, so you can set various attributes like
 // state/country click-handlers, etc.
 function onMapDone(dataMap) {
-    dataMap.svg.selectAll('.datamaps-subunit').on('click', onStateClick);
+        dataMap.svg.selectAll('.datamaps-subunit').on('click',onStateClick);
 }
 
-function onStateClick(geography){
-    return
-    
+function hoverPopupTemplate(geography, data) {
+    var population = 0;
+    if (data && 'population' in data) {
+        population = data.population;
+    }
+
+    var jeffHasLivedThere = 'No';
+    if (data && 'jeffhaslivedthere' in data && data.jeffhaslivedthere) {
+        jeffHasLivedThere = 'Yes';
+    }
+
+    var template = '<div class="hoverpopup"><strong>' + geography.properties.name + '</strong><br>\n'
+                    + '<strong>Population:</strong> ' + population + '<br>\n'
+                    + '<strong>Has Jeff lived there?</strong> ' + jeffHasLivedThere + '<br>\n'
+                    + '</div>';
+
+
+    return template;
+}
+
+function onStateClick(geography) {
+    // geography.properties.name will be the state/country name (e.g. 'Minnesota')
+    // geography.id will be the state/country name (e.g. 'MN')
+    var stateSummaryElement = document.getElementById('state-summary');
+    if (stateSummaryElement) {
+        var summary = '<p><strong>State:</strong> ' + geography.properties.name + '</p>\n'
+                    + '<p><strong>Abbreviation:</strong> ' + geography.id + '</p>\n';
+        if (geography.id in extraStateInfo) {
+            var info = extraStateInfo[geography.id];
+            summary += '<p><strong>Population:</strong> ' + info.population + '</p>\n';
+        }
+
+        stateSummaryElement.innerHTML = summary;
+    }
 }
 // Returns the base URL of the API, onto which endpoint
 // components can be appended.

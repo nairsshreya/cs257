@@ -178,7 +178,7 @@ h1{
     display: block;
     margin-left: auto;
     margin-right: auto;
-    
+
     /* Preserving the container div's aspect ratio (which should be 4:3 for
      * the Datamap US map) uses this slightly bizarre CSS trick, where you make
      * sure the height is 0 and the ratio between width and padding-bottom
@@ -198,6 +198,7 @@ h1{
 }
 
 #state-summary {
+    display: inline-block;
     float: right;
     width: 40%;
 }
