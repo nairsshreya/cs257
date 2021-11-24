@@ -20,7 +20,9 @@ What works :
 - Species Search : 
 	* Drop Down menu for Park Name, State, Category and search fields for other fields. 
 	* A search can be done using any one or more of the search fields. 
-	* The map highlights the states in which the species occur (by use of which national parks the species are in). 
+	* The map highlights the states in which the species occur (by use of which national parks the species are in).
+	* NOTE: When you press search without a search field, then all species load and since this a lot of data, it can take a couple second to display, but the
+		query is happening and returning results.  
 
 - About Page : 
 	* Contains information about us and the data we're working with. 

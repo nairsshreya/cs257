@@ -1,6 +1,7 @@
 /*
  * park_search.js
  * Shreya Nair and Elliot Hanson, 8th November 2021
+ * Updated 8th - 24th November, 2021
  * Webapp assignment : Park page search
  */
 
@@ -49,13 +50,13 @@ function initializeMap() {
     if (isFirst) {
         map = new Datamap({ element: document.getElementById('map-container'), // where in the HTML to put the map
                             scope: 'usa', // which map?
-                            projection: 'equirectangular', // what map projection? 'mercator' is also an option
-                            //done: onMapDone, // once the map is loaded, call this function
+                            projection: 'equirectangular',
+
                             data: extraStateInfo, // here's some data that will be used by the popup template
                             fills: { defaultFill: '#999999' },
                             geographyConfig: {
-                                popupOnHover: false, // You can disable the hover popup
-                                highlightOnHover: false, // You can disable the color change on hover
+                                popupOnHover: false,
+                                highlightOnHover: false,
                                 //popupTemplate: hoverPopupTemplate, // call this to obtain the HTML for the hover popup
                                 borderColor: '#eeeeee', // state/country border color
                                 highlightFillColor: '#057E00', // color when you hover on a state/country
@@ -69,13 +70,13 @@ function initializeMap() {
         map = new Datamap({
             element: document.getElementById('map-container'), // where in the HTML to put the map
             scope: 'usa', // which map?
-            projection: 'equirectangular', // what map projection? 'mercator' is also an option
+            projection: 'equirectangular',
             done: onMapDone, // once the map is loaded, call this function
             data: extraStateInfo, // here's some data that will be used by the popup template
             fills: {defaultFill: '#999999'},
             geographyConfig: {
-                popupOnHover: false, // You can disable the hover popup
-                highlightOnHover: true, // You can disable the color change on hover
+                popupOnHover: false,
+                highlightOnHover: true,
                 //popupTemplate: hoverPopupTemplate, // call this to obtain the HTML for the hover popup
                 borderColor: '#eeeeee', // state/country border color
                 highlightFillColor: '#057E00', // color when you hover on a state/country
@@ -106,7 +107,7 @@ function onStateClick(geography) {
                 + '<p><strong>More information in table below</strong></p>';
         }
         else{
-            summary += '<p>There is no data on national parks \n in this state </p>'
+            summary += '<p>There is no data on national parks \n related to your search or in this state  </p>'
         }
 
         stateSummaryElement.innerHTML = summary;
@@ -123,6 +124,7 @@ function getAPIBaseURL() {
                     + '/api';
     return baseURL;
 }
+
 
 function loadStateSelector() {
     // A function that loads states into our state selector.
@@ -242,10 +244,13 @@ function loadCategorySelector() {
 
 
 function onSearchButton(park_code_input) {
+
     // A function that is triggered by the use of our search button. That can be overridden in one case when the species
     // a park is searched from the parks page. This function sorts through our JSON response and puts it into the
     // table as well as the map.
+
     extraStateInfo = {}
+
     let park_code = ''
     if (park_code_input.length != 4){
         park_code = document.getElementById('park_selector').value
@@ -253,6 +258,7 @@ function onSearchButton(park_code_input) {
     else {
         park_code = park_code_input
     }
+
     let state_id = document.getElementById('state_selector').value
     let category = document.getElementById('category_selector').value
     let species_name = document.getElementById('species_name').value
@@ -264,12 +270,16 @@ function onSearchButton(park_code_input) {
      fetch(url, {method: 'get'})
          // way to get search filters from the user and then give that to the api
          .then((response) => response.json())
+
+
      .then(function(species_results) {
 
          let tableBody = '';
          if (Object.keys(species_results).length == 0) {
              tableBody = '<tr> <th>No results came up for your search. Please try again</th> </tr>'
-         } else {
+         }
+
+         else {
              tableBody += '<tr>'
                  + '<th> Common Name </th>'
                  + '<th>Scientific Name</th>'
@@ -279,9 +289,10 @@ function onSearchButton(park_code_input) {
                  + '<th class="nativity_field">Native to</th>'
                  + '<th class="nativity_field">Non-Native</th>'
                  + '<th class="nativity_field">Nativity Unkown In</th>'
-             let state_list = []
-             for (var species in species_results) {
 
+             let state_list = []
+
+             for (var species in species_results) {
                  // Makes links for each park that shows up in the native to, non native and unknown columns
                  var value = species_results[species]
                  for (let k = 0; k < value['nativeTo'].length; k++){
@@ -289,20 +300,22 @@ function onSearchButton(park_code_input) {
                      let link = '/park_search?park_name='+ x
                      let parks = '<a href=' + link + '>'+x+'</a>'
                      value['nativeTo'][k] = parks
-
                  }
+
                  for (let k = 0; k < value['notNative'].length; k++){
                      let x = value['notNative'][k].trim()
                      let link = '/park_search?park_name='+ x
                      let parks = '<a href=' + link + '>'+x+'</a>'
                      value['notNative'][k] = parks
                  }
+
                  for (let k = 0; k < value['unknown'].length; k++){
                      let x = value['unknown'][k].trim()
                      let link = '/park_search?park_name='+ x
                      let parks = '<a href=' + link + '>'+x+'</a>'
                      value['unknown'][k] = parks
                  }
+
                  tableBody += '<tr>'
                      + '<td>' + value['common_name'] + '</td>'
                      + '<td>' + value['scientific_name'] + '</td>'
@@ -314,8 +327,8 @@ function onSearchButton(park_code_input) {
                       + '<td class = "nativity_field">'+ value['unknown']+'</td>'
                       + '</tr>'
 
-                    // This is a loop that updates our extraStateInfo to make sure that all state that come up in the
-                 // results are in the dictionary and that they have their relevant park information.
+                     // This is a loop that updates our extraStateInfo to make sure that all state that come up in the
+                    // results are in the dictionary and that they have their relevant park information.
                     for(let k = 0; k < value['state'].length; k++)
                         if(value['state'][k] in extraStateInfo){
                             if(value['park_names'][k] in extraStateInfo[value['state'][k]].parkName){
@@ -327,10 +340,12 @@ function onSearchButton(park_code_input) {
                          } 
                     }   
                  }
+
                 initializeMap();
                 let speciesTable = document.getElementById('species_table');
                 if (speciesTable) {
                 speciesTable.innerHTML = tableBody;
                 }
+
             })
 }

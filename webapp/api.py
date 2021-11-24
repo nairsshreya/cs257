@@ -1,8 +1,7 @@
 '''
     api.py
     Shreya Nair and Elliot Hanson, 5th November 2021
-    Updated 15th November 2021
-
+    Updated 8th - 24th November, 2021
     Flask API to support a national parks web application that connects to a database and uses user input to
     format queries and display results.
 '''
@@ -110,14 +109,15 @@ def get_park():
     if state == 'selectState' or state is None:
         state = ''
     
-    name = '%' + name + '%'
-    state = '%' + state + '%'
-    print(name, state)
+    # name = '%' + name + '%'
+    # state = '%' + state + '%'
+    # Tests
+    # print(name, state)
     
     query = '''SELECT DISTINCT park_code, park_name, state_code, acreage, longitude, latitude
                                FROM parks, states
-                               WHERE parks.park_code LIKE %s
-                               AND parks.state_code LIKE %s
+                               WHERE parks.park_code iLIKE CONCAT('%%',%s,'%%')
+                               AND parks.state_code iLIKE CONCAT('%%',%s,'%%')
                                ORDER BY parks.park_name'''
     park_results = []
     try:
@@ -126,7 +126,7 @@ def get_park():
         cursor.execute(query, (name, state))
 
         for row in cursor:
-            print(row)
+            # Testing : print(row)
             park = {'park_code': row[0], 'park_name': row[1], 'state_code': row[2],
                     'acreage': row[3], 'longitude': row[4], 'latitude': row[5]}
             park_results.append(park)
@@ -142,7 +142,7 @@ def get_park():
 @api.route('/species_search/', strict_slashes=False)
 def get_species():
     ''' Loads the information for our selectors for species page and returns data to the javascript file.
-        NEEDS WORK, UPDATES TO STRUCTURE but can run so page will load but not return results yet.'''
+        accounts for when there is no search specified for each field. Will try using CONCAT but this works right now.'''
     
     species_name = flask.request.args.get('name')
     if species_name == 'species_name' or species_name is None:
@@ -173,7 +173,8 @@ def get_species():
     if state == 'selectState' or state is None:
         state = ''
     state = '%' + state + '%'
-    print(species_name, species_name, category, order, family, park_code, state)
+    # Testing :
+    # print(species_name, species_name, category, order, family, park_code, state)
     query = '''SELECT species.common_names, species.scientific_name, categories.category, orders.order_name,
                 families.family, species.nativeness, parks.park_code, states.id, parks.park_name                    
                 FROM species, categories, orders, families, states, parks
@@ -237,20 +238,24 @@ def get_species():
 
 @api.route('/species_search/categories', strict_slashes=False)
 def load_categories():
+    ''' Loads the categories for the category selector on the species page'''
     return json.dumps(get_category())
 
 
 @api.route('/species_search/states', strict_slashes=False)
 def load_states_species():
+    ''' Loads the states for the state selector on the species page'''
     return json.dumps(get_state())
 
 
 @api.route('/species_search/parks', strict_slashes=False)
 def load_parks_species():
+    ''' Loads the parks for the park selector on the species page'''
     return json.dumps(get_park_info())
 
 
 @api.route('/help/')
 def help():
+    ''' This api route will lead to a page that contains information about the different requests that can be made'''
     help_text = open('templates/help.txt').read()
     return flask.Response(help_text, mimetype='text/plain')

@@ -5,10 +5,12 @@
  * Webapp assignment : Park page search
  */
 
+
 window.onload = initialize;
 // For map
 var extraStateInfo = {};
 var map = null;
+
 
 function initialize() {
     loadParkSelector();
@@ -34,8 +36,8 @@ function initialize() {
     else{
         onSearchButton('','')
     }
-
 }
+
 
 function initializeMap() {
     // A function that loads the map on to our page.
@@ -65,6 +67,7 @@ function initializeMap() {
 function onMapDone(dataMap) {
         dataMap.svg.selectAll('.datamaps-subunit').on('click',onStateClick);
 }
+
 
 function onStateClick(geography) {
     // geography.properties.name will be the state/country name (e.g. 'Minnesota')
@@ -192,6 +195,7 @@ function searchState(){
     loadParkSelector();
 }
 
+
 function searchPark(){
      // A function that is linked to the state search button and specifies that the search function should use a default
     // for the state value
@@ -199,6 +203,7 @@ function searchPark(){
     onSearchButton('', parkCode);
     loadStateSelector();
 }    
+
 
 function onSearchButton(inputStateId, inputParkCode) {
     // This function is called when the search button is clicked, or for some exceptions called without that trigger.
@@ -240,8 +245,7 @@ function onSearchButton(inputStateId, inputParkCode) {
                      + '<td>' + park['latitude'] + '</td>'
                      + '</tr>'
 
-
-                 // This is a filter that ensures states are individually loaded and updated with the search results. 
+                 // This is a filter that ensures states are individually loaded and updated with the search results.
                  let state_result = '';
                  let temp = park['state_code'];
                  if (park['state_code'].length <= 2 & stateId != '--'){
